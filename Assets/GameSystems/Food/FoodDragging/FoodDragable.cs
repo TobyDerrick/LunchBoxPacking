@@ -18,7 +18,6 @@ public class FoodDraggable : MonoBehaviour
     {
         isDragging = true;
 
-        // Calculate the z-depth from the camera to the object
         dragZ = cam.WorldToScreenPoint(origin.position).z;
 
         Vector3 mouseWorldPos = GetMouseWorldPos();
@@ -41,13 +40,12 @@ public class FoodDraggable : MonoBehaviour
     private void EndDrag()
     {
         isDragging = false;
-        // Add discard logic or snapping here
     }
 
     private Vector3 GetMouseWorldPos()
     {
         Vector3 screenPos = Mouse.current.position.ReadValue();
-        screenPos.z = dragZ; // Use the stored depth
+        screenPos.z = dragZ;
         return cam.ScreenToWorldPoint(screenPos);
     }
 }
