@@ -1,0 +1,62 @@
+{
+    "name": "GameInputActions",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "984e571d-448f-44a7-9738-1d1b38490c51",
+            "actions": [
+                {
+                    "name": "C",
+                    "type": "Button",
+                    "id": "25640e6b-c8b8-4a38-bb4e-2985650db80f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d687f170-aea1-482c-aa93-3d7bab697347",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "C",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Player",
+            "id": "ef9200ff-ad99-407f-ad37-b1c955ddaa61",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "77fb3056-1004-46c9-9308-0f5fa7819aae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "384778cf-4d5d-4533-a0ef-3e07d49e3825",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

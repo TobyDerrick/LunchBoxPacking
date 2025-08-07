@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0172e9be20ec9e046a1c760a441e1911, type: 3}
   m_Name: Katsu
   m_EditorClassIdentifier: 
+  id: 0
   itemName: Chicken Katsu
-  FoodPrefab: {fileID: 0}
+  icon: {fileID: 0}
+  FoodPrefab: {fileID: 5223900213652673335, guid: bf06bd0efd3afdb4697098df2ba8c436, type: 3}
   traits:
     sweet: 0
     savoury: 0

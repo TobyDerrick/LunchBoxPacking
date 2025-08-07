@@ -6,6 +6,8 @@ using UnityEngine.Rendering;
 
 public class FoodInventoryUI : MonoBehaviour
 {
+    [SerializeField] private FoodSpawner foodSpawner;
+
     [SerializeField] private Transform contentParent;
     [SerializeField] private GameObject buttonPrefab;
     
@@ -23,7 +25,6 @@ public class FoodInventoryUI : MonoBehaviour
     {
         inventoryPanel = this.GetComponent<RectTransform>();
         inventoryOnScreenPos = inventoryPanel.anchoredPosition;
-        inventoryOffScreenPos = inventoryOnScreenPos - new Vector2(2 * Screen.width, 0);
 
         plateTransform.position = plateOffscreenPos.position;
 
@@ -43,12 +44,15 @@ public class FoodInventoryUI : MonoBehaviour
 
     private void OnFoodButtonClicked(FoodScriptableObject food)
     {
+        foodSpawner.SpawnFood(food);
         AnimateInPlate();
         Debug.Log($"Spawn Food: {food.itemName}");
     }
 
     public void AnimateInPlate()
     {
+        inventoryOffScreenPos = inventoryOnScreenPos - new Vector2(Screen.width, 0);
+
         // Swipe out UI
         inventoryPanel.DOAnchorPos(inventoryOffScreenPos, transitionDuration).SetEase(Ease.InOutCubic);
 
@@ -58,6 +62,8 @@ public class FoodInventoryUI : MonoBehaviour
 
     public void AnimateOutPlate()
     {
+        inventoryOffScreenPos = inventoryOnScreenPos - new Vector2(Screen.width, 0);
+
         // Swipe out Plate
         plateTransform.DOMove(plateOffscreenPos.position, transitionDuration).SetEase(Ease.Flash);
 

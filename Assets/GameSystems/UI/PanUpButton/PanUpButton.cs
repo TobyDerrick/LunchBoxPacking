@@ -9,13 +9,17 @@ public class PanUpButton : MonoBehaviour
     [SerializeField] private GameObject panUpButton, panDownButton;
     public void PanUpCamera()
     {
-        npcCamera.Prioritize();
+        npcCamera.Priority = 10;
+        boxCamera.Priority = 0;
         panUpButton.gameObject.SetActive(false);
         panDownButton.gameObject.SetActive(true);
     }
 
     public void PanDownCamera()
     {
+        npcCamera.Priority = 0;
+        boxCamera.Priority = 10;
+
         boxCamera.Prioritize();
         panDownButton.gameObject.SetActive(false);
         panUpButton.gameObject.SetActive(true);

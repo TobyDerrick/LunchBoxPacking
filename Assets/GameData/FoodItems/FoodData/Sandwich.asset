@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   itemName: Sandwich
   icon: {fileID: 0}
-  FoodPrefab: {fileID: 0}
+  FoodPrefab: {fileID: 4120941798405728972, guid: 172c279f4f793b14ab037ca81c962a29, type: 3}
   traits:
     sweet: 0.246
     savoury: 0.071
