@@ -1,5 +1,5 @@
 {
-    "name": "GameInputActions",
+    "name": "PlayerControls",
     "maps": [
         {
             "name": "UI",
@@ -30,13 +30,22 @@
             ]
         },
         {
-            "name": "Player",
+            "name": "Gameplay",
             "id": "ef9200ff-ad99-407f-ad37-b1c955ddaa61",
             "actions": [
                 {
-                    "name": "Click",
+                    "name": "PointerPosition",
+                    "type": "Value",
+                    "id": "37c78d57-34d4-4953-9ab9-a604a6cb6aa4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "PointerPress",
                     "type": "Button",
-                    "id": "77fb3056-1004-46c9-9308-0f5fa7819aae",
+                    "id": "4df96742-c143-4824-906e-4c73b2cfec23",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -46,12 +55,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "384778cf-4d5d-4533-a0ef-3e07d49e3825",
+                    "id": "f9a3dcf6-8d49-4acc-a01f-b70b97b0f45d",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae3d7066-f982-4fe0-8f5c-2c9f7f2f5e65",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "PointerPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
