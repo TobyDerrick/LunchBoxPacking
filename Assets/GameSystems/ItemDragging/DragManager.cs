@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DragManager : MonoBehaviour
@@ -7,7 +7,8 @@ public class DragManager : MonoBehaviour
 
     [Header("Input Actions")]
     public InputActionReference pointerPosition; 
-    public InputActionReference pointerPress;    
+    public InputActionReference pointerPress;
+    public InputActionReference rotateAction;
 
     [Header("Drag Settings")]
     public float dragStrength = 50f;
@@ -17,6 +18,11 @@ public class DragManager : MonoBehaviour
     [Header("Lift Settings")]
     public float maxLiftHeight = 2f;
     public float liftSpeed = 2f;
+
+    [Header("Rotation Stabilization")]
+    public Vector3 desiredRotation = Vector3.zero;   // Target euler angles
+    public float rotationStabilizeSpeed = 5f;        // Higher = snappier
+    public float rotationAdjustSpeed = 90f;          // Degrees per second
 
     [Header("Layers")]
     public LayerMask foodLayer;
@@ -47,10 +53,30 @@ public class DragManager : MonoBehaviour
         if (joint != null)
         {
             UpdateDragPoint();
+            HandleRotationInput();
         }
         UpdateCursorHover();
     }
 
+    private void FixedUpdate()
+    {
+        if (heldRb != null)
+        {
+            Quaternion targetRot = Quaternion.Euler(desiredRotation);
+            heldRb.MoveRotation(
+                Quaternion.Slerp(heldRb.rotation, targetRot, rotationStabilizeSpeed * Time.fixedDeltaTime)
+            );
+        }
+    }
+
+    private void HandleRotationInput()
+    {
+        Vector2 input = rotateAction.action.ReadValue<Vector2>();
+        float rotAmount = rotationAdjustSpeed * Time.deltaTime;
+
+        desiredRotation.z += input.y * rotAmount;
+        desiredRotation.y += input.x * rotAmount;
+    }
     private void UpdateCursorHover()
     {
         Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
@@ -71,6 +97,7 @@ public class DragManager : MonoBehaviour
             }
         }
     }
+
     private void TryPickObject()
     {
         Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
@@ -84,6 +111,7 @@ public class DragManager : MonoBehaviour
 
             heldRb = hit.rigidbody;
 
+            desiredRotation = heldRb.transform.rotation.eulerAngles;
             joint = heldRb.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = hit.point;
@@ -104,6 +132,7 @@ public class DragManager : MonoBehaviour
     {
         if (joint != null)
         {
+            desiredRotation = new Vector3(0, 0, 0);
             cursorController.SetCursorState(CursorState.Default);
             Destroy(joint);
             heldRb.useGravity = true;

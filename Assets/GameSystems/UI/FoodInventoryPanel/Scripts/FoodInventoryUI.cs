@@ -52,7 +52,7 @@ public class FoodInventoryUI : MonoBehaviour
     }
 
     public void AnimateInPlate()
-    {
+    { 
         Rigidbody foodRb = currentFood.GetComponent<Rigidbody>();
         foodRb.constraints = RigidbodyConstraints.FreezeAll;
 
@@ -71,6 +71,11 @@ public class FoodInventoryUI : MonoBehaviour
             });
     }
 
+    public void AnimateOutUI()
+    {
+        inventoryOffScreenPos = inventoryOnScreenPos - new Vector2(Screen.width, 0);
+        inventoryPanel.DOAnchorPos(inventoryOffScreenPos, transitionDuration).SetEase(Ease.InOutCubic);
+    }
     public void AnimateOutPlate()
     {
         Debug.Log("Animating out plate");
