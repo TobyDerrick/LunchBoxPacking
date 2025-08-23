@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 
 public class DragManager : MonoBehaviour
 {
+    [SerializeField] private CursorController cursorController;
+
     [Header("Input Actions")]
-    public InputActionReference pointerPosition; // Vector2
-    public InputActionReference pointerPress;    // LMB
+    public InputActionReference pointerPosition; 
+    public InputActionReference pointerPress;    
 
     [Header("Drag Settings")]
     public float dragStrength = 50f;
@@ -46,8 +48,29 @@ public class DragManager : MonoBehaviour
         {
             UpdateDragPoint();
         }
+        UpdateCursorHover();
     }
 
+    private void UpdateCursorHover()
+    {
+        Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
+        Ray ray = cam.ScreenPointToRay(screenPos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, foodLayer))
+        {
+            if (heldRb == null)
+            {
+                cursorController.SetCursorState(CursorState.Hover);
+            }
+        }
+        else
+        {
+            if (heldRb == null)
+            {
+                cursorController.SetCursorState(CursorState.Default);
+            }
+        }
+    }
     private void TryPickObject()
     {
         Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
@@ -57,20 +80,20 @@ public class DragManager : MonoBehaviour
         {
             if (hit.rigidbody == null) return;
 
+            cursorController.SetCursorState(CursorState.Grab);
+
             heldRb = hit.rigidbody;
 
             joint = heldRb.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = hit.point;
-            joint.minDistance = 0.1f;
+            joint.minDistance = 0.01f;
             joint.maxDistance = maxDistance;
-            joint.breakForce = 50f;
             joint.spring = dragStrength;
             joint.damper = dragDamping;
 
             heldRb.useGravity = false;
 
-            // reset lift when picking new object
             liftAmount = 0f;
 
             heldRb.transform.SetParent(null);
@@ -81,6 +104,7 @@ public class DragManager : MonoBehaviour
     {
         if (joint != null)
         {
+            cursorController.SetCursorState(CursorState.Default);
             Destroy(joint);
             heldRb.useGravity = true;
             heldRb = null;
