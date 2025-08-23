@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LiftPress",
+                    "type": "Button",
+                    "id": "e6b5f507-4c12-49ad-bf6d-c54884d569c9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -72,6 +81,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PointerPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a08ae7f0-b6cb-4ef1-b0c5-11aa5446066c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LiftPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

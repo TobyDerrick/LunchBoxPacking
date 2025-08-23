@@ -136,6 +136,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LiftPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6b5f507-4c12-49ad-bf6d-c54884d569c9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -160,6 +169,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""PointerPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a08ae7f0-b6cb-4ef1-b0c5-11aa5446066c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LiftPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -173,6 +193,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_PointerPosition = m_Gameplay.FindAction("PointerPosition", throwIfNotFound: true);
         m_Gameplay_PointerPress = m_Gameplay.FindAction("PointerPress", throwIfNotFound: true);
+        m_Gameplay_LiftPress = m_Gameplay.FindAction("LiftPress", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -352,6 +373,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_PointerPosition;
     private readonly InputAction m_Gameplay_PointerPress;
+    private readonly InputAction m_Gameplay_LiftPress;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -371,6 +393,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/PointerPress".
         /// </summary>
         public InputAction @PointerPress => m_Wrapper.m_Gameplay_PointerPress;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/LiftPress".
+        /// </summary>
+        public InputAction @LiftPress => m_Wrapper.m_Gameplay_LiftPress;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -403,6 +429,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PointerPress.started += instance.OnPointerPress;
             @PointerPress.performed += instance.OnPointerPress;
             @PointerPress.canceled += instance.OnPointerPress;
+            @LiftPress.started += instance.OnLiftPress;
+            @LiftPress.performed += instance.OnLiftPress;
+            @LiftPress.canceled += instance.OnLiftPress;
         }
 
         /// <summary>
@@ -420,6 +449,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PointerPress.started -= instance.OnPointerPress;
             @PointerPress.performed -= instance.OnPointerPress;
             @PointerPress.canceled -= instance.OnPointerPress;
+            @LiftPress.started -= instance.OnLiftPress;
+            @LiftPress.performed -= instance.OnLiftPress;
+            @LiftPress.canceled -= instance.OnLiftPress;
         }
 
         /// <summary>
@@ -489,5 +521,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPointerPress(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LiftPress" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLiftPress(InputAction.CallbackContext context);
     }
 }

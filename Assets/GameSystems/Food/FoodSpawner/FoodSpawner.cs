@@ -5,7 +5,7 @@ public class FoodSpawner : MonoBehaviour
     [SerializeField] private Transform foodSpawnAnchor;
     private GameObject currentFood;
 
-    public void SpawnFood(FoodScriptableObject food)
+    public GameObject SpawnFood(FoodScriptableObject food)
     {
         // Clear previous food
         foreach (Transform child in foodSpawnAnchor)
@@ -17,10 +17,17 @@ public class FoodSpawner : MonoBehaviour
             GameObject spawned = Instantiate(
                 food.FoodPrefab,
                 foodSpawnAnchor.position,
-                Quaternion.identity,
-                foodSpawnAnchor
+                Quaternion.identity
             );
+
+            spawned.transform.SetParent(foodSpawnAnchor, true);
+
+            spawned.transform.localScale = Vector3.one;
+
+            return spawned;
         }
+
+        return null;
     }
 
 

@@ -1,109 +1,106 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DragManager : MonoBehaviour
 {
-    public static DragManager Instance { get; private set; }
+    [Header("Input Actions")]
+    public InputActionReference pointerPosition; // Vector2
+    public InputActionReference pointerPress;    // LMB
 
-    [Header("References")]
-    public Camera renderCamera; 
-    public UnityEngine.UI.RawImage rtRawImage;
+    [Header("Drag Settings")]
+    public float dragStrength = 50f;
+    public float dragDamping = 5f;
+    public float maxDistance = 0.1f;
 
-    [Header("Drag Plane")]
-    public float planeHeight = 0f; 
-    public Vector3 planeNormal = Vector3.up;
+    [Header("Lift Settings")]
+    public float maxLiftHeight = 2f;
+    public float liftSpeed = 2f;
 
-    [Header("Raycast")]
-    public LayerMask draggableLayer = ~0;
-    public float raycastDistance = 100f;
+    [Header("Layers")]
+    public LayerMask foodLayer;
 
-    private IDraggable currentDraggable;
-    private GameObject currentGO;
+    private Camera cam;
+    private SpringJoint joint;
+    private Rigidbody heldRb;
+    private float liftAmount = 0f;
 
-    private Plane dragPlane;
-
-    void Awake()
+    private void OnEnable()
     {
-        if (Instance != null && Instance != this) Destroy(this);
-        Instance = this;
+        pointerPosition.action.Enable();
+        pointerPress.action.Enable();
 
-        if (renderCamera == null) renderCamera = Camera.main;
-
-        dragPlane = new Plane(planeNormal, new Vector3(0, planeHeight, 0));
+        pointerPress.action.performed += ctx => TryPickObject();
+        pointerPress.action.canceled += ctx => ReleaseObject();
+        cam = Camera.main;
     }
 
-    public bool IsDragging => currentDraggable != null;
-
-    public bool TryBeginDrag(Ray pickRay)
+    private void OnDisable()
     {
-        if (Physics.Raycast(pickRay, out RaycastHit hit, raycastDistance, draggableLayer, QueryTriggerInteraction.Ignore))
-        {
-            var draggable = hit.collider.GetComponentInParent<IDraggable>();
-            if (draggable != null)
-            {
-                currentDraggable = draggable;
-                currentGO = (hit.collider != null) ? hit.collider.gameObject : null;
-
-                if (dragPlane.Raycast(pickRay, out float enter))
-                {
-                    Vector3 worldPoint = pickRay.GetPoint(enter);
-                    currentDraggable.OnBeginDrag(worldPoint);
-                }
-                else
-                {
-                    currentDraggable.OnBeginDrag(hit.point);
-                }
-
-                return true;
-            }
-        }
-
-        return false;
+        pointerPosition.action.Disable();
+        pointerPress.action.Disable();
     }
 
-    public void UpdateDrag(Ray pickRay)
+    private void Update()
     {
-        if (currentDraggable == null) return;
-
-        if (dragPlane.Raycast(pickRay, out float enter))
+        if (joint != null)
         {
-            Vector3 worldPoint = pickRay.GetPoint(enter);
-            currentDraggable.OnDrag(worldPoint);
+            UpdateDragPoint();
         }
     }
-    public void EndDrag()
-    {
-        if (currentDraggable == null) return;
 
-        Vector3 lastPoint = new Vector3(0, planeHeight, 0);
-        currentDraggable.OnEndDrag(lastPoint);
-
-        currentDraggable = null;
-        currentGO = null;
-    }
-    public Ray ScreenPointToCameraRay(Vector2 screenPoint)
+    private void TryPickObject()
     {
-        if (rtRawImage != null)
+        Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
+        Ray ray = cam.ScreenPointToRay(screenPos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, foodLayer))
         {
-            RectTransform rt = rtRawImage.rectTransform;
-            Canvas canvas = rt.GetComponentInParent<Canvas>();
-            Camera uiCam = (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay) ? canvas.worldCamera : null;
+            if (hit.rigidbody == null) return;
 
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, screenPoint, uiCam, out Vector2 localPoint))
-            {
-                Vector2 size = rt.rect.size;
-                Vector2 pivot = rt.pivot;
+            heldRb = hit.rigidbody;
 
-                Vector2 normalized = (localPoint + (size * 0.5f)) / size;
-                Vector3 viewportPoint = new Vector3(normalized.x, normalized.y, 0f);
+            joint = heldRb.gameObject.AddComponent<SpringJoint>();
+            joint.autoConfigureConnectedAnchor = false;
+            joint.connectedAnchor = hit.point;
+            joint.minDistance = 0.1f;
+            joint.maxDistance = maxDistance;
+            joint.breakForce = 50f;
+            joint.spring = dragStrength;
+            joint.damper = dragDamping;
 
-                if (renderCamera != null)
-                    return renderCamera.ViewportPointToRay(viewportPoint);
-            }
+            heldRb.useGravity = false;
+
+            // reset lift when picking new object
+            liftAmount = 0f;
+
+            heldRb.transform.SetParent(null);
         }
+    }
 
-        if (renderCamera != null)
-            return renderCamera.ScreenPointToRay(screenPoint);
+    private void ReleaseObject()
+    {
+        if (joint != null)
+        {
+            Destroy(joint);
+            heldRb.useGravity = true;
+            heldRb = null;
+        }
+    }
 
-        return Camera.main.ScreenPointToRay(screenPoint);
+    private void UpdateDragPoint()
+    {
+        Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
+        Ray ray = cam.ScreenPointToRay(screenPos);
+
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        if (plane.Raycast(ray, out float dist))
+        {
+            Vector3 point = ray.GetPoint(dist);
+
+            liftAmount = Mathf.MoveTowards(liftAmount, maxLiftHeight, liftSpeed * Time.deltaTime);
+            point.y += liftAmount;
+
+            joint.connectedAnchor = point;
+        }
     }
 }

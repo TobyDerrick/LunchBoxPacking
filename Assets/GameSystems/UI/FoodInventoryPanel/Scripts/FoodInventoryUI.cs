@@ -21,6 +21,8 @@ public class FoodInventoryUI : MonoBehaviour
     private RectTransform inventoryPanel;
     private Vector2 inventoryOnScreenPos, inventoryOffScreenPos;
 
+    private GameObject currentFood;
+
     private async void Start()
     {
         inventoryPanel = this.GetComponent<RectTransform>();
@@ -44,24 +46,34 @@ public class FoodInventoryUI : MonoBehaviour
 
     private void OnFoodButtonClicked(FoodScriptableObject food)
     {
-        foodSpawner.SpawnFood(food);
+        currentFood = foodSpawner.SpawnFood(food);
         AnimateInPlate();
         Debug.Log($"Spawn Food: {food.itemName}");
     }
 
     public void AnimateInPlate()
     {
+        Rigidbody foodRb = currentFood.GetComponent<Rigidbody>();
+        foodRb.constraints = RigidbodyConstraints.FreezeAll;
+
+
         inventoryOffScreenPos = inventoryOnScreenPos - new Vector2(Screen.width, 0);
 
         // Swipe out UI
         inventoryPanel.DOAnchorPos(inventoryOffScreenPos, transitionDuration).SetEase(Ease.InOutCubic);
 
         // Swipe in Plate
-        plateTransform.DOMove(plateOnscreenPos.position, transitionDuration).SetEase(Ease.InBounce);
+        plateTransform.DOMove(plateOnscreenPos.position, transitionDuration)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                foodRb.constraints = RigidbodyConstraints.None;
+            });
     }
 
     public void AnimateOutPlate()
     {
+        Debug.Log("Animating out plate");
         inventoryOffScreenPos = inventoryOnScreenPos - new Vector2(Screen.width, 0);
 
         // Swipe out Plate
