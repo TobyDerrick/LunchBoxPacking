@@ -42,10 +42,10 @@ public class FoodScriptableObject : ScriptableObject, IDataAsset
 [Serializable]
 public class FoodTraits
 {
-    [Range(0f, 1f)] public float sweet;
-    [Range(0f, 1f)] public float savoury;
-    [Range(0f, 1f)] public float cute;
-    [Range(0f, 1f)] public float spicy;
+    public float sweet;
+    public float savoury;
+    public float cute;
+    public float spicy;
 
     public float GetTraitValue(FoodTrait trait)
     {
@@ -61,7 +61,7 @@ public class FoodTraits
 
     public void SetTraitValue(FoodTrait trait, float value)
     {
-        MathHelpers.Clamp(value, 0f, 1f);
+        //MathHelpers.Clamp(value, 0f, 1f);
         switch (trait)
         {
             case FoodTrait.Sweet: sweet = value; break;
@@ -69,5 +69,21 @@ public class FoodTraits
             case FoodTrait.Cute: cute = value; break;
             case FoodTrait.Spicy: spicy = value; break;
         }
+    }
+
+    public void AddTraitValues(FoodTraits foodTraits)
+    {
+        sweet += foodTraits.sweet;
+        savoury += foodTraits.savoury;
+        cute += foodTraits.cute;
+        spicy += foodTraits.spicy;
+    }
+
+    public void RemoveTraitValues(FoodTraits foodTraits)
+    {
+        sweet -= foodTraits.sweet;
+        savoury -= foodTraits.savoury;
+        cute -= foodTraits.cute;
+        spicy -= foodTraits.spicy;
     }
 }

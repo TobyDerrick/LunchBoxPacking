@@ -4,9 +4,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider))]
 public class RegionTrigger : MonoBehaviour
 {
-    [Header("Event Signals")]
-    public UnityEvent<GameObject> OnObjectEnter;
-    public UnityEvent<GameObject> OnObjectExit;
+
+    [Header("Events")]
+    public UnityEvent<GameObject> OnObjectEnterEvent;
+    public UnityEvent<GameObject> OnObjectExitEvent;
 
     [Header("Filter Settings")]
     [Tooltip("Only objects on these layers will trigger events")]
@@ -22,16 +23,15 @@ public class RegionTrigger : MonoBehaviour
     {
         if (IsValidLayer(other.gameObject))
         {
-            OnObjectEnter?.Invoke(other.gameObject);
+            OnObjectEnterEvent?.Invoke(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     { 
-
         if(IsValidLayer(other.gameObject))
         { 
-            OnObjectExit?.Invoke(other.gameObject);
+            OnObjectExitEvent?.Invoke(other.gameObject);
         }
     }
 

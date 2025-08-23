@@ -24,6 +24,8 @@ public class FoodSpawner : MonoBehaviour
 
             spawned.transform.localScale = Vector3.one;
 
+            spawned.AddComponent<FoodItem>().id = food.id;
+
             return spawned;
         }
 
