@@ -17,8 +17,9 @@ MonoBehaviour:
   icon: {fileID: 0}
   FoodPrefab: {fileID: 5223900213652673335, guid: bf06bd0efd3afdb4697098df2ba8c436, type: 3}
   traits:
-    sweet: 0
-    savoury: 0
-    cute: 0
-    spicy: 0
+    traitValues:
+      sweet: 0.1
+      savoury: 0.8
+      cute: 0.2
+      spicy: 0.5
   tags: 

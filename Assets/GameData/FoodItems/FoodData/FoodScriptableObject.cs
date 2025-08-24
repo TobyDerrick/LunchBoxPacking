@@ -24,12 +24,14 @@ public enum FoodTag
 }
 
 [CreateAssetMenu(fileName = "FoodScriptableObject", menuName = "Scriptable Objects/FoodScriptableObject")]
-public class FoodScriptableObject : ScriptableObject, IDataAsset
+public class FoodScriptableObject : ScriptableObject, IDataAsset, ITraitValueContainer
 {
     public FoodItemID id;
     public string itemName;
     public Sprite icon;
     public string GetID() => itemName;
+    [HideInInspector]
+    public FoodTraits TraitValues => traits;
 
     public GameObject FoodPrefab;
     public FoodTraits traits;
@@ -42,19 +44,25 @@ public class FoodScriptableObject : ScriptableObject, IDataAsset
 [Serializable]
 public class FoodTraits
 {
-    public float sweet;
-    public float savoury;
-    public float cute;
-    public float spicy;
+    [Serializable]
+    public struct TraitValues
+    {
+        public float sweet;
+        public float savoury;
+        public float cute;
+        public float spicy;
+    }
 
+    public TraitValues traitValues;
+    public event Action<TraitChangedEventArgs> TraitsChanged;
     public float GetTraitValue(FoodTrait trait)
     {
         return trait switch
         {
-            FoodTrait.Sweet => sweet,
-            FoodTrait.Savoury => savoury,
-            FoodTrait.Cute => cute,
-            FoodTrait.Spicy => spicy,
+            FoodTrait.Sweet => traitValues.sweet,
+            FoodTrait.Savoury => traitValues.savoury,
+            FoodTrait.Cute => traitValues.cute,
+            FoodTrait.Spicy => traitValues.spicy,
             _ => 0f
         };
     }
@@ -64,26 +72,42 @@ public class FoodTraits
         //MathHelpers.Clamp(value, 0f, 1f);
         switch (trait)
         {
-            case FoodTrait.Sweet: sweet = value; break;
-            case FoodTrait.Savoury: savoury = value; break;
-            case FoodTrait.Cute: cute = value; break;
-            case FoodTrait.Spicy: spicy = value; break;
+            case FoodTrait.Sweet: traitValues.sweet = value; break;
+            case FoodTrait.Savoury: traitValues.savoury = value; break;
+            case FoodTrait.Cute: traitValues.cute = value; break;
+            case FoodTrait.Spicy: traitValues.spicy = value; break;
         }
+        
+        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues));
     }
 
     public void AddTraitValues(FoodTraits foodTraits)
     {
-        sweet += foodTraits.sweet;
-        savoury += foodTraits.savoury;
-        cute += foodTraits.cute;
-        spicy += foodTraits.spicy;
+        traitValues.sweet += foodTraits.traitValues.sweet;
+        traitValues.savoury += foodTraits.traitValues.savoury;
+        traitValues.cute += foodTraits.traitValues.cute;
+        traitValues.spicy += foodTraits.traitValues.spicy;
+
+        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues));
     }
 
     public void RemoveTraitValues(FoodTraits foodTraits)
     {
-        sweet -= foodTraits.sweet;
-        savoury -= foodTraits.savoury;
-        cute -= foodTraits.cute;
-        spicy -= foodTraits.spicy;
+        traitValues.sweet -= foodTraits.traitValues.sweet;
+        traitValues.savoury -= foodTraits.traitValues.savoury;
+        traitValues.cute -= foodTraits.traitValues.cute;
+        traitValues.spicy -= foodTraits.traitValues.spicy;
+
+        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues));
+    }
+}
+
+public class TraitChangedEventArgs : EventArgs
+{
+    public FoodTraits.TraitValues FoodTraits { get; }
+
+    public TraitChangedEventArgs(FoodTraits.TraitValues traitValues)
+    {
+        FoodTraits = traitValues;
     }
 }

@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lunchbox : MonoBehaviour
+public class Lunchbox : MonoBehaviour, ITraitValueContainer
 {
     [SerializeField]
     private List<GameObject> foodInBox = new();
 
     [SerializeField]
     private FoodTraits foodTraitTotals;
+
+    public FoodTraits TraitValues => foodTraitTotals;
 
     public void AddItemToBox(GameObject itemToAdd)
     {
