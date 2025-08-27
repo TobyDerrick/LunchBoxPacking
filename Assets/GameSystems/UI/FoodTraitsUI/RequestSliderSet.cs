@@ -23,13 +23,13 @@ public class RequestSliderSet : TraitSliderSet
     private new void OnEnable()
     {
         base.OnEnable();
-        EventBus.OnNewRequest += SetRequirements;
+        EventBus.OnNewNPC += SetRequirements;
     }
 
     private new void OnDisable()
     {
         base.OnDisable();
-        EventBus.OnNewRequest -= SetRequirements;
+        EventBus.OnNewNPC -= SetRequirements;
 
     }
 
@@ -57,9 +57,9 @@ public class RequestSliderSet : TraitSliderSet
         rt.offsetMax = Vector2.zero;
     }
 
-    public void SetRequirements(TraitRequirements newRequirements)
+    public void SetRequirements(NPCData npcData)
     {
-        requirements = newRequirements;
+        requirements = npcData.request;
         UpdateRangeVisuals();
     }
 

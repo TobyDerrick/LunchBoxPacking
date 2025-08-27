@@ -23,13 +23,16 @@ public class NPCRequestBubbles : MonoBehaviour
 
     private void Awake()
     {
-        EventBus.OnNewRequest += InitializeRequestBubbles;
+        EventBus.OnNewNPC += InitializeRequestBubbles;
+        EventBus.OnRequestValidated += AnimateOutBubbles;
         layoutGroup = GetComponent<CircularLayoutGroup>();
         maxRadius = layoutGroup.radius;
     }
 
-    public void InitializeRequestBubbles(TraitRequirements requirements)
+    public void InitializeRequestBubbles(NPCData npcData)
     {
+        TraitRequirements requirements = npcData.request;
+
         bubbleTexts = ConvertRequirementsToText(requirements);
         //If current cam = NPC cam, spawn bubbles
         if(PanUpButton.currentCam == CameraAngle.NPCcamera)
@@ -102,7 +105,7 @@ public class NPCRequestBubbles : MonoBehaviour
         layoutGroup.AnimateRadius(maxRadius, tweenDuration, tweenEase);
     }
 
-    public void AnimateOutBubbles()
+    public void AnimateOutBubbles(float score = 0)
     {
         if (layoutGroup == null) return;
         layoutGroup.AnimateRadius(0f, tweenDuration, tweenEase).OnComplete(ClearExistingBubbles);

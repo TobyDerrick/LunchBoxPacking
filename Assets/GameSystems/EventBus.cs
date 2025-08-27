@@ -14,4 +14,11 @@ public static class EventBus
     {
         OnRequestValidated?.Invoke(score);
     }
+
+    public static event Action<NPCData> OnNewNPC;
+
+    public static void EmitNewNPC(NPCData data)
+    {
+        OnNewNPC?.Invoke(data);
+    }
 }

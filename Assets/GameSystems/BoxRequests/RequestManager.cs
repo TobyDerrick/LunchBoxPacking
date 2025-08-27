@@ -9,7 +9,12 @@ public class RequestManager : MonoBehaviour
 
     private void Awake()
     {
-        GenerateNewRequest();
+        EventBus.OnNewNPC += UpdateCurrentRequest;
+    }
+
+    private void UpdateCurrentRequest(NPCData npc)
+    {
+        currentRequest = npc.request;
     }
 
     public void GenerateNewRequest()
@@ -30,8 +35,6 @@ public class RequestManager : MonoBehaviour
         EventBus.EmitRequestValidated(score);
 
         Debug.Log($"Request validated with score: {score}");
-
-        GenerateNewRequest();
     }
 
     private float CalculateBoxScore(Lunchbox lunchbox, TraitRequirements request)

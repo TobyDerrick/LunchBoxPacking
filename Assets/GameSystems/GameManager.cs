@@ -1,8 +1,18 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
+
 public class GameManager : MonoBehaviour
 {
+
+    public enum GameState
+    {
+        TitleScreen,
+        Packing,
+        Paused,
+        CharacterCreator,
+    }
+
     public static GameManager Instance { get; private set; }
 
     public static bool IsInitialized { get; private set; } = false;
@@ -35,5 +45,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        StartPackingGame();
+    }
+
+    private void StartPackingGame()
+    {
     }
 }
