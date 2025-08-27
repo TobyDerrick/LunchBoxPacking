@@ -8,13 +8,15 @@ public class PanUpButton : MonoBehaviour
     [SerializeField] private CinemachineCamera boxCamera, npcCamera;
     [SerializeField] private GameObject panUpButton, panDownButton;
     [SerializeField] private FoodInventoryUI foodInventoryUI;
+    [SerializeField] private NPCRequestBubbles npcRequestButtons;
     public void PanUpCamera()
     {
         npcCamera.Priority = 10;
         boxCamera.Priority = 0;
         panUpButton.gameObject.SetActive(false);
         panDownButton.gameObject.SetActive(true);
-        foodInventoryUI.AnimateInPlate();
+        foodInventoryUI.AnimateOutUI();
+        npcRequestButtons.SpawnBubbles();
     }
 
     public void PanDownCamera()
@@ -25,7 +27,8 @@ public class PanUpButton : MonoBehaviour
         boxCamera.Prioritize();
         panDownButton.gameObject.SetActive(false);
         panUpButton.gameObject.SetActive(true);
-        foodInventoryUI.AnimateOutUI();
+        foodInventoryUI.AnimateOutPlate();
+        npcRequestButtons.AnimateOutBubbles();
     }
 
 }

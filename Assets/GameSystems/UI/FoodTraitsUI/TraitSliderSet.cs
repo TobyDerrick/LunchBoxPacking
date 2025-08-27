@@ -4,12 +4,15 @@ using UnityEngine.UI;
 public class TraitSliderSet : MonoBehaviour
 {
     [SerializeField]
-    private Slider sweetSlider, savourySlider, cuteSlider, spicySlider;
+    protected Slider sweetSlider, savourySlider, cuteSlider, spicySlider;
 
     [SerializeField] private TraitValueSource traitSource;
     private ITraitValueContainer traitsToSubscribe;
 
-    private void Awake()
+    [SerializeField]
+    private bool displayAbsoluteValues = false;
+
+    protected virtual void Awake()
     {
         traitsToSubscribe = traitSource.Container;
 
@@ -28,7 +31,7 @@ public class TraitSliderSet : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         if (traitsToSubscribe != null)
         {
@@ -39,10 +42,23 @@ public class TraitSliderSet : MonoBehaviour
     public void UpdateSliderValues(TraitChangedEventArgs args)
     {
         Debug.Log("Updating Trait Values");
-        sweetSlider.value = args.FoodTraits.sweet;
-        savourySlider.value = args.FoodTraits.savoury;
-        cuteSlider.value = args.FoodTraits.cute;
-        spicySlider.value = args.FoodTraits.spicy;
+        if(displayAbsoluteValues)
+        {
+            //TODO: Also update the min and max of the slider. (default to 0-1)
+            sweetSlider.value = args.FoodTraits.sweet;
+            savourySlider.value = args.FoodTraits.savoury;
+            cuteSlider.value = args.FoodTraits.cute;
+            spicySlider.value = args.FoodTraits.spicy;
+        }
+
+        else
+        {
+            sweetSlider.value = args.NormalizedValues.sweet;
+            savourySlider.value = args.NormalizedValues.savoury;
+            cuteSlider.value = args.NormalizedValues.cute;
+            spicySlider.value = args.NormalizedValues.spicy;
+        }
+
     }
 }
 

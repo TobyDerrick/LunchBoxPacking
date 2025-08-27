@@ -54,7 +54,17 @@ public class FoodTraits
     }
 
     public TraitValues traitValues;
+    public TraitValues normalizedTraitValues;
     public event Action<TraitChangedEventArgs> TraitsChanged;
+
+    public FoodTraits(float sweet = 0, float savoury = 0, float cute = 0, float spicy = 0)
+    {
+        traitValues.sweet = sweet;
+        traitValues.savoury = savoury;
+        traitValues.cute = cute;
+        traitValues.spicy = spicy;
+    }
+
     public float GetTraitValue(FoodTrait trait)
     {
         return trait switch
@@ -77,8 +87,10 @@ public class FoodTraits
             case FoodTrait.Cute: traitValues.cute = value; break;
             case FoodTrait.Spicy: traitValues.spicy = value; break;
         }
-        
-        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues));
+
+        UpdateNormalizedValues();
+
+        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues, normalizedTraitValues));
     }
 
     public void AddTraitValues(FoodTraits foodTraits)
@@ -88,7 +100,9 @@ public class FoodTraits
         traitValues.cute += foodTraits.traitValues.cute;
         traitValues.spicy += foodTraits.traitValues.spicy;
 
-        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues));
+        UpdateNormalizedValues();
+
+        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues, normalizedTraitValues));
     }
 
     public void RemoveTraitValues(FoodTraits foodTraits)
@@ -98,16 +112,44 @@ public class FoodTraits
         traitValues.cute -= foodTraits.traitValues.cute;
         traitValues.spicy -= foodTraits.traitValues.spicy;
 
-        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues));
+        UpdateNormalizedValues();
+
+        TraitsChanged?.Invoke(new TraitChangedEventArgs(traitValues, normalizedTraitValues));
     }
+
+
+    public float GetNormalizedTraitValue(FoodTrait trait)
+    {
+        return trait switch
+        {
+            FoodTrait.Sweet => normalizedTraitValues.sweet,
+            FoodTrait.Savoury => normalizedTraitValues.savoury,
+            FoodTrait.Cute => normalizedTraitValues.cute,
+            FoodTrait.Spicy => normalizedTraitValues.spicy,
+            _ => 0f
+        };
+    }
+    private void UpdateNormalizedValues()
+    {
+        float total = traitValues.sweet + traitValues.savoury + traitValues.cute + traitValues.spicy;
+        if (total <= 0f) total = 1f;
+
+        normalizedTraitValues.sweet = traitValues.sweet / total;
+        normalizedTraitValues.savoury = traitValues.savoury / total;
+        normalizedTraitValues.cute = traitValues.cute / total;
+        normalizedTraitValues.spicy = traitValues.spicy / total;
+    }
+
 }
 
 public class TraitChangedEventArgs : EventArgs
 {
     public FoodTraits.TraitValues FoodTraits { get; }
+    public FoodTraits.TraitValues NormalizedValues { get; }
 
-    public TraitChangedEventArgs(FoodTraits.TraitValues traitValues)
+    public TraitChangedEventArgs(FoodTraits.TraitValues traitValues, FoodTraits.TraitValues normalizedValues)
     {
         FoodTraits = traitValues;
+        NormalizedValues = normalizedValues;
     }
 }
