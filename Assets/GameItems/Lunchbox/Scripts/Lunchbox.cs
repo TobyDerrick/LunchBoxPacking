@@ -20,6 +20,8 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
 
         FoodScriptableObject itemSO = GameData.FoodItems.Get(itemToAdd.GetComponent<FoodItem>().id);
         foodTraitTotals.AddTraitValues(itemSO.traits);
+
+        itemToAdd.transform.SetParent(transform);
     }
 
     public void RemoveItemFromBox(GameObject itemToRemove)
@@ -28,6 +30,8 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
 
         FoodScriptableObject itemSO = GameData.FoodItems.Get(itemToRemove.GetComponent<FoodItem>().id);
         foodTraitTotals.RemoveTraitValues(itemSO.traits);
+
+        itemToRemove.transform.SetParent(null);
 
     }
 
