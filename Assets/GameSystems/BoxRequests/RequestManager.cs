@@ -1,15 +1,22 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 
 public class RequestManager : MonoBehaviour
 {
     [SerializeField] private Lunchbox lunchbox;
+    [SerializeField] private Transform boxTarget;
+    [SerializeField] private GameObject boxPrefab;
+    [SerializeField] private Transform boxSpawn;
+
+    private GameObject currentLunchbox;
 
     public TraitRequirements currentRequest { get; private set; }
 
     private void Awake()
     {
         EventBus.OnNewNPC += UpdateCurrentRequest;
+        EventBus.OnNewNPC += SpawnNewLunchbox;
     }
 
     private void UpdateCurrentRequest(NPCData npc)
@@ -32,10 +39,32 @@ public class RequestManager : MonoBehaviour
         }
 
         float score = CalculateBoxScore(lunchbox, currentRequest);
-        EventBus.EmitRequestValidated(score);
+        Sequence seq = DOTween.Sequence();
+        seq.Append(lunchbox.lid.transform.DOMove(lunchbox.lidTarget.position, 0.3f).SetEase(Ease.OutBack));
+        seq.Append(lunchbox.transform.DOMove(boxTarget.position, 0.3f).SetEase(Ease.InOutQuad));
+        seq.OnComplete(() =>
+        {
+            EventBus.EmitRequestValidated(score, lunchbox);
+        });
 
         Debug.Log($"Request validated with score: {score}");
     }
+
+    public void SpawnNewLunchbox(NPCData npc)
+    {
+        currentLunchbox = Instantiate(boxPrefab, boxSpawn.position, boxSpawn.rotation);
+
+        Vector3 offScreenPos = boxSpawn.position + Vector3.left * 4f;
+        currentLunchbox.transform.position = offScreenPos;
+
+        currentLunchbox.transform.DOMove(boxSpawn.position, 0.5f).SetEase(Ease.InOutBack);
+        lunchbox = currentLunchbox.GetComponent<Lunchbox>();
+        lunchbox.lid.transform.localPosition = new Vector3(-2f, 0.8f, 3.1f);
+
+        EventBus.EmitNewLunchBox(lunchbox);
+    }
+
+
 
     private float CalculateBoxScore(Lunchbox lunchbox, TraitRequirements request)
     {

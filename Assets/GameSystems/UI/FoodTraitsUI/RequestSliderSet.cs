@@ -20,17 +20,36 @@ public class RequestSliderSet : TraitSliderSet
         }
     }
 
+    protected override void Awake()
+    {
+
+    }
+
     private new void OnEnable()
     {
-        base.OnEnable();
+        //base.OnEnable();
         EventBus.OnNewNPC += SetRequirements;
+        EventBus.OnNewLunchbox += SetBox;
     }
 
     private new void OnDisable()
     {
-        base.OnDisable();
+        //base.OnDisable();
         EventBus.OnNewNPC -= SetRequirements;
+        EventBus.OnNewLunchbox -= SetBox;
 
+    }
+
+    private void SetBox(Lunchbox box)
+    {
+        if(traitsToSubscribe != null)
+        {
+            traitsToSubscribe.TraitValues.TraitsChanged -= UpdateSliderValues;
+        }
+
+        traitSource.monoBehaviourSource = box;
+        traitsToSubscribe = traitSource.Container;
+        traitsToSubscribe.TraitValues.TraitsChanged += UpdateSliderValues;
     }
 
     private void UpdateRangeVisuals()

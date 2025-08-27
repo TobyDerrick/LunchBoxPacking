@@ -6,8 +6,8 @@ public class TraitSliderSet : MonoBehaviour
     [SerializeField]
     protected Slider sweetSlider, savourySlider, cuteSlider, spicySlider;
 
-    [SerializeField] private TraitValueSource traitSource;
-    private ITraitValueContainer traitsToSubscribe;
+    [SerializeField] protected TraitValueSource traitSource;
+    protected ITraitValueContainer traitsToSubscribe;
 
     [SerializeField]
     private bool displayAbsoluteValues = false;
@@ -38,7 +38,6 @@ public class TraitSliderSet : MonoBehaviour
             traitsToSubscribe.TraitValues.TraitsChanged -= UpdateSliderValues;
         }
     }
-
     public void UpdateSliderValues(TraitChangedEventArgs args)
     {
         Debug.Log("Updating Trait Values");
@@ -65,8 +64,8 @@ public class TraitSliderSet : MonoBehaviour
 [System.Serializable]
 public class TraitValueSource
 {
-    [SerializeField] private MonoBehaviour monoBehaviourSource;
-    [SerializeField] private FoodScriptableObject scriptableObjectSource;
+    [SerializeField] public MonoBehaviour monoBehaviourSource;
+    [SerializeField] public FoodScriptableObject scriptableObjectSource;
 
     public ITraitValueContainer Container
     {

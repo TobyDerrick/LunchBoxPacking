@@ -9,10 +9,10 @@ public static class EventBus
     }
 
 
-    public static event Action<float> OnRequestValidated;
-    public static void EmitRequestValidated(float score)
+    public static event Action<float, Lunchbox> OnRequestValidated;
+    public static void EmitRequestValidated(float score, Lunchbox box)
     {
-        OnRequestValidated?.Invoke(score);
+        OnRequestValidated?.Invoke(score, box);
     }
 
     public static event Action<NPCData> OnNewNPC;
@@ -21,4 +21,11 @@ public static class EventBus
     {
         OnNewNPC?.Invoke(data);
     }
+
+    public static event Action<Lunchbox> OnNewLunchbox;
+    public static void EmitNewLunchBox(Lunchbox box)
+    {
+        OnNewLunchbox?.Invoke(box);
+    }
+
 }

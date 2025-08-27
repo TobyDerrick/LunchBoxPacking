@@ -1,16 +1,12 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NPCRequestBubbles : MonoBehaviour
 {
     [SerializeField] private GameObject bubbleTemplate;
     [SerializeField] private CircularLayoutGroup layoutGroup;
-
-
 
     [Header("Animation")]
     public float tweenDuration = 0.5f;
@@ -105,7 +101,7 @@ public class NPCRequestBubbles : MonoBehaviour
         layoutGroup.AnimateRadius(maxRadius, tweenDuration, tweenEase);
     }
 
-    public void AnimateOutBubbles(float score = 0)
+    public void AnimateOutBubbles(float score = 0, Lunchbox box = null)
     {
         if (layoutGroup == null) return;
         layoutGroup.AnimateRadius(0f, tweenDuration, tweenEase).OnComplete(ClearExistingBubbles);

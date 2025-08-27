@@ -12,7 +12,6 @@ public class NPCManager : MonoBehaviour
     private NPCQueue npcQueue;
     private List<GameObject> npcInstances = new();
 
-
     private void Awake()
     {
         npcQueue = ScriptableObject.CreateInstance<NPCQueue>();
@@ -46,10 +45,12 @@ public class NPCManager : MonoBehaviour
         npcInstances.Add(go);
     }
 
-    public void ShiftQueue(float Score)
+    public void ShiftQueue(float Score, Lunchbox box)
     {
         if (npcInstances.Count == 0) return;
         GameObject leaving = npcInstances[0];
+        box.gameObject.transform.SetParent(leaving.transform);
+        Sequence seq = DOTween.Sequence();
 
         npcInstances.RemoveAt(0);
         leaving.transform.DOMoveX(leaving.transform.position.x + spacing * 4f, 0.75f)
