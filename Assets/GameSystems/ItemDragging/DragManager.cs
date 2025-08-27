@@ -74,8 +74,13 @@ public class DragManager : MonoBehaviour
         Vector2 input = rotateAction.action.ReadValue<Vector2>();
         float rotAmount = rotationAdjustSpeed * Time.deltaTime;
 
-        desiredRotation.z += input.y * rotAmount;
-        desiredRotation.y += input.x * rotAmount;
+        if (heldRb == null) return;
+
+        Quaternion rotationDelta = Quaternion.Euler(input.y * rotAmount, input.x * rotAmount, 0f);
+        Quaternion currentRotation = Quaternion.Euler(desiredRotation);
+        Quaternion newRotation = rotationDelta * currentRotation;
+
+        desiredRotation = newRotation.eulerAngles;
     }
     private void UpdateCursorHover()
     {
