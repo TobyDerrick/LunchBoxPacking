@@ -15,7 +15,7 @@ public class NPCManager : MonoBehaviour
     private void Awake()
     {
         npcQueue = ScriptableObject.CreateInstance<NPCQueue>();
-        npcQueue.Initialize(5);
+        npcQueue.Initialize(50);
         Initialize(npcQueue);
         EventBus.OnRequestValidated += ShiftQueue;
     }
@@ -42,6 +42,7 @@ public class NPCManager : MonoBehaviour
         Debug.Log("Instantiating npc");
         GameObject go = Instantiate(npcPrefab, pos, Quaternion.identity, transform);
         go.name = npcData.name;
+        go.GetComponent<MeshRenderer>().material.color = npcData.npcColor;
         npcInstances.Add(go);
     }
 
