@@ -31,6 +31,11 @@ public class NPCRequestBubbles : MonoBehaviour
     public void InitializeRequestBubbles(TraitRequirements requirements)
     {
         bubbleTexts = ConvertRequirementsToText(requirements);
+        //If current cam = NPC cam, spawn bubbles
+        if(PanUpButton.currentCam == CameraAngle.NPCcamera)
+        {
+            SpawnBubbles();
+        }
     }
     public void SpawnBubbles()
     {
