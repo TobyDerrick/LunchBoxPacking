@@ -180,8 +180,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1349373162}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &185018044
@@ -261,63 +260,6 @@ MonoBehaviour:
   startAngle: 267
   tweenDuration: 0.5
   tweenEase: 6
---- !u!1001 &202906792
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 131399551}
-    m_Modifications:
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4739385849600240827, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-      propertyPath: m_Name
-      value: Lunchbox
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
 --- !u!1 &250066448
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +673,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1349373162}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -2603,11 +2545,6 @@ Transform:
   - {fileID: 1602220704}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1236119949 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4739385849600240827, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-  m_PrefabInstance: {fileID: 202906792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1271927960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2553542631558325298, guid: e9626b8cf4fb2af499c4de629dfc370f, type: 3}
@@ -2787,7 +2724,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1349373162}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -2842,22 +2779,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 73416966}
   m_LocalEulerAnglesHint: {x: 8.755, y: 0, z: 0}
---- !u!4 &1349373162 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4280012611621173880, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-  m_PrefabInstance: {fileID: 202906792}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1349373165 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7145992651733521821, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
-  m_PrefabInstance: {fileID: 202906792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236119949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf7498c43ff2144098ef4b1a1937fb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1395073467
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,9 +3571,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93bc8f978880e204389b1adc41001782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lunchbox: {fileID: 1349373165}
+  lunchbox: {fileID: 0}
   boxTarget: {fileID: 1449692858}
-  boxPrefab: {fileID: 1236119949}
+  boxPrefab: {fileID: 4739385849600240827, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
   boxSpawn: {fileID: 131399551}
 --- !u!1001 &1829891723
 PrefabInstance:
@@ -3789,7 +3710,7 @@ PrefabInstance:
     - target: {fileID: 5640549400656463124, guid: ba6de9c1801b84d44ac1022392230ebc, type: 3}
       propertyPath: traitSource.monoBehaviourSource
       value: 
-      objectReference: {fileID: 1349373165}
+      objectReference: {fileID: 0}
     - target: {fileID: 6572909614038061634, guid: ba6de9c1801b84d44ac1022392230ebc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3813,7 +3734,7 @@ PrefabInstance:
     - target: {fileID: 7541587830967085027, guid: ba6de9c1801b84d44ac1022392230ebc, type: 3}
       propertyPath: traitSource.monoBehaviourSource
       value: 
-      objectReference: {fileID: 1349373165}
+      objectReference: {fileID: 0}
     - target: {fileID: 8269778532579411426, guid: ba6de9c1801b84d44ac1022392230ebc, type: 3}
       propertyPath: m_Name
       value: RequestSliderSet
@@ -4205,7 +4126,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2117962168}
   m_HandleRect: {fileID: 2117962167}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

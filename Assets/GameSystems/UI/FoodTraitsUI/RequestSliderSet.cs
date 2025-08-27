@@ -42,11 +42,6 @@ public class RequestSliderSet : TraitSliderSet
 
     private void SetBox(Lunchbox box)
     {
-        if(traitsToSubscribe != null)
-        {
-            traitsToSubscribe.TraitValues.TraitsChanged -= UpdateSliderValues;
-        }
-
         traitSource.monoBehaviourSource = box;
         traitsToSubscribe = traitSource.Container;
         traitsToSubscribe.TraitValues.TraitsChanged += UpdateSliderValues;
@@ -74,6 +69,7 @@ public class RequestSliderSet : TraitSliderSet
 
         rt.offsetMin = Vector2.zero;
         rt.offsetMax = Vector2.zero;
+        UpdateSliderValues(new TraitChangedEventArgs(traitsToSubscribe.TraitValues.traitValues, traitsToSubscribe.TraitValues.normalizedTraitValues));
     }
 
     public void SetRequirements(NPCData npcData)
