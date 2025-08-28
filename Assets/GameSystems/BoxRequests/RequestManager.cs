@@ -1,8 +1,10 @@
 using DG.Tweening;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+//SHOULD NOT HANDLE BOX SPAWNING IDEALLY. SEPERATE TO A "BOX SPAWNER" CLASS
 public class RequestManager : MonoBehaviour
 {
     [SerializeField] private Lunchbox lunchbox;
@@ -11,6 +13,8 @@ public class RequestManager : MonoBehaviour
     [SerializeField] private Transform boxSpawn;
 
     [SerializeField] private Button submitButton;
+
+    [SerializeField] private GameObject[] boxDividers; //SHOULDNT BE HERE. REWORK BOX SPAWNING LOGIC.
 
     private GameObject currentLunchbox;
 
@@ -39,6 +43,9 @@ public class RequestManager : MonoBehaviour
         {
             Rigidbody rb = go.GetComponentInChildren<Rigidbody>();
             rb.isKinematic = true;
+            rb.interpolation = RigidbodyInterpolation.None;
+            rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            go.transform.SetParent(lunchbox.transform, true);
         }
 
         Sequence seq = DOTween.Sequence();
@@ -64,6 +71,11 @@ public class RequestManager : MonoBehaviour
         currentLunchbox.transform.DOMove(boxSpawn.position, 0.5f).SetEase(Ease.InOutBack);
         lunchbox = currentLunchbox.GetComponent<Lunchbox>();
         lunchbox.lid.transform.localPosition = new Vector3(-2f, 0.8f, 3.1f);
+
+        GameObject dividerToSpawn = boxDividers[UnityEngine.Random.Range(0, boxDividers.Length)];
+
+        GameObject divider = Instantiate(dividerToSpawn, currentLunchbox.transform.position, Quaternion.identity, currentLunchbox.transform);
+        divider.transform.localRotation = Quaternion.identity;
 
         Debug.Log("HAHAHAHAHA");
         EventBus.EmitNewLunchBox(lunchbox);

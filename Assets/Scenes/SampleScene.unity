@@ -1326,7 +1326,7 @@ MonoBehaviour:
   dragStrength: 75
   dragDamping: 45
   maxDistance: 0.001
-  maxLiftHeight: 0.55
+  maxLiftHeight: 0.6
   liftSpeed: 100
   desiredRotation: {x: 0, y: 0, z: 0}
   rotationStabilizeSpeed: 20
@@ -3576,6 +3576,12 @@ MonoBehaviour:
   boxPrefab: {fileID: 4739385849600240827, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
   boxSpawn: {fileID: 131399551}
   submitButton: {fileID: 250066450}
+  boxDividers:
+  - {fileID: 4924588003606434196, guid: 5f59b97d14eae0c46bf061c83415124d, type: 3}
+  - {fileID: 4461324406622739170, guid: e351218a19740a14085f9e3e15f2aa06, type: 3}
+  - {fileID: 5308333186356271133, guid: 77cf02780df93ac43a2e29522e4033a6, type: 3}
+  - {fileID: 1144203780345171951, guid: c860bcc666c86364dba593fb2de43158, type: 3}
+  - {fileID: 669823849943603790, guid: 04e58c83c77601f469b039ed65f0b34c, type: 3}
 --- !u!1001 &1829891723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4127,7 +4133,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2117962168}
   m_HandleRect: {fileID: 2117962167}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

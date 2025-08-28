@@ -68,6 +68,7 @@ public class FoodInventoryUI : MonoBehaviour
             .OnComplete(() =>
             {
                 foodRb.constraints = RigidbodyConstraints.None;
+                foodRb.interpolation = RigidbodyInterpolation.Interpolate;
             });
     }
 

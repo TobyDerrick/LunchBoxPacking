@@ -6,7 +6,7 @@ public class NPCData : ScriptableObject
     public string npcName;
     public Color npcColor;
     public TraitRequirements request;
-
+    public GameObject BoxDivider;
     private void OnEnable()
     {
         npcName = GenerateRandomName();

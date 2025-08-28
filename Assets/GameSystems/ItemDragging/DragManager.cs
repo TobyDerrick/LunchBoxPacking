@@ -6,29 +6,28 @@ public class DragManager : MonoBehaviour
     [SerializeField] private CursorController cursorController;
 
     [Header("Input Actions")]
-    public InputActionReference pointerPosition; 
+    public InputActionReference pointerPosition;
     public InputActionReference pointerPress;
     public InputActionReference rotateAction;
 
     [Header("Drag Settings")]
     public float dragStrength = 50f;
     public float dragDamping = 5f;
-    public float maxDistance = 0.1f;
 
     [Header("Lift Settings")]
     public float maxLiftHeight = 2f;
     public float liftSpeed = 2f;
 
-    [Header("Rotation Stabilization")]
-    public Vector3 desiredRotation = Vector3.zero;   // Target euler angles
-    public float rotationStabilizeSpeed = 5f;        // Higher = snappier
-    public float rotationAdjustSpeed = 90f;          // Degrees per second
+    [Header("Rotation Settings")]
+    public Vector3 desiredRotation = Vector3.zero;
+    public float rotationStabilizeSpeed = 5f;
+    public float rotationDamping = 5f;
+    public float rotationAdjustSpeed = 90f;
 
     [Header("Layers")]
     public LayerMask foodLayer;
 
     private Camera cam;
-    private SpringJoint joint;
     private Rigidbody heldRb;
     private float liftAmount = 0f;
 
@@ -39,6 +38,7 @@ public class DragManager : MonoBehaviour
 
         pointerPress.action.performed += ctx => TryPickObject();
         pointerPress.action.canceled += ctx => ReleaseObject();
+
         cam = Camera.main;
     }
 
@@ -50,11 +50,9 @@ public class DragManager : MonoBehaviour
 
     private void Update()
     {
-        if (joint != null)
-        {
-            UpdateDragPoint();
+        if (heldRb != null)
             HandleRotationInput();
-        }
+
         UpdateCursorHover();
     }
 
@@ -62,10 +60,8 @@ public class DragManager : MonoBehaviour
     {
         if (heldRb != null)
         {
-            Quaternion targetRot = Quaternion.Euler(desiredRotation);
-            heldRb.MoveRotation(
-                Quaternion.Slerp(heldRb.rotation, targetRot, rotationStabilizeSpeed * Time.fixedDeltaTime)
-            );
+            UpdateDragPhysics();
+            UpdateRotationPhysics();
         }
     }
 
@@ -82,6 +78,7 @@ public class DragManager : MonoBehaviour
 
         desiredRotation = newRotation.eulerAngles;
     }
+
     private void UpdateCursorHover()
     {
         Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
@@ -89,17 +86,11 @@ public class DragManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, foodLayer))
         {
-            if (heldRb == null)
-            {
-                cursorController.SetCursorState(CursorState.Hover);
-            }
+            cursorController.SetCursorState(heldRb == null ? CursorState.Hover : CursorState.Grab);
         }
-        else
+        else if (heldRb == null)
         {
-            if (heldRb == null)
-            {
-                cursorController.SetCursorState(CursorState.Default);
-            }
+            cursorController.SetCursorState(CursorState.Default);
         }
     }
 
@@ -113,54 +104,62 @@ public class DragManager : MonoBehaviour
             if (hit.rigidbody == null) return;
 
             cursorController.SetCursorState(CursorState.Grab);
-
             heldRb = hit.rigidbody;
 
             desiredRotation = heldRb.transform.rotation.eulerAngles;
-            joint = heldRb.gameObject.AddComponent<SpringJoint>();
-            joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = hit.point;
-            joint.minDistance = 0.01f;
-            joint.maxDistance = maxDistance;
-            joint.spring = dragStrength;
-            joint.damper = dragDamping;
 
             heldRb.useGravity = false;
+            heldRb.interpolation = RigidbodyInterpolation.Interpolate;
+            heldRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
             liftAmount = 0f;
-            if (heldRb.transform.parent.CompareTag("Plate"))
-            {
+
+            if (heldRb.transform.parent != null && heldRb.transform.parent.CompareTag("Plate"))
                 heldRb.transform.SetParent(null);
-            }
         }
     }
 
     private void ReleaseObject()
     {
-        if (joint != null)
+        if (heldRb != null)
         {
-            desiredRotation = new Vector3(0, 0, 0);
             cursorController.SetCursorState(CursorState.Default);
-            Destroy(joint);
+
             heldRb.useGravity = true;
             heldRb = null;
         }
     }
 
-    private void UpdateDragPoint()
+    private void UpdateDragPhysics()
     {
         Vector2 screenPos = pointerPosition.action.ReadValue<Vector2>();
         Ray ray = cam.ScreenPointToRay(screenPos);
 
         Plane plane = new Plane(Vector3.up, Vector3.zero);
-        if (plane.Raycast(ray, out float dist))
+        if (!plane.Raycast(ray, out float dist)) return;
+
+        Vector3 targetPoint = ray.GetPoint(dist);
+
+        liftAmount = Mathf.MoveTowards(liftAmount, maxLiftHeight, liftSpeed * Time.fixedDeltaTime);
+        targetPoint.y += liftAmount;
+
+        // Apply force directly to center
+        Vector3 force = (targetPoint - heldRb.position) * dragStrength;
+        heldRb.AddForce(force - heldRb.linearVelocity * dragDamping, ForceMode.Acceleration);
+    }
+
+    private void UpdateRotationPhysics()
+    {
+        Quaternion targetRot = Quaternion.Euler(desiredRotation);
+        Quaternion delta = targetRot * Quaternion.Inverse(heldRb.rotation);
+
+        delta.ToAngleAxis(out float angle, out Vector3 axis);
+        if (angle > 180f) angle -= 360f;
+
+        if (Mathf.Abs(angle) > 0.01f)
         {
-            Vector3 point = ray.GetPoint(dist);
-
-            liftAmount = Mathf.MoveTowards(liftAmount, maxLiftHeight, liftSpeed * Time.deltaTime);
-            point.y += liftAmount;
-
-            joint.connectedAnchor = point;
+            Vector3 torque = axis * angle * rotationStabilizeSpeed;
+            heldRb.AddTorque(torque - heldRb.angularVelocity * rotationDamping, ForceMode.Acceleration);
         }
     }
 }
