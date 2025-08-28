@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class DragManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private CursorController cursorController;
 
     [Header("Input Actions")]
@@ -13,12 +14,14 @@ public class DragManager : MonoBehaviour
     [Header("Drag Settings")]
     public float dragStrength = 50f;
     public float dragDamping = 5f;
-    public float maxForce = 1000f;             
-    public float maxAngularForce = 500f;        
+    public float maxForce = 1000f;
+    public float maxAngularForce = 500f;
+
     [Header("Lift Settings")]
     public float maxLiftHeight = 2f;
-    public float liftSmoothTime = 0.1f;       
+    public float liftSmoothTime = 0.1f;
     private float liftVelocity = 0f;
+    private float liftAmount = 0f;
 
     [Header("Rotation Settings")]
     public Vector3 desiredRotation = Vector3.zero;
@@ -31,12 +34,13 @@ public class DragManager : MonoBehaviour
 
     private Camera cam;
     private Rigidbody heldRb;
-    private float liftAmount = 0f;
+    private Vector3 grabLocalOffset;
 
     private void OnEnable()
     {
         pointerPosition.action.Enable();
         pointerPress.action.Enable();
+        rotateAction.action.Enable();
 
         pointerPress.action.performed += ctx => TryPickObject();
         pointerPress.action.canceled += ctx => ReleaseObject();
@@ -48,6 +52,7 @@ public class DragManager : MonoBehaviour
     {
         pointerPosition.action.Disable();
         pointerPress.action.Disable();
+        rotateAction.action.Disable();
     }
 
     private void Update()
@@ -72,13 +77,9 @@ public class DragManager : MonoBehaviour
         Vector2 input = rotateAction.action.ReadValue<Vector2>();
         float rotAmount = rotationAdjustSpeed * Time.deltaTime;
 
-        if (heldRb == null) return;
-
         Quaternion rotationDelta = Quaternion.Euler(input.y * rotAmount, input.x * rotAmount, 0f);
         Quaternion currentRotation = Quaternion.Euler(desiredRotation);
-        Quaternion newRotation = rotationDelta * currentRotation;
-
-        desiredRotation = newRotation.eulerAngles;
+        desiredRotation = (rotationDelta * currentRotation).eulerAngles;
     }
 
     private void UpdateCursorHover()
@@ -87,13 +88,9 @@ public class DragManager : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(screenPos);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, foodLayer))
-        {
             cursorController.SetCursorState(heldRb == null ? CursorState.Hover : CursorState.Grab);
-        }
         else if (heldRb == null)
-        {
             cursorController.SetCursorState(CursorState.Default);
-        }
     }
 
     private void TryPickObject()
@@ -105,8 +102,8 @@ public class DragManager : MonoBehaviour
         {
             if (hit.rigidbody == null) return;
 
-            cursorController.SetCursorState(CursorState.Grab);
             heldRb = hit.rigidbody;
+            cursorController.SetCursorState(CursorState.Grab);
 
             desiredRotation = heldRb.transform.rotation.eulerAngles;
 
@@ -115,6 +112,7 @@ public class DragManager : MonoBehaviour
             heldRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
             liftAmount = 0f;
+            grabLocalOffset = heldRb.transform.InverseTransformPoint(hit.point);
 
             if (heldRb.transform.parent != null && heldRb.transform.parent.CompareTag("Plate"))
                 heldRb.transform.SetParent(null);
@@ -126,7 +124,6 @@ public class DragManager : MonoBehaviour
         if (heldRb != null)
         {
             cursorController.SetCursorState(CursorState.Default);
-
             heldRb.angularVelocity = Vector3.zero;
             heldRb.useGravity = true;
             heldRb = null;
@@ -142,20 +139,14 @@ public class DragManager : MonoBehaviour
         if (!plane.Raycast(ray, out float dist)) return;
 
         Vector3 targetPoint = ray.GetPoint(dist);
-
-        // Smooth lift
         liftAmount = Mathf.SmoothDamp(liftAmount, maxLiftHeight, ref liftVelocity, liftSmoothTime);
         targetPoint.y += liftAmount;
 
-        // Compute desired velocity and apply mass-scaled force
-        Vector3 toTarget = targetPoint - heldRb.position;
-        Vector3 desiredVelocity = toTarget * dragStrength;
-        Vector3 force = (desiredVelocity - heldRb.linearVelocity) * heldRb.mass;
-
-        // Clamp force to prevent extreme spikes
+        Vector3 worldGrabPoint = heldRb.transform.TransformPoint(grabLocalOffset);
+        Vector3 force = (targetPoint - worldGrabPoint) * dragStrength - heldRb.GetPointVelocity(worldGrabPoint) * dragDamping;
         force = Vector3.ClampMagnitude(force, maxForce);
 
-        heldRb.AddForce(force - heldRb.linearVelocity * dragDamping, ForceMode.Force);
+        heldRb.AddForceAtPosition(force, worldGrabPoint, ForceMode.Acceleration);
     }
 
     private void UpdateRotationPhysics()
@@ -169,11 +160,8 @@ public class DragManager : MonoBehaviour
         if (Mathf.Abs(angle) > 0.01f)
         {
             Vector3 torque = axis * angle * rotationStabilizeSpeed * heldRb.mass;
-
-            // Clamp torque
             Vector3 angularDelta = torque - heldRb.angularVelocity * rotationDamping;
             angularDelta = Vector3.ClampMagnitude(angularDelta, maxAngularForce);
-
             heldRb.AddTorque(angularDelta, ForceMode.Acceleration);
         }
     }
