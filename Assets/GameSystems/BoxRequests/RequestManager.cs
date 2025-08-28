@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RequestManager : MonoBehaviour
 {
@@ -9,21 +10,15 @@ public class RequestManager : MonoBehaviour
     [SerializeField] private GameObject boxPrefab;
     [SerializeField] private Transform boxSpawn;
 
+    [SerializeField] private Button submitButton;
+
     private GameObject currentLunchbox;
 
     public TraitRequirements currentRequest { get; private set; }
-
     private void Awake()
     {
-        EventBus.OnNewNPC += UpdateCurrentRequest;
         EventBus.OnNewNPC += SpawnNewLunchbox;
     }
-
-    private void UpdateCurrentRequest(NPCData npc)
-    {
-        currentRequest = npc.request;
-    }
-
     public void GenerateNewRequest()
     {
         currentRequest = TraitRequirements.GenerateRandom(0f, 1f);
@@ -32,6 +27,7 @@ public class RequestManager : MonoBehaviour
 
     public void ValidateRequest()
     {
+        submitButton.interactable = false;
         if (lunchbox == null || currentRequest == null)
         {
             Debug.LogWarning("No lunchbox or request available for validation.");
@@ -39,6 +35,12 @@ public class RequestManager : MonoBehaviour
         }
 
         float score = CalculateBoxScore(lunchbox, currentRequest);
+        foreach(GameObject go in lunchbox.foodInBox)
+        {
+            Rigidbody rb = go.GetComponentInChildren<Rigidbody>();
+            rb.isKinematic = true;
+        }
+
         Sequence seq = DOTween.Sequence();
         seq.Append(lunchbox.lid.transform.DOMove(lunchbox.lidTarget.position, 0.3f).SetEase(Ease.OutBack));
         seq.Append(lunchbox.transform.DOMove(boxTarget.position, 0.3f).SetEase(Ease.InOutQuad));
@@ -52,6 +54,8 @@ public class RequestManager : MonoBehaviour
 
     public void SpawnNewLunchbox(NPCData npc)
     {
+
+        currentRequest = npc.request;
         currentLunchbox = Instantiate(boxPrefab, boxSpawn.position, boxSpawn.rotation);
 
         Vector3 offScreenPos = boxSpawn.position + Vector3.left * 4f;
@@ -61,7 +65,9 @@ public class RequestManager : MonoBehaviour
         lunchbox = currentLunchbox.GetComponent<Lunchbox>();
         lunchbox.lid.transform.localPosition = new Vector3(-2f, 0.8f, 3.1f);
 
+        Debug.Log("HAHAHAHAHA");
         EventBus.EmitNewLunchBox(lunchbox);
+        submitButton.interactable = true;
     }
 
 

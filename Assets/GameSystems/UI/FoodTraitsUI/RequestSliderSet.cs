@@ -12,14 +12,6 @@ public class RequestSliderSet : TraitSliderSet
     [SerializeField]
     private TraitRequirements requirements;
 
-    private void Start()
-    {
-        if (requirements != null)
-        {
-            UpdateRangeVisuals();
-        }
-    }
-
     protected override void Awake()
     {
 
@@ -45,6 +37,7 @@ public class RequestSliderSet : TraitSliderSet
         traitSource.monoBehaviourSource = box;
         traitsToSubscribe = traitSource.Container;
         traitsToSubscribe.TraitValues.TraitsChanged += UpdateSliderValues;
+        UpdateSliderValues(new TraitChangedEventArgs(traitsToSubscribe.TraitValues.traitValues, traitsToSubscribe.TraitValues.normalizedTraitValues));
     }
 
     private void UpdateRangeVisuals()
@@ -69,7 +62,7 @@ public class RequestSliderSet : TraitSliderSet
 
         rt.offsetMin = Vector2.zero;
         rt.offsetMax = Vector2.zero;
-        UpdateSliderValues(new TraitChangedEventArgs(traitsToSubscribe.TraitValues.traitValues, traitsToSubscribe.TraitValues.normalizedTraitValues));
+        //UpdateSliderValues(new TraitChangedEventArgs(traitsToSubscribe.TraitValues.traitValues, traitsToSubscribe.TraitValues.normalizedTraitValues));
     }
 
     public void SetRequirements(NPCData npcData)

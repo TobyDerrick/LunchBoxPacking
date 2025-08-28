@@ -6,8 +6,7 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
     public GameObject lid;
     public Transform lidTarget;
 
-    [SerializeField]
-    private List<GameObject> foodInBox = new();
+    public List<GameObject> foodInBox = new();
 
     [SerializeField]
     private FoodTraits foodTraitTotals;

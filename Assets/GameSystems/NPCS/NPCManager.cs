@@ -22,6 +22,7 @@ public class NPCManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("OWCHHH");
         EventBus.EmitNewNPC(npcQueue.npcs[0]);
     }
 

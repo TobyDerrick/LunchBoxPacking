@@ -3575,6 +3575,7 @@ MonoBehaviour:
   boxTarget: {fileID: 1449692858}
   boxPrefab: {fileID: 4739385849600240827, guid: 929b604ab9f2f0f458fb3af2725dfa5a, type: 3}
   boxSpawn: {fileID: 131399551}
+  submitButton: {fileID: 250066450}
 --- !u!1001 &1829891723
 PrefabInstance:
   m_ObjectHideFlags: 0
