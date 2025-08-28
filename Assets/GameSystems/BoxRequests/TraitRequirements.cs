@@ -35,19 +35,23 @@ public class TraitRequirements
         minTraits = new FoodTraits(sweetMin, savouryMin, cuteMin, spicyMin);
         maxTraits = new FoodTraits(sweetMax, savouryMax, cuteMax, spicyMax);
     }
-    public static TraitRequirements GenerateRandom(float minRange = 0f, float maxRange = 1f)
+    public static TraitRequirements GenerateRandom(float minRange = 0f, float maxRange = 1f, float minWidth = 0.2f)
     {
-        float sweetMin = Random.Range(minRange, maxRange);
-        float sweetMax = Random.Range(sweetMin, maxRange);
+        // Sweet
+        float sweetMin = Random.Range(minRange, maxRange - minWidth);
+        float sweetMax = Random.Range(sweetMin + minWidth, maxRange);
 
-        float savouryMin = Random.Range(minRange, maxRange);
-        float savouryMax = Random.Range(savouryMin, maxRange);
+        // Savoury
+        float savouryMin = Random.Range(minRange, maxRange - minWidth);
+        float savouryMax = Random.Range(savouryMin + minWidth, maxRange);
 
-        float cuteMin = Random.Range(minRange, maxRange);
-        float cuteMax = Random.Range(cuteMin, maxRange);
+        // Cute
+        float cuteMin = Random.Range(minRange, maxRange - minWidth);
+        float cuteMax = Random.Range(cuteMin + minWidth, maxRange);
 
-        float spicyMin = Random.Range(minRange, maxRange);
-        float spicyMax = Random.Range(spicyMin, maxRange);
+        // Spicy
+        float spicyMin = Random.Range(minRange, maxRange - minWidth);
+        float spicyMax = Random.Range(spicyMin + minWidth, maxRange);
 
         return new TraitRequirements(
             sweetMin, sweetMax,

@@ -69,6 +69,7 @@ public class NPCRequestBubbles : MonoBehaviour
             float min = requirements.minTraits.GetTraitValue(trait);
             float max = requirements.maxTraits.GetTraitValue(trait);
             float range = max - min;
+            float midpoint = max + min / 2;
 
             string text = "";
 
@@ -77,9 +78,9 @@ public class NPCRequestBubbles : MonoBehaviour
             else text += "I'd like it";
 
 
-            if (min <= 0.3f) text += $" not too {trait.ToString().ToLower()}";
-            else if (min >= 0.8f) text += $" very {trait.ToString().ToLower()}";
-            else if (min >= 0.3f && min <= 0.8f) text += $" average {trait.ToString().ToLower()}";
+            if (midpoint <= 0.3f) text += $" not too {trait.ToString().ToLower()}";
+            else if (midpoint >= 0.7f) text += $" very {trait.ToString().ToLower()}";
+            else if (midpoint >= 0.3f && midpoint <= 0.8f) text += $" average {trait.ToString().ToLower()}";
             else
             {
                 text += "AAA";
