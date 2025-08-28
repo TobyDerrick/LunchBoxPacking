@@ -15,6 +15,11 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
 
     public void AddItemToBox(GameObject itemToAdd)
     {
+        if (foodInBox.Contains(itemToAdd.GetComponentInParent<Rigidbody>().gameObject))
+        {
+            return;
+        }
+
         itemToAdd = itemToAdd.GetComponentInParent<Rigidbody>().gameObject;
         foodInBox.Add(itemToAdd);
 
@@ -26,6 +31,10 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
 
     public void RemoveItemFromBox(GameObject itemToRemove)
     {
+        if (!foodInBox.Contains(itemToRemove.GetComponentInParent<Rigidbody>().gameObject))
+        {
+            return;
+        }
         itemToRemove = itemToRemove.GetComponentInParent<Rigidbody>().gameObject;
         foodInBox.Remove(itemToRemove);
 
