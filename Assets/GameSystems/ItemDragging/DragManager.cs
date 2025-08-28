@@ -13,12 +13,11 @@ public class DragManager : MonoBehaviour
     [Header("Drag Settings")]
     public float dragStrength = 50f;
     public float dragDamping = 5f;
-    public float maxForce = 1000f;              // Clamp linear force
-    public float maxAngularForce = 500f;        // Clamp rotational torque
-
+    public float maxForce = 1000f;             
+    public float maxAngularForce = 500f;        
     [Header("Lift Settings")]
     public float maxLiftHeight = 2f;
-    public float liftSmoothTime = 0.1f;         // SmoothDamp lift
+    public float liftSmoothTime = 0.1f;       
     private float liftVelocity = 0f;
 
     [Header("Rotation Settings")]
@@ -128,6 +127,7 @@ public class DragManager : MonoBehaviour
         {
             cursorController.SetCursorState(CursorState.Default);
 
+            heldRb.angularVelocity = Vector3.zero;
             heldRb.useGravity = true;
             heldRb = null;
         }
