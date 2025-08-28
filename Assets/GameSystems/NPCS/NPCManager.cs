@@ -6,16 +6,17 @@ public class NPCManager : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spacing = 2f;
-    [SerializeField] private GameObject npcPrefab;
 
     [SerializeField]
     private NPCQueue npcQueue;
     private List<GameObject> npcInstances = new();
+    [SerializeField]
+    private GameObject[] npcPrefabs;
 
     private void Awake()
     {
         npcQueue = ScriptableObject.CreateInstance<NPCQueue>();
-        npcQueue.Initialize(50);
+        npcQueue.Initialize(50, npcPrefabs);
         Initialize(npcQueue);
         EventBus.OnRequestValidated += ShiftQueue;
     }
@@ -41,9 +42,8 @@ public class NPCManager : MonoBehaviour
     {
         Vector3 pos = spawnPoint.position + Vector3.left * Index * spacing;
         Debug.Log("Instantiating npc");
-        GameObject go = Instantiate(npcPrefab, pos, Quaternion.identity, transform);
+        GameObject go = Instantiate(npcPrefabs[Random.Range(0, npcPrefabs.Length)], pos, Quaternion.identity, transform);
         go.name = npcData.name;
-        go.GetComponent<MeshRenderer>().material.color = npcData.npcColor;
         npcInstances.Add(go);
     }
 

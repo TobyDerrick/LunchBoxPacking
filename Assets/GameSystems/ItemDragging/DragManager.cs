@@ -13,10 +13,13 @@ public class DragManager : MonoBehaviour
     [Header("Drag Settings")]
     public float dragStrength = 50f;
     public float dragDamping = 5f;
+    public float maxForce = 1000f;              // Clamp linear force
+    public float maxAngularForce = 500f;        // Clamp rotational torque
 
     [Header("Lift Settings")]
     public float maxLiftHeight = 2f;
-    public float liftSpeed = 2f;
+    public float liftSmoothTime = 0.1f;         // SmoothDamp lift
+    private float liftVelocity = 0f;
 
     [Header("Rotation Settings")]
     public Vector3 desiredRotation = Vector3.zero;
@@ -140,12 +143,19 @@ public class DragManager : MonoBehaviour
 
         Vector3 targetPoint = ray.GetPoint(dist);
 
-        liftAmount = Mathf.MoveTowards(liftAmount, maxLiftHeight, liftSpeed * Time.fixedDeltaTime);
+        // Smooth lift
+        liftAmount = Mathf.SmoothDamp(liftAmount, maxLiftHeight, ref liftVelocity, liftSmoothTime);
         targetPoint.y += liftAmount;
 
-        // Apply force directly to center
-        Vector3 force = (targetPoint - heldRb.position) * dragStrength;
-        heldRb.AddForce(force - heldRb.linearVelocity * dragDamping, ForceMode.Acceleration);
+        // Compute desired velocity and apply mass-scaled force
+        Vector3 toTarget = targetPoint - heldRb.position;
+        Vector3 desiredVelocity = toTarget * dragStrength;
+        Vector3 force = (desiredVelocity - heldRb.linearVelocity) * heldRb.mass;
+
+        // Clamp force to prevent extreme spikes
+        force = Vector3.ClampMagnitude(force, maxForce);
+
+        heldRb.AddForce(force - heldRb.linearVelocity * dragDamping, ForceMode.Force);
     }
 
     private void UpdateRotationPhysics()
@@ -158,8 +168,13 @@ public class DragManager : MonoBehaviour
 
         if (Mathf.Abs(angle) > 0.01f)
         {
-            Vector3 torque = axis * angle * rotationStabilizeSpeed;
-            heldRb.AddTorque(torque - heldRb.angularVelocity * rotationDamping, ForceMode.Acceleration);
+            Vector3 torque = axis * angle * rotationStabilizeSpeed * heldRb.mass;
+
+            // Clamp torque
+            Vector3 angularDelta = torque - heldRb.angularVelocity * rotationDamping;
+            angularDelta = Vector3.ClampMagnitude(angularDelta, maxAngularForce);
+
+            heldRb.AddTorque(angularDelta, ForceMode.Acceleration);
         }
     }
 }

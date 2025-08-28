@@ -20,7 +20,7 @@ public class FoodSpawner : MonoBehaviour
             );
 
             spawned.transform.SetParent(foodSpawnAnchor, true);
-            spawned.transform.localScale = Vector3.one;
+            spawned.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
 
             spawned.AddComponent<FoodItem>().id = food.id;

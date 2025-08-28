@@ -5,6 +5,7 @@ public class NPCData : ScriptableObject
 {
     public string npcName;
     public Color npcColor;
+    public GameObject npcModel;
     public TraitRequirements request;
     public GameObject BoxDivider;
     private void OnEnable()

@@ -6,7 +6,7 @@ public class NPCQueue : ScriptableObject
 {
     public List<NPCData> npcs;
 
-    public void Initialize(int totalCount)
+    public void Initialize(int totalCount, GameObject[] npcPrefabs)
     {
         npcs = new List<NPCData>();
         for (int i = 0; i < totalCount; i++)
