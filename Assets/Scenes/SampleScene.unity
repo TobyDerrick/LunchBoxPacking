@@ -1325,8 +1325,10 @@ MonoBehaviour:
   rotateAction: {fileID: 8787569228403397566, guid: d67b839d8ebcfa443908851ade78177f, type: 3}
   dragStrength: 75
   dragDamping: 45
+  maxForce: 1000
+  maxAngularForce: 500
   maxLiftHeight: 1.1
-  liftSpeed: 100
+  liftSmoothTime: 0.1
   desiredRotation: {x: 0, y: 0, z: 0}
   rotationStabilizeSpeed: 20
   rotationDamping: 5
@@ -2874,7 +2876,7 @@ Transform:
   m_GameObject: {fileID: 1449692857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.67, y: 2.39083, z: -26.72}
+  m_LocalPosition: {x: 9.67, y: 1.4, z: -24.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3799,7 +3801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1449692858}
-  spacing: 2
+  spacing: 3
   npcQueue: {fileID: 0}
   npcPrefabs:
   - {fileID: 4308112179630492796, guid: f66ee674b117a564f9f1afd2e103a8ef, type: 3}
