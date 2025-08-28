@@ -15,6 +15,7 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
 
     public void AddItemToBox(GameObject itemToAdd)
     {
+        itemToAdd = itemToAdd.GetComponentInParent<Rigidbody>().gameObject;
         foodInBox.Add(itemToAdd);
 
         FoodScriptableObject itemSO = GameData.FoodItems.Get(itemToAdd.GetComponent<FoodItem>().id);
@@ -25,6 +26,7 @@ public class Lunchbox : MonoBehaviour, ITraitValueContainer
 
     public void RemoveItemFromBox(GameObject itemToRemove)
     {
+        itemToRemove = itemToRemove.GetComponentInParent<Rigidbody>().gameObject;
         foodInBox.Remove(itemToRemove);
 
         FoodScriptableObject itemSO = GameData.FoodItems.Get(itemToRemove.GetComponent<FoodItem>().id);

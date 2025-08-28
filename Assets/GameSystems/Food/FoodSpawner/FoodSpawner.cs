@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
@@ -7,11 +8,9 @@ public class FoodSpawner : MonoBehaviour
 
     public GameObject SpawnFood(FoodScriptableObject food)
     {
-        // Clear previous food
         foreach (Transform child in foodSpawnAnchor)
             Destroy(child.gameObject);
 
-        // Spawn new food prefab at anchor
         if (food.FoodPrefab != null)
         {
             GameObject spawned = Instantiate(
@@ -21,17 +20,19 @@ public class FoodSpawner : MonoBehaviour
             );
 
             spawned.transform.SetParent(foodSpawnAnchor, true);
-
             spawned.transform.localScale = Vector3.one;
+
 
             spawned.AddComponent<FoodItem>().id = food.id;
 
+            CombineChildMeshes(spawned);
+
+            currentFood = spawned;
             return spawned;
         }
 
         return null;
     }
-
 
     public void ClearFood()
     {
@@ -41,4 +42,43 @@ public class FoodSpawner : MonoBehaviour
             currentFood = null;
         }
     }
+
+    private void CombineChildMeshes(GameObject parent)
+    {
+        MeshFilter[] meshFilters = parent.GetComponentsInChildren<MeshFilter>();
+        if (meshFilters.Length == 0) return;
+
+        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+
+        for (int i = 0; i < meshFilters.Length; i++)
+        {
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+        }
+
+
+        MeshFilter mf = parent.AddComponent<MeshFilter>();
+        mf.mesh = new Mesh();
+        mf.mesh.CombineMeshes(combine, false, true);
+
+        MeshRenderer mr = parent.AddComponent<MeshRenderer>();
+        Material[] allMaterials = meshFilters
+            .Select(m => m.GetComponent<MeshRenderer>().sharedMaterial)
+            .ToArray();
+        mr.materials = allMaterials;
+
+        MeshCollider mc = parent.AddComponent<MeshCollider>();
+        mc.sharedMesh = mf.mesh;
+        mc.convex = true;
+
+        Rigidbody rb = parent.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = parent.AddComponent<Rigidbody>();
+            rb.mass = 1f;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+    }
+
 }
