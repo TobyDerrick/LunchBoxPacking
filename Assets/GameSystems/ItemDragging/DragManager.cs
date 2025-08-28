@@ -128,8 +128,10 @@ public class DragManager : MonoBehaviour
             heldRb.useGravity = false;
 
             liftAmount = 0f;
-
-            heldRb.transform.SetParent(null);
+            if (heldRb.transform.parent.CompareTag("Plate"))
+            {
+                heldRb.transform.SetParent(null);
+            }
         }
     }
 

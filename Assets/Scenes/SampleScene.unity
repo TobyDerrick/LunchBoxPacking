@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 254172221}
   m_Layer: 0
   m_Name: Plate
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1904,8 +1904,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.3300831, y: 1.5409908, z: 4.2089505}
-  m_Center: {x: 0.66504157, y: 0.2704954, z: 0.12686944}
+  m_Size: {x: 2.3300831, y: 1.5409908, z: 2.3869202}
+  m_Center: {x: 0.66504157, y: 0.2704954, z: -0.05507815}
 --- !u!4 &947372861
 Transform:
   m_ObjectHideFlags: 0
@@ -2381,7 +2381,7 @@ GameObject:
   - component: {fileID: 1113719011}
   m_Layer: 0
   m_Name: FoodAnchor
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
