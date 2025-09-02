@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: BodyParts
+  m_EditorClassIdentifier: 
+  m_GroupName: BodyParts
+  m_GUID: b461ce7221935b04da1c0342eaa99006
+  m_SerializeEntries:
+  - m_GUID: 093d279efdc253f4a817c7f1322f9992
+    m_Address: Hands
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10a268f124a279147952045f0e38e58e
+    m_Address: M_Face_BigEye
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15a4b1f0a2ba78246b452e63e25f6da0
+    m_Address: M_Face_Glasses
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e210be666e5cea4ab2026f4c7145625
+    m_Address: braids
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 536851931724cad4c9ee12a0e619870c
+    m_Address: pigtail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 543ecfa0203edb647ba67991631ae0d2
+    m_Address: RightHand
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58c8dd187505cbc4db4200d90aaf6ad4
+    m_Address: M_Head_SidePart
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f440e8759c311746b8448cffd4b9183
+    m_Address: Torso
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f0fc6465084ad4499b3b2d1b34bd168
+    m_Address: M_Head_Pigtail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d46a6e5b93c87841956e2b0902ea0d8
+    m_Address: M_Torso_Flower
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9230d25188b5c6d44a321cebda0124e9
+    m_Address: ponytail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 940f01c5bec5bf545a803df38937e120
+    m_Address: M_Head_Ponytail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 983c6fa3a7dd1c04fa0b395bdbd1b17d
+    m_Address: M_Face_Glasses_Freckles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c5f32bcf97985146afd8de829dbe99b
+    m_Address: M_Face_SlantedEyes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3733e521c11bd441a01722926a49d79
+    m_Address: M_Face_LongEyes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac2fe7c5e279c54459dc20bd7ee9f044
+    m_Address: M_Head_ShortWavy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b34d31973860c5c4da4f054e8982aeb0
+    m_Address: M_Torso_Bunny
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2799dd9bd430594c8bf49df141efb3f
+    m_Address: LeftHand
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2fa0c4313550dd4d90a007f6910e44c
+    m_Address: M_Torso_Strawberry
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c492228725d183a4f99c6ab6951bf846
+    m_Address: M_Torso_Star
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca1951654b7430146b8d3076fb46179a
+    m_Address: M_Torso_Apple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d277aebc9576bf549a7397cc23ba2964
+    m_Address: M_Head_Braids
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc212b64f44fd3741838041b44f83339
+    m_Address: side part
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df5f52dfc1ffa9249b3281b8f90d3d24
+    m_Address: long eyes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6a2ac99c8d29dc4fa96d01abf5bee1c
+    m_Address: short wavy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 76d49ff4f37797c4587d8e057456f58b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5f5eddfca5551d84f8a89dc490f3835b, type: 2}
+    - {fileID: 11400000, guid: 425f545b64b005c4d893e539d87f961b, type: 2}
