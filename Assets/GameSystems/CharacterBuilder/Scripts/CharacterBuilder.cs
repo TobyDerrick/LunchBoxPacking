@@ -43,17 +43,22 @@ public class CharacterData
 public class CharacterBuilder : MonoBehaviour
 {
     [Header("Character Template")]
-    [SerializeField] private CharacterTemplate template;
+    [SerializeField] private GameObject templatePrefab;
 
     [Header("UI")]
     [SerializeField] private Button randomizeButton;
 
     private CharacterData currentCharacter;
-
+    private CharacterTemplate template;
     private void Awake()
     {
         if (randomizeButton != null)
             randomizeButton.onClick.AddListener(RandomizeCharacter);
+
+        if(templatePrefab != null)
+        {
+            template = templatePrefab.GetComponent<CharacterTemplate>();
+        }
     }
 
     /// <summary>
@@ -71,12 +76,16 @@ public class CharacterBuilder : MonoBehaviour
     /// <summary>
     /// Programmatically builds a character from existing CharacterData.
     /// </summary>
-    public void BuildCharacter(CharacterData data)
+    public GameObject BuildCharacter(CharacterData data)
     {
-        if (template == null || data == null) return;
+        if (templatePrefab == null || data == null)
+            return null;
 
-        currentCharacter = data;
-        template.ApplyAllParts(data);
+        GameObject templateInstance = GameObject.Instantiate(templatePrefab);
+        CharacterTemplate templateComponent = templateInstance.GetComponent<CharacterTemplate>();
+        templateComponent.ApplyAllParts(data);
+
+        return templateInstance;
     }
 
     /// <summary>

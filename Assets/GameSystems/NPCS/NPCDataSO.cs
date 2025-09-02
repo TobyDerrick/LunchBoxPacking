@@ -8,9 +8,12 @@ public class NPCData : ScriptableObject
     public GameObject npcModel;
     public TraitRequirements request;
     public GameObject BoxDivider;
+    public CharacterData characterData;
+
     private void OnEnable()
     {
         npcName = GenerateRandomName();
+        characterData = new CharacterData(randomize: true);
         npcColor = new Color(Random.value, Random.value, Random.value);
         request = TraitRequirements.GenerateRandom(0f, 1f);
     }

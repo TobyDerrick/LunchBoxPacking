@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Threading.Tasks;
 
-
 public class GameManager : MonoBehaviour
 {
-
     public enum GameState
     {
         TitleScreen,
@@ -14,12 +12,22 @@ public class GameManager : MonoBehaviour
     }
 
     public static GameManager Instance { get; private set; }
-
     public static bool IsInitialized { get; private set; } = false;
+    private static Task initializationTask;
 
-    public static async Task EnsureInitialized()
+    public static Task EnsureInitialized()
     {
-        if (IsInitialized) return;
+        if (IsInitialized)
+            return Task.CompletedTask;
+        if (initializationTask != null)
+            return initializationTask;
+
+        initializationTask = InitializeAsync();
+        return initializationTask;
+    }
+
+    private static async Task InitializeAsync()
+    {
         if (Instance == null)
         {
             var go = new GameObject("~GameManager");
@@ -44,6 +52,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         StartPackingGame();
@@ -51,5 +60,6 @@ public class GameManager : MonoBehaviour
 
     private void StartPackingGame()
     {
+        // Game start logic goes here
     }
 }

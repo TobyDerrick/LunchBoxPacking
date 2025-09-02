@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
@@ -10,19 +11,21 @@ public class NPCManager : MonoBehaviour
     [SerializeField]
     private NPCQueue npcQueue;
     private List<GameObject> npcInstances = new();
-    [SerializeField]
-    private GameObject[] npcPrefabs;
 
-    private void Awake()
+    [SerializeField] private CharacterBuilder characterBuilder;
+
+    private async void Awake()
     {
+        await GameManager.EnsureInitialized();
         npcQueue = ScriptableObject.CreateInstance<NPCQueue>();
-        npcQueue.Initialize(50, npcPrefabs);
+        npcQueue.Initialize(50);
         Initialize(npcQueue);
         EventBus.OnRequestValidated += ShiftQueue;
     }
 
-    private void Start()
+    private async void Start()
     {
+        await GameManager.EnsureInitialized();
         Debug.Log("OWCHHH");
         EventBus.EmitNewNPC(npcQueue.npcs[0]);
     }
@@ -42,7 +45,8 @@ public class NPCManager : MonoBehaviour
     {
         Vector3 pos = spawnPoint.position + Vector3.left * Index * spacing;
         Debug.Log("Instantiating npc");
-        GameObject go = Instantiate(npcPrefabs[Random.Range(0, npcPrefabs.Length)], pos, Quaternion.identity, transform);
+        GameObject go = characterBuilder.BuildCharacter(npcData.characterData);
+        go.transform.position = pos;
         go.name = npcData.name;
         npcInstances.Add(go);
     }
