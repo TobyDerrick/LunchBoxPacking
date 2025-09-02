@@ -1332,7 +1332,7 @@ MonoBehaviour:
   desiredRotation: {x: 0, y: 0, z: 0}
   rotationStabilizeSpeed: 20
   rotationDamping: 5
-  rotationAdjustSpeed: 110
+  rotationAdjustSpeed: 130
   foodLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1923,6 +1923,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &958242295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5888894863752867011, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+  m_PrefabInstance: {fileID: 2058886752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &958242297
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958242295}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b27923adef9032d449257af2058944a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1006915374
 GameObject:
   m_ObjectHideFlags: 0
@@ -3807,6 +3834,78 @@ MonoBehaviour:
   - {fileID: 4308112179630492796, guid: f66ee674b117a564f9f1afd2e103a8ef, type: 3}
   - {fileID: 493356046102049847, guid: 0450e9286716b5c4cb6f7db56cb5ba45, type: 3}
   - {fileID: 4491565075930578983, guid: 868065ad4d976f84cae8af903f3d08b1, type: 3}
+--- !u!1001 &2058886752
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.1931007
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.73
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.741554
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6960432531090989336, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 64ad8007b25814d4589ff1ed5f08395c, type: 2}
+    - target: {fileID: -1653855708037526160, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: m_Name
+      value: lunchbox kids test2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228729728496553731, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 64ad8007b25814d4589ff1ed5f08395c, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5888894863752867011, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 958242297}
+  m_SourcePrefab: {fileID: 100100000, guid: e33f5663ce4a94449a8c8442f542b940, type: 3}
 --- !u!1 &2117962166
 GameObject:
   m_ObjectHideFlags: 0
@@ -3964,7 +4063,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2117962168}
   m_HandleRect: {fileID: 2117962167}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4100,3 +4199,4 @@ SceneRoots:
   - {fileID: 947372861}
   - {fileID: 1006915376}
   - {fileID: 358736824}
+  - {fileID: 2058886752}
