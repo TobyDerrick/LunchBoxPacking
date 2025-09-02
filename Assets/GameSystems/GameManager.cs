@@ -15,10 +15,15 @@ public class GameManager : MonoBehaviour
     public static bool IsInitialized { get; private set; } = false;
     private static Task initializationTask;
 
+    /// <summary>
+    /// Ensures GameData is loaded and the GameManager is initialized.
+    /// Safe to call from multiple components; will only initialize once.
+    /// </summary>
     public static Task EnsureInitialized()
     {
         if (IsInitialized)
             return Task.CompletedTask;
+
         if (initializationTask != null)
             return initializationTask;
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public static class GameData
 {
@@ -11,29 +10,34 @@ public static class GameData
     public static readonly DataGroup<CharacterPartScriptableObject, CharacterPartID> CharacterParts =
         new("CharacterParts", item => item.id);
 
-    // Preloaded dictionaries
+
     public static readonly Dictionary<CharacterPartID, GameObject> PrefabCache = new();
     public static readonly Dictionary<CharacterPartID, Material> MaterialCache = new();
 
-    public static async Task LoadAll()
+    private static Task loadTask;
+
+    public static Task LoadAll()
+    {
+        if (loadTask != null)
+            return loadTask;
+
+        loadTask = LoadAllInternal();
+        return loadTask;
+    }
+
+    private static async Task LoadAllInternal()
     {
         await FoodItems.Load();
         await CharacterParts.Load();
 
-        // Preload all character part prefabs and materials
         foreach (var part in CharacterParts.GetAll())
         {
-            if (part.prefab != null && part.prefab.RuntimeKeyIsValid())
-            {
-                var prefab = await part.prefab.LoadAssetAsync<GameObject>().Task;
-                PrefabCache[part.id] = prefab;
-            }
+            if (part.prefab != null && part.prefab.RuntimeKeyIsValid() && !PrefabCache.ContainsKey(part.id))
+                PrefabCache[part.id] = await part.prefab.LoadAssetAsync<GameObject>().Task;
 
-            if (part.material != null && part.material.RuntimeKeyIsValid())
-            {
-                var mat = await part.material.LoadAssetAsync<Material>().Task;
-                MaterialCache[part.id] = mat;
-            }
+            if (part.material != null && part.material.RuntimeKeyIsValid() && !MaterialCache.ContainsKey(part.id))
+                MaterialCache[part.id] = await part.material.LoadAssetAsync<Material>().Task;
         }
     }
+
 }

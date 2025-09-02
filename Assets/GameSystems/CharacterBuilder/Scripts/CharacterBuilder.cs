@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 [Serializable]
 public class CharacterData
@@ -49,28 +50,43 @@ public class CharacterBuilder : MonoBehaviour
     [SerializeField] private Button randomizeButton;
 
     private CharacterData currentCharacter;
-    private CharacterTemplate template;
+    public GameObject currentInstance;
+    public CharacterTemplate templateComponent;
+
     private void Awake()
     {
         if (randomizeButton != null)
-            randomizeButton.onClick.AddListener(RandomizeCharacter);
+            randomizeButton.onClick.AddListener(() => { _ = RandomizeCharacter(); });
 
-        if(templatePrefab != null)
-        {
-            template = templatePrefab.GetComponent<CharacterTemplate>();
-        }
+
+        //await GameManager.EnsureInitialized();
+        //RandomizeCharacter();
     }
 
     /// <summary>
     /// Creates a new random character and applies it to the template.
     /// Safe for UI button use.
     /// </summary>
-    public void RandomizeCharacter()
+    public GameObject RandomizeCharacter()
     {
-        if (template == null) return;
+        if (templatePrefab == null)
+            return null;
+
+        // Destroy previous character if exists
+        if (currentInstance != null)
+        {
+            Destroy(currentInstance);
+            currentInstance = null;
+        }
 
         currentCharacter = new CharacterData(randomize: true);
-        template.ApplyAllParts(currentCharacter);
+
+        // Instantiate new character
+        currentInstance = GameObject.Instantiate(templatePrefab);
+        templateComponent = currentInstance.GetComponent<CharacterTemplate>();
+        templateComponent.ApplyAllParts(currentCharacter);
+
+        return currentInstance;
     }
 
     /// <summary>
@@ -82,8 +98,11 @@ public class CharacterBuilder : MonoBehaviour
             return null;
 
         GameObject templateInstance = GameObject.Instantiate(templatePrefab);
-        CharacterTemplate templateComponent = templateInstance.GetComponent<CharacterTemplate>();
+        templateComponent = templateInstance.GetComponent<CharacterTemplate>();
         templateComponent.ApplyAllParts(data);
+
+        currentInstance = templateInstance;
+        currentCharacter = data;
 
         return templateInstance;
     }
