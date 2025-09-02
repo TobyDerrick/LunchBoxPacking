@@ -42,18 +42,24 @@ public class DragManager : MonoBehaviour
         pointerPress.action.Enable();
         rotateAction.action.Enable();
 
-        pointerPress.action.performed += ctx => TryPickObject();
-        pointerPress.action.canceled += ctx => ReleaseObject();
+        pointerPress.action.performed += OnPressPerformed;
+        pointerPress.action.canceled += OnPressCanceled;
 
         cam = Camera.main;
     }
 
     private void OnDisable()
     {
+        pointerPress.action.performed -= OnPressPerformed;
+        pointerPress.action.canceled -= OnPressCanceled;
+
         pointerPosition.action.Disable();
         pointerPress.action.Disable();
         rotateAction.action.Disable();
     }
+
+    private void OnPressPerformed(InputAction.CallbackContext ctx) => TryPickObject();
+    private void OnPressCanceled(InputAction.CallbackContext ctx) => ReleaseObject();
 
     private void Update()
     {

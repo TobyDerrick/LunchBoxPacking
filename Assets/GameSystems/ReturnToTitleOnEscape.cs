@@ -1,24 +1,26 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ReturnToTitleOnEscape : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput; 
-
-    private void Awake()
+    [SerializeField] private InputActionReference pauseAction;
+    private void OnEnable()
     {
-        if (playerInput == null)
-            playerInput = FindFirstObjectByType<PlayerInput>();
-
-        if (playerInput != null)
-            playerInput.actions["Pause"].performed += OnEscapePressed;
+        if (pauseAction != null)
+        {
+            pauseAction.action.performed += OnEscapePressed;
+            pauseAction.action.Enable();
+        }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if (playerInput != null)
-            playerInput.actions["Pause"].performed -= OnEscapePressed;
+        if (pauseAction != null)
+        {
+            pauseAction.action.performed -= OnEscapePressed;
+            pauseAction.action.Disable();
+        }
     }
 
     private void OnEscapePressed(InputAction.CallbackContext context)

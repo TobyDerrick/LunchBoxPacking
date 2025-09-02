@@ -23,6 +23,11 @@ public class NPCManager : MonoBehaviour
         EventBus.OnRequestValidated += ShiftQueue;
     }
 
+    private void OnDestroy()
+    {
+        EventBus.OnRequestValidated -= ShiftQueue;
+    }
+
     private async void Start()
     {
         await GameManager.EnsureInitialized();

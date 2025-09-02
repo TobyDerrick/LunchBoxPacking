@@ -25,6 +25,12 @@ public class NPCRequestBubbles : MonoBehaviour
         maxRadius = layoutGroup.radius;
     }
 
+    private void OnDestroy()
+    {
+        EventBus.OnNewNPC -= InitializeRequestBubbles;
+        EventBus.OnRequestValidated -= AnimateOutBubbles;
+    }
+
     public void InitializeRequestBubbles(NPCData npcData)
     {
         TraitRequirements requirements = npcData.request;

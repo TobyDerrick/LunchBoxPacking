@@ -23,6 +23,11 @@ public class RequestManager : MonoBehaviour
     {
         EventBus.OnNewNPC += SpawnNewLunchbox;
     }
+
+    private void OnDestroy()
+    {
+        EventBus.OnNewNPC -= SpawnNewLunchbox;
+    }
     public void GenerateNewRequest()
     {
         currentRequest = TraitRequirements.GenerateRandom(0f, 1f);
