@@ -12,6 +12,7 @@ public enum CharacterPartType
 public enum CharacterPartID
 {
     FaceBigEye,
+    FaceBigEyeNoLash,
     FaceGlasses,
     FaceGlassesFreckles,
     FaceLongEye,
@@ -22,10 +23,12 @@ public enum CharacterPartID
     HairPonytail,
     HairShortWavy,
     HairSidePart,
+    HairLong,
     TorsoApple,
     TorsoBunny,
     TorsoFlower,
     TorsoStar,
+    TorsoFish,
     TorsoStrawberry
 }
 

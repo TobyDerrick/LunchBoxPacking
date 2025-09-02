@@ -3850,10 +3850,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1449692858}
   spacing: 3
   npcQueue: {fileID: 0}
-  npcPrefabs:
-  - {fileID: 4308112179630492796, guid: f66ee674b117a564f9f1afd2e103a8ef, type: 3}
-  - {fileID: 493356046102049847, guid: 0450e9286716b5c4cb6f7db56cb5ba45, type: 3}
-  - {fileID: 4491565075930578983, guid: 868065ad4d976f84cae8af903f3d08b1, type: 3}
+  characterBuilder: {fileID: 711613775}
 --- !u!1 &2117962166
 GameObject:
   m_ObjectHideFlags: 0

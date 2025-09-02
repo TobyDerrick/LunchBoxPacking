@@ -21,8 +21,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - CharacterParts
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 040fabb7d99c61a4b829148c3a0ba173
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Head/LongHair.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1ff10dc2d25ed7f419b433c58954a9bc
     m_Address: Pigtails
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4212488486fe72944a37765f0829bef7
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Face/FaceBigEyeNoLash.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterParts
@@ -77,6 +89,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd05759978e648e42888afbfaf5b023b
     m_Address: TorsoBunny
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb0ee24be995450468481d63a3a88a64
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Torso/TorsoFish.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterParts

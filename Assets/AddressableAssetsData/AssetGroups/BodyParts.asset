@@ -30,8 +30,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20393bcc4cd720f46a1fa4a2a5e53637
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/torso/M_Torso_Fish.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e210be666e5cea4ab2026f4c7145625
     m_Address: braids
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 455ea056df876ea41a73b965b7cac111
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartPrefabs/Head/long hair.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -52,6 +62,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f440e8759c311746b8448cffd4b9183
     m_Address: Torso
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74883a188ff999843a4df871e57aa835
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/face/M_Face_BigEyeNoLash.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -97,6 +112,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b34d31973860c5c4da4f054e8982aeb0
     m_Address: M_Torso_Bunny
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bceb53d00662fff46b134acf911252d4
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_LongHair.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
