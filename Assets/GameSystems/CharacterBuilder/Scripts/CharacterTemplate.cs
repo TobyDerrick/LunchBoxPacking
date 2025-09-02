@@ -31,7 +31,7 @@ public class CharacterTemplate : MonoBehaviour
         currentFace = ApplyPart(data.FaceID, faceSlot);
         currentHead = ApplyPart(data.HeadID, headSlot);
         currentTorso = ApplyPart(data.TorsoID, torsoSlot);
-        currentHands = ApplyPart(data.HandsID, handsSlot);
+        //currentHands = ApplyPart(data.HandsID, handsSlot);
     }
 
     /// <summary>
