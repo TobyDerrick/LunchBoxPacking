@@ -32,7 +32,7 @@ public enum CharacterPartID
 [CreateAssetMenu(menuName = "Character/Part")]
 public class CharacterPartScriptableObject : ScriptableObject
 {
-    public CharacterPartID id; // unique string ID, JSON save will use this
+    public CharacterPartID id;
     public CharacterPartType partType;
 
     public AssetReferenceT<Material> material;

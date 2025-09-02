@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: CharacterParts
+  m_EditorClassIdentifier: 
+  m_GroupName: CharacterParts
+  m_GUID: 9d1801e8b2940cb429ffe26ffa40b32a
+  m_SerializeEntries:
+  - m_GUID: 03a28c371350e3142b4b4213a8aa5c35
+    m_Address: Hands
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ff10dc2d25ed7f419b433c58954a9bc
+    m_Address: Pigtails
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66e527ddd6b799d4cb9d638dca122a09
+    m_Address: FaceGlassesFreckles
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f853a0e623eef8409403b3d18788b9a
+    m_Address: TorsoStar
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80feeceeed8dc2f4485ed689355c7ba7
+    m_Address: FaceSlanted
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 820febd3afd91e84ca94f00a7f5c42bb
+    m_Address: TorsoStrawberry
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 966e7dd6577560947b694f067465153c
+    m_Address: ShortWavy
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c7bba688b2dea14b9ca78b9cdd403d8
+    m_Address: FaceBigEye
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b19a3c4327a65904b94db221dbc31fc3
+    m_Address: TorsoApple
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5ddb234a1c31274b96cfbb45c561e5a
+    m_Address: FaceLongEye
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd05759978e648e42888afbfaf5b023b
+    m_Address: TorsoBunny
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdb27ebd98e1f57418432543a208d1c5
+    m_Address: Ponytail
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1cfaae82f1fd654e8d83d80cb45bad1
+    m_Address: Braids
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d46507a1cd571454ba0b6b6c22585259
+    m_Address: SidePart
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7472396458cb45429a25188b4bcf06c
+    m_Address: FaceGlasses
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f32e3ddac1790ae4ab4405c5e6c0f100
+    m_Address: TorsoFlower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 76d49ff4f37797c4587d8e057456f58b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f43c391e822d4e44284e8cac8bd941a7, type: 2}
+    - {fileID: 11400000, guid: 4f2acd507224bef43a1a8d133a827a9b, type: 2}
