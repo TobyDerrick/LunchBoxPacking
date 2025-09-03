@@ -31,7 +31,7 @@ public class CharacterData
     /// Constructor: optionally randomize the character parts.
     /// </summary>
     /// <param name="randomize">If true, picks random parts for each slot.</param>
-    public CharacterData(bool randomize = false)
+    public CharacterData(bool randomize = false, CharacterPalette palette = null)
     {
         if (randomize)
         {
@@ -40,7 +40,7 @@ public class CharacterData
             TorsoID = GetRandomPartOfType(CharacterPartType.Torso);
             HandsID = GetRandomPartOfType(CharacterPartType.Hands);
 
-            RandomizeColors();
+            RandomizeColors(palette);
         }
     }
 
@@ -57,25 +57,38 @@ public class CharacterData
         return parts[index].id;
     }
 
-    public void RandomizeColors()
+    public void RandomizeColors(CharacterPalette palette)
     {
-        // Hair
-        HairBase = UnityEngine.Random.ColorHSV();
+        HairBase = palette.GetRandomHair();
         HairShadow = HairBase * 0.5f;
         HairHighlight = HairBase * 1.2f;
 
-        // Eyes
-        EyeBase = UnityEngine.Random.ColorHSV();
+        EyeBase = palette.GetRandomEye();
         EyeShadow = EyeBase * 0.5f;
         EyeHighlight = EyeBase * 1.2f;
 
-        // Skin
-        Skin = UnityEngine.Random.ColorHSV();
-
-        // Shirt
-        Shirt = UnityEngine.Random.ColorHSV();
+        Skin = palette.GetRandomSkin();
+        Shirt = palette.GetRandomShirt();
     }
 }
+
+[System.Serializable]
+public class CharacterPalette
+{
+    public string PaletteName;
+
+    public Color[] HairColors; 
+    public Color[] EyeColors;
+    public Color[] SkinColors;
+    public Color[] ShirtColors;
+
+    // Get a random color from the array, fallback to white
+    public Color GetRandomHair() => HairColors.Length > 0 ? HairColors[UnityEngine.Random.Range(0, HairColors.Length)] : Color.white;
+    public Color GetRandomEye() => EyeColors.Length > 0 ? EyeColors[UnityEngine.Random.Range(0, EyeColors.Length)] : Color.white;
+    public Color GetRandomSkin() => SkinColors.Length > 0 ? SkinColors[UnityEngine.Random.Range(0, SkinColors.Length)] : Color.white;
+    public Color GetRandomShirt() => ShirtColors.Length > 0 ? ShirtColors[UnityEngine.Random.Range(0, ShirtColors.Length)] : Color.white;
+}
+
 
 public class CharacterBuilder : MonoBehaviour
 {
@@ -87,6 +100,7 @@ public class CharacterBuilder : MonoBehaviour
 
     public GameObject currentInstance;
     public CharacterTemplate templateComponent;
+    public CharacterPalette characterPalette;
     private CharacterData currentCharacter;
 
     private void Awake()
@@ -109,7 +123,7 @@ public class CharacterBuilder : MonoBehaviour
             currentInstance = null;
         }
 
-        currentCharacter = new CharacterData(randomize: true);
+        currentCharacter = new CharacterData(randomize: true, palette: characterPalette);
 
         // Instantiate template and apply parts + colors
         currentInstance = Instantiate(templatePrefab);

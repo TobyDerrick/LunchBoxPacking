@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class CharacterCreatorController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private CharacterBuilder builder;
-    [SerializeField] private Transform scrollContent; // Content of ScrollView
-    [SerializeField] private Button partButtonPrefab; // Prefab for part buttons
+    [SerializeField] private Transform scrollContent;
+    [SerializeField] private Button partButtonPrefab;
+    [SerializeField] private Transform colorLayoutGroup;
+    [SerializeField] private Button colorButtonPrefab;
     [SerializeField] private Transform spawnPosition;
 
     [Header("Tabs")]
@@ -20,6 +23,8 @@ public class CharacterCreatorController : MonoBehaviour
     [SerializeField] private Button handsTab;
 
     private Dictionary<CharacterPartType, List<CharacterPartScriptableObject>> partLookup;
+
+    private CharacterPalette palette;
 
     private async void Awake()
     {
@@ -72,5 +77,20 @@ public class CharacterCreatorController : MonoBehaviour
                 builder.templateComponent.SwapPart(capturedPart.id);
             });
         }
+
+        ShowColours(type);
+    }
+
+    private void ShowColours(CharacterPartType type)
+    {
+        switch(type) {
+            case CharacterPartType.Face:
+                return;
+            case CharacterPartType.Head:
+                return;
+            case CharacterPartType.Torso:
+                return;
+            case CharacterPartType.Hands:
+                return;
     }
 }
