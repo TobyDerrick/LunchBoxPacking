@@ -1,7 +1,9 @@
+using UnityEditor.Analytics;
 using UnityEngine;
 
 /// <summary>
-/// Handles building a character from preloaded prefabs and materials.
+/// Handles building a character from preloaded prefabs and materials,
+/// and applies per-part colors using a palette swap shader.
 /// </summary>
 public class CharacterTemplate : MonoBehaviour
 {
@@ -9,36 +11,47 @@ public class CharacterTemplate : MonoBehaviour
     public Transform faceSlot;
     public Transform headSlot;
     public Transform torsoSlot;
-    public Transform handsSlot;
+    public Transform leftHand, rightHand;
 
     private GameObject currentFace;
     private GameObject currentHead;
     private GameObject currentTorso;
-    private GameObject currentHands;
+
+    private CharacterData currentCharacter;
 
     /// <summary>
     /// Builds or rebuilds the entire character from CharacterData.
     /// </summary>
     public void ApplyAllParts(CharacterData data)
     {
+        currentCharacter = data;
+
         // Destroy previous instances
         if (currentFace != null) Destroy(currentFace);
         if (currentHead != null) Destroy(currentHead);
         if (currentTorso != null) Destroy(currentTorso);
-        if (currentHands != null) Destroy(currentHands);
 
         // Apply new parts
-        currentFace = ApplyPart(data.FaceID, faceSlot);
-        currentHead = ApplyPart(data.HeadID, headSlot);
-        currentTorso = ApplyPart(data.TorsoID, torsoSlot);
-        //currentHands = ApplyPart(data.HandsID, handsSlot);
+        currentFace = ApplyPart(data.FaceID, faceSlot, data);
+        currentHead = ApplyPart(data.HeadID, headSlot, data);
+        currentTorso = ApplyPart(data.TorsoID, torsoSlot, data);
+
+        ApplyColors(leftHand.GetComponent<Renderer>(), CharacterPartType.Hands, data);
+        ApplyColors(rightHand.GetComponent<Renderer>(), CharacterPartType.Hands, data);
+
     }
 
     /// <summary>
-    /// Swaps a single part by CharacterPartID.
+    /// Swaps a single part by CharacterPartID while keeping colors.
     /// </summary>
     public void SwapPart(CharacterPartID partID)
     {
+        if (currentCharacter == null)
+        {
+            Debug.LogWarning("No character data stored. Call ApplyAllParts first.");
+            return;
+        }
+
         var part = GameData.CharacterParts.Get(partID);
         if (part == null) return;
 
@@ -59,15 +72,12 @@ public class CharacterTemplate : MonoBehaviour
                 parent = torsoSlot;
                 oldInstance = currentTorso;
                 break;
-            case CharacterPartType.Hands:
-                parent = handsSlot;
-                oldInstance = currentHands;
-                break;
+
         }
 
         if (oldInstance != null) Destroy(oldInstance);
 
-        var instance = ApplyPart(partID, parent);
+        var instance = ApplyPart(partID, parent, currentCharacter);
 
         // Update current reference
         switch (part.partType)
@@ -75,36 +85,72 @@ public class CharacterTemplate : MonoBehaviour
             case CharacterPartType.Face: currentFace = instance; break;
             case CharacterPartType.Head: currentHead = instance; break;
             case CharacterPartType.Torso: currentTorso = instance; break;
-            case CharacterPartType.Hands: currentHands = instance; break;
         }
     }
 
     /// <summary>
-    /// Instantiates the prefab and applies the preloaded material from GameData caches.
+    /// Instantiates the prefab and applies preloaded material and colors.
     /// Also sets up FaceBlinkController if present.
     /// </summary>
-    private GameObject ApplyPart(CharacterPartID id, Transform parent)
+    private GameObject ApplyPart(CharacterPartID id, Transform parent, CharacterData data)
     {
         if (!GameData.PrefabCache.TryGetValue(id, out var prefab))
             return null;
 
         GameObject instance = GameObject.Instantiate(prefab, parent);
 
-        // Apply preloaded material
+        // Apply preloaded material and palette colors
         if (GameData.MaterialCache.TryGetValue(id, out var mat))
         {
             var rend = instance.GetComponentInChildren<Renderer>();
             if (rend != null)
-                rend.material = mat;
+            {
+                rend.sharedMaterial = mat;
+                var part = GameData.CharacterParts.Get(id);
+                ApplyColors(rend, part.partType, data);
+            }
         }
 
         // Auto-setup FaceBlinkController if this is a face
         var blink = instance.GetComponent<FaceBlinkController>();
         if (blink != null)
-        {
-            blink.Initialize(); // detects vertical frame count and starts blinking
-        }
+            blink.Initialize();
 
         return instance;
+    }
+
+    /// <summary>
+    /// Sets up MaterialPropertyBlock colors for a specific renderer and part type.
+    /// </summary>
+    private void ApplyColors(Renderer rend, CharacterPartType type, CharacterData data)
+    {
+        var mpb = new MaterialPropertyBlock();
+        rend.GetPropertyBlock(mpb);
+
+        switch (type)
+        {
+            case CharacterPartType.Head: // hair
+                mpb.SetColor("_BaseColor", data.HairBase);
+                mpb.SetColor("_ShadowColor", data.HairShadow);
+                mpb.SetColor("_HighlightColor", data.HairHighlight);
+                mpb.SetColor("_SkinColor", data.Skin);
+                break;
+
+            case CharacterPartType.Face: // eyes + skin
+                mpb.SetColor("_BaseColor", data.EyeBase);
+                mpb.SetColor("_ShadowColor", data.EyeShadow);
+                mpb.SetColor("_HighlightColor", data.EyeHighlight);
+                break;
+
+            case CharacterPartType.Torso:
+                mpb.SetColor("_BaseColor", data.Shirt);
+                break;
+
+            case CharacterPartType.Hands:
+                mpb.SetColor("_SkinColor", data.Skin);
+                break;
+        }
+
+        rend.SetPropertyBlock(mpb);
     }
 }

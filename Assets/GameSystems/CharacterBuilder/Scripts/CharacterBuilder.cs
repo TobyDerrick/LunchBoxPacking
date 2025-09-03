@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 [Serializable]
 public class CharacterData
@@ -11,6 +10,22 @@ public class CharacterData
     public CharacterPartID HeadID;
     public CharacterPartID TorsoID;
     public CharacterPartID HandsID;
+
+    // Hair (Head material)
+    public Color HairBase = new Color(0.6f, 0.3f, 0.1f);
+    public Color HairShadow = new Color(0.3f, 0.15f, 0.05f);
+    public Color HairHighlight = new Color(0.9f, 0.6f, 0.3f);
+
+    // Eyes (Face material)
+    public Color EyeBase = Color.black;
+    public Color EyeShadow = new Color(0.1f, 0.1f, 0.1f);
+    public Color EyeHighlight = Color.white;
+
+    // Skin (Face + Hands)
+    public Color Skin = new Color(1f, 0.8f, 0.6f);
+
+    // Shirt (Torso)
+    public Color Shirt = Color.blue;
 
     /// <summary>
     /// Constructor: optionally randomize the character parts.
@@ -24,6 +39,8 @@ public class CharacterData
             HeadID = GetRandomPartOfType(CharacterPartType.Head);
             TorsoID = GetRandomPartOfType(CharacterPartType.Torso);
             HandsID = GetRandomPartOfType(CharacterPartType.Hands);
+
+            RandomizeColors();
         }
     }
 
@@ -39,6 +56,25 @@ public class CharacterData
         int index = UnityEngine.Random.Range(0, parts.Length);
         return parts[index].id;
     }
+
+    public void RandomizeColors()
+    {
+        // Hair
+        HairBase = UnityEngine.Random.ColorHSV();
+        HairShadow = HairBase * 0.5f;
+        HairHighlight = HairBase * 1.2f;
+
+        // Eyes
+        EyeBase = UnityEngine.Random.ColorHSV();
+        EyeShadow = EyeBase * 0.5f;
+        EyeHighlight = EyeBase * 1.2f;
+
+        // Skin
+        Skin = UnityEngine.Random.ColorHSV();
+
+        // Shirt
+        Shirt = UnityEngine.Random.ColorHSV();
+    }
 }
 
 public class CharacterBuilder : MonoBehaviour
@@ -49,30 +85,24 @@ public class CharacterBuilder : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Button randomizeButton;
 
-    private CharacterData currentCharacter;
     public GameObject currentInstance;
     public CharacterTemplate templateComponent;
+    private CharacterData currentCharacter;
 
     private void Awake()
     {
         if (randomizeButton != null)
             randomizeButton.onClick.AddListener(() => { _ = RandomizeCharacter(); });
-
-
-        //await GameManager.EnsureInitialized();
-        //RandomizeCharacter();
     }
 
     /// <summary>
-    /// Creates a new random character and applies it to the template.
-    /// Safe for UI button use.
+    /// Creates a new random character with randomized parts and colors.
     /// </summary>
     public GameObject RandomizeCharacter()
     {
-        if (templatePrefab == null)
-            return null;
+        if (templatePrefab == null) return null;
 
-        // Destroy previous character if exists
+        // Destroy previous instance
         if (currentInstance != null)
         {
             Destroy(currentInstance);
@@ -81,8 +111,8 @@ public class CharacterBuilder : MonoBehaviour
 
         currentCharacter = new CharacterData(randomize: true);
 
-        // Instantiate new character
-        currentInstance = GameObject.Instantiate(templatePrefab);
+        // Instantiate template and apply parts + colors
+        currentInstance = Instantiate(templatePrefab);
         templateComponent = currentInstance.GetComponent<CharacterTemplate>();
         templateComponent.ApplyAllParts(currentCharacter);
 
@@ -90,25 +120,22 @@ public class CharacterBuilder : MonoBehaviour
     }
 
     /// <summary>
-    /// Programmatically builds a character from existing CharacterData.
+    /// Builds a character from existing CharacterData.
     /// </summary>
     public GameObject BuildCharacter(CharacterData data)
     {
-        if (templatePrefab == null || data == null)
-            return null;
+        if (templatePrefab == null || data == null) return null;
 
-        GameObject templateInstance = GameObject.Instantiate(templatePrefab);
-        templateComponent = templateInstance.GetComponent<CharacterTemplate>();
+        currentInstance = Instantiate(templatePrefab);
+        templateComponent = currentInstance.GetComponent<CharacterTemplate>();
         templateComponent.ApplyAllParts(data);
 
-        currentInstance = templateInstance;
         currentCharacter = data;
-
-        return templateInstance;
+        return currentInstance;
     }
 
     /// <summary>
-    /// Returns the current character data for saving or other use.
+    /// Returns the current character data.
     /// </summary>
     public CharacterData GetCurrentCharacterData()
     {

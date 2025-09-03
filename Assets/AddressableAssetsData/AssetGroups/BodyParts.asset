@@ -21,12 +21,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 10a268f124a279147952045f0e38e58e
-    m_Address: M_Face_BigEye
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/face/M_Face_BigEye.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15a4b1f0a2ba78246b452e63e25f6da0
-    m_Address: M_Face_Glasses
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/face/M_Face_Glasses.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -91,17 +91,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 983c6fa3a7dd1c04fa0b395bdbd1b17d
-    m_Address: M_Face_Glasses_Freckles
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/face/M_Face_Glasses_Freckles.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c5f32bcf97985146afd8de829dbe99b
-    m_Address: M_Face_SlantedEyes
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/face/M_Face_SlantedEyes.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a3733e521c11bd441a01722926a49d79
-    m_Address: M_Face_LongEyes
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/face/M_Face_LongEyes.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

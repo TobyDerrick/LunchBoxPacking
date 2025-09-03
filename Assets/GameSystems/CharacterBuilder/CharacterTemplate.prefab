@@ -149,7 +149,8 @@ MonoBehaviour:
   faceSlot: {fileID: 1469642193418092735}
   headSlot: {fileID: 8672485073653516178}
   torsoSlot: {fileID: 5500090726441862930}
-  handsSlot: {fileID: 3633956335309939871}
+  leftHand: {fileID: 6598835177398410025}
+  rightHand: {fileID: 9005427795449180597}
 --- !u!1 &6249495309400421837
 GameObject:
   m_ObjectHideFlags: 0
