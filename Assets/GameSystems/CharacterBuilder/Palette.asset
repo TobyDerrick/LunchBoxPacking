@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Palette
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterPalette
+  PaletteName: BASIC
+  HairColors:
+  - {r: 0.58851784, g: 1, b: 0.5264151, a: 0}
+  - {r: 0.9558298, g: 1, b: 0.5254902, a: 0}
+  - {r: 1, g: 0.7579579, b: 0.5254902, a: 0}
+  - {r: 1, g: 0.5254902, b: 0.66175425, a: 0}
+  - {r: 1, g: 0.5254902, b: 0.892486, a: 0}
+  - {r: 0.5254902, g: 0.8166492, b: 1, a: 0}
+  - {r: 0.51901203, g: 0.5698112, b: 0.50207895, a: 0}
+  - {r: 0.5254902, g: 1, b: 0.79339254, a: 0}
+  EyeColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  SkinColors:
+  - {r: 0.9921569, g: 0.85098046, b: 0.7803922, a: 0}
+  - {r: 1, g: 0.7803922, b: 0.6862745, a: 0}
+  - {r: 0.9607844, g: 0.654902, b: 0.41960788, a: 0}
+  - {r: 0.64705884, g: 0.42352945, b: 0.20392159, a: 0}
+  - {r: 0.5568628, g: 0.32156864, b: 0.1764706, a: 0}
+  - {r: 0.2784314, g: 0.19607845, b: 0.13333334, a: 0}
+  ShirtColors:
+  - {r: 0.5882353, g: 1, b: 0.5254902, a: 0}
+  - {r: 0.9568628, g: 1, b: 0.5254902, a: 0}
+  - {r: 1, g: 0.7568628, b: 0.5254902, a: 0}
+  - {r: 1, g: 0.5254902, b: 0.6627451, a: 0}
+  - {r: 1, g: 0.5254902, b: 0.8941177, a: 0}
+  - {r: 0.5254902, g: 0.81568635, b: 1, a: 0}
+  - {r: 0.5176471, g: 0.5686275, b: 0.5019608, a: 0}
+  - {r: 0.5254902, g: 1, b: 0.79215693, a: 0}

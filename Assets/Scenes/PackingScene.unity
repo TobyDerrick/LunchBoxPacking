@@ -1496,6 +1496,8 @@ MonoBehaviour:
   randomizeButton: {fileID: 0}
   currentInstance: {fileID: 0}
   templateComponent: {fileID: 0}
+  characterPalette: {fileID: 11400000, guid: 4db0c94911aaaaf429591560e7b7756d, type: 2}
+  spawnPosition: {fileID: 0}
 --- !u!1 &890849854
 GameObject:
   m_ObjectHideFlags: 0
