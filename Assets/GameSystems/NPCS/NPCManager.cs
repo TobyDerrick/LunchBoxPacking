@@ -18,7 +18,7 @@ public class NPCManager : MonoBehaviour
     {
         await GameManager.EnsureInitialized();
         npcQueue = ScriptableObject.CreateInstance<NPCQueue>();
-        npcQueue.Initialize(50);
+        npcQueue.Initialize(50, characterBuilder);
         Initialize(npcQueue);
         EventBus.OnRequestValidated += ShiftQueue;
     }

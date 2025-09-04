@@ -40,7 +40,10 @@ public class CharacterData
             TorsoID = GetRandomPartOfType(CharacterPartType.Torso);
             HandsID = GetRandomPartOfType(CharacterPartType.Hands);
 
-            RandomizeColors(palette);
+            if(palette != null)
+            {
+                RandomizeColors(palette);
+            }
         }
     }
 
