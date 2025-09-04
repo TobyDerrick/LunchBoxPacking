@@ -1,5 +1,7 @@
+using System.Runtime.CompilerServices;
 using UnityEditor.Analytics;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// Handles building a character from preloaded prefabs and materials,
@@ -13,11 +15,11 @@ public class CharacterTemplate : MonoBehaviour
     public Transform torsoSlot;
     public Transform leftHand, rightHand;
 
-    private GameObject currentFace;
-    private GameObject currentHead;
-    private GameObject currentTorso;
+    public GameObject currentFace;
+    public GameObject currentHead;
+    public GameObject currentTorso;
 
-    private CharacterData currentCharacter;
+    public CharacterData currentCharacter;
 
     /// <summary>
     /// Builds or rebuilds the entire character from CharacterData.
@@ -119,27 +121,54 @@ public class CharacterTemplate : MonoBehaviour
         return instance;
     }
 
+    public void SetPartColour(CharacterPartType partType,  Color newColour)
+    {
+        GameObject partObject = null;
+
+        switch (partType)
+        {
+            case CharacterPartType.Face:
+                currentCharacter.Skin = newColour;
+                partObject = currentHead;
+                break;
+            case CharacterPartType.Head:
+                currentCharacter.HairBase = newColour;
+                currentCharacter.HairShadow = newColour * 0.5f;
+                partObject = currentHead;
+                break;
+            case CharacterPartType.Torso:
+                currentCharacter.Shirt = newColour;
+                partObject = currentTorso;
+                break;
+        }
+
+        ApplyColors(partObject.GetComponent<Renderer>(), partType, currentCharacter);
+        ApplyColors(leftHand.GetComponent<Renderer>(), CharacterPartType.Hands, currentCharacter);
+        ApplyColors(rightHand.GetComponent<Renderer>(), CharacterPartType.Hands, currentCharacter);
+    }
+
     /// <summary>
     /// Sets up MaterialPropertyBlock colors for a specific renderer and part type.
     /// </summary>
-    private void ApplyColors(Renderer rend, CharacterPartType type, CharacterData data)
+    public void ApplyColors(Renderer rend, CharacterPartType type, CharacterData data)
     {
         var mpb = new MaterialPropertyBlock();
         rend.GetPropertyBlock(mpb);
 
         switch (type)
         {
-            case CharacterPartType.Head: // hair
+            case CharacterPartType.Head:
                 mpb.SetColor("_BaseColor", data.HairBase);
                 mpb.SetColor("_ShadowColor", data.HairShadow);
                 mpb.SetColor("_HighlightColor", data.HairHighlight);
                 mpb.SetColor("_SkinColor", data.Skin);
                 break;
 
-            case CharacterPartType.Face: // eyes + skin
-                mpb.SetColor("_BaseColor", data.EyeBase);
-                mpb.SetColor("_ShadowColor", data.EyeShadow);
-                mpb.SetColor("_HighlightColor", data.EyeHighlight);
+            case CharacterPartType.Face:
+                //mpb.SetColor("_BaseColor", data.EyeBase);
+                //mpb.SetColor("_ShadowColor", data.EyeShadow);
+                //mpb.SetColor("_HighlightColor", data.EyeHighlight);
+                mpb.SetColor("_SkinColor", data.Skin);
                 break;
 
             case CharacterPartType.Torso:

@@ -82,6 +82,24 @@ public class CharacterPalette
     public Color[] SkinColors;
     public Color[] ShirtColors;
 
+    public Color[] GetColors(CharacterPartType partType)
+    {
+        switch (partType)
+        {
+            case CharacterPartType.Face:
+                return SkinColors;
+            case CharacterPartType.Head:
+                return HairColors;
+            case CharacterPartType.Torso:
+                return ShirtColors;
+            case CharacterPartType.Hands:
+                return SkinColors;
+        }
+
+        return null;
+    }
+
+
     // Get a random color from the array, fallback to white
     public Color GetRandomHair() => HairColors.Length > 0 ? HairColors[UnityEngine.Random.Range(0, HairColors.Length)] : Color.white;
     public Color GetRandomEye() => EyeColors.Length > 0 ? EyeColors[UnityEngine.Random.Range(0, EyeColors.Length)] : Color.white;
@@ -103,16 +121,19 @@ public class CharacterBuilder : MonoBehaviour
     public CharacterPalette characterPalette;
     private CharacterData currentCharacter;
 
+    [SerializeField]
+    private Transform spawnPosition;
+
     private void Awake()
     {
         if (randomizeButton != null)
-            randomizeButton.onClick.AddListener(() => { _ = RandomizeCharacter(); });
+            randomizeButton.onClick.AddListener(() => { _ = RandomizeCharacter(spawnPosition: spawnPosition); });
     }
 
     /// <summary>
     /// Creates a new random character with randomized parts and colors.
     /// </summary>
-    public GameObject RandomizeCharacter()
+    public GameObject RandomizeCharacter(Transform spawnPosition = null)
     {
         if (templatePrefab == null) return null;
 
@@ -130,6 +151,12 @@ public class CharacterBuilder : MonoBehaviour
         templateComponent = currentInstance.GetComponent<CharacterTemplate>();
         templateComponent.ApplyAllParts(currentCharacter);
 
+        if (templateComponent != null)
+        {
+            currentInstance.transform.position = spawnPosition.position;
+        }
+
+        EventBus.EmitNewCharacterBuilt(currentCharacter);
         return currentInstance;
     }
 

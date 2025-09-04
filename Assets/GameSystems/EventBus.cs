@@ -29,4 +29,10 @@ public static class EventBus
         OnNewLunchbox?.Invoke(box);
     }
 
+    public static event Action<CharacterData> OnNewCharacterBuilt;
+    public static void EmitNewCharacterBuilt(CharacterData data)
+    {
+        OnNewCharacterBuilt?.Invoke(data);
+    }
+
 }

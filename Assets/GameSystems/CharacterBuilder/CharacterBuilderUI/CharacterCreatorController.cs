@@ -1,19 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TMPro;
-using System.Runtime.CompilerServices;
 
 public class CharacterCreatorController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private CharacterBuilder builder;
-    [SerializeField] private Transform scrollContent;
-    [SerializeField] private Button partButtonPrefab;
-    [SerializeField] private Transform colorLayoutGroup;
-    [SerializeField] private Button colorButtonPrefab;
     [SerializeField] private Transform spawnPosition;
 
     [Header("Tabs")]
@@ -22,19 +15,18 @@ public class CharacterCreatorController : MonoBehaviour
     [SerializeField] private Button torsoTab;
     [SerializeField] private Button handsTab;
 
-    private Dictionary<CharacterPartType, List<CharacterPartScriptableObject>> partLookup;
+    [Header("Panels")]
+    [SerializeField] private PartPanel facePanel;
+    [SerializeField] private PartPanel headPanel;
+    [SerializeField] private PartPanel torsoPanel;
+    [SerializeField] private PartPanel handsPanel;
 
-    private CharacterPalette palette;
+    private Dictionary<CharacterPartType, List<CharacterPartScriptableObject>> partLookup;
+    private PartPanel currentPanel;
 
     private async void Awake()
     {
-
         await GameManager.EnsureInitialized();
-        // Setup tab clicks
-        faceTab.onClick.AddListener(() => ShowParts(CharacterPartType.Face));
-        headTab.onClick.AddListener(() => ShowParts(CharacterPartType.Head));
-        torsoTab.onClick.AddListener(() => ShowParts(CharacterPartType.Torso));
-        //handsTab.onClick.AddListener(() => ShowParts(CharacterPartType.Hands));
 
         // Build lookup table from GameData
         partLookup = new Dictionary<CharacterPartType, List<CharacterPartScriptableObject>>();
@@ -45,52 +37,47 @@ public class CharacterCreatorController : MonoBehaviour
             partLookup[part.partType].Add(part);
         }
 
+        // Spawn a random character
+        GameObject go = builder.RandomizeCharacter(spawnPosition);
 
-        GameObject go = builder.RandomizeCharacter();
-        go.transform.position = spawnPosition.position;
-        
+        // Setup tab clicks
+        faceTab.onClick.AddListener(() => ShowParts(CharacterPartType.Face));
+        headTab.onClick.AddListener(() => ShowParts(CharacterPartType.Head));
+        torsoTab.onClick.AddListener(() => ShowParts(CharacterPartType.Torso));
+        //handsTab.onClick.AddListener(() => ShowParts(CharacterPartType.Hands));
 
-        // Default to Face tab
-        ShowParts(CharacterPartType.Face);
+        // Default tab
+        ShowParts(CharacterPartType.Head);
     }
 
     private void ShowParts(CharacterPartType type)
     {
-        // Clear existing buttons
-        foreach (Transform child in scrollContent)
-            Destroy(child.gameObject);
+        // Deinit current panel
+        if (currentPanel != null)
+            currentPanel.Deinitialize();
 
-        if (!partLookup.TryGetValue(type, out var parts))
-            return;
-
-        // Create button for each part
-        foreach (CharacterPartScriptableObject part in parts)
+        // Choose the correct panel
+        switch (type)
         {
-            Button btn = Instantiate(partButtonPrefab, scrollContent);
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = part.name;
-
-            // Capture part in a local variable for the closure
-            var capturedPart = part;
-
-            btn.onClick.AddListener(() =>
-            {
-                builder.templateComponent.SwapPart(capturedPart.id);
-            });
+            case CharacterPartType.Face:
+                currentPanel = facePanel;
+                break;
+            case CharacterPartType.Head:
+                currentPanel = headPanel;
+                break;
+            case CharacterPartType.Torso:
+                currentPanel = torsoPanel;
+                break;
+            case CharacterPartType.Hands:
+                currentPanel = handsPanel;
+                break;
         }
 
-        ShowColours(type);
-    }
-
-    private void ShowColours(CharacterPartType type)
-    {
-        switch(type) {
-            case CharacterPartType.Face:
-                return;
-            case CharacterPartType.Head:
-                return;
-            case CharacterPartType.Torso:
-                return;
-            case CharacterPartType.Hands:
-                return;
+        // Init panel and give it data
+        if (currentPanel != null && partLookup.TryGetValue(type, out var parts))
+        {
+            currentPanel.Setup(type, parts, builder);
+            currentPanel.Initialize();
+        }
     }
 }
