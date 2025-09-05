@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using TMPro;
 
@@ -21,8 +22,15 @@ public class CharacterCreatorController : MonoBehaviour
     [SerializeField] private PartPanel torsoPanel;
     [SerializeField] private PartPanel handsPanel;
 
+    [Header("Rotation Controls")]
+    [SerializeField] private InputActionReference rotateLeftAction;
+    [SerializeField] private InputActionReference rotateRightAction; 
+    [SerializeField] private float rotationSpeed = 100f;
+
     private Dictionary<CharacterPartType, List<CharacterPartScriptableObject>> partLookup;
     private PartPanel currentPanel;
+
+    private int rotateDirection; // -1 = left, 1 = right, 0 = none
 
     private async void Awake()
     {
@@ -48,6 +56,48 @@ public class CharacterCreatorController : MonoBehaviour
 
         // Default tab
         ShowParts(CharacterPartType.Head);
+    }
+
+    private void OnEnable()
+    {
+        // Subscribe to rotation actions
+        if (rotateLeftAction != null)
+        {
+            rotateLeftAction.action.performed += _ => rotateDirection = -1;
+            rotateLeftAction.action.canceled += _ => StopRotation(-1);
+            rotateLeftAction.action.Enable();
+        }
+
+        if (rotateRightAction != null)
+        {
+            rotateRightAction.action.performed += _ => rotateDirection = 1;
+            rotateRightAction.action.canceled += _ => StopRotation(1);
+            rotateRightAction.action.Enable();
+        }
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe from rotation actions
+        if (rotateLeftAction != null)
+        {
+            rotateLeftAction.action.performed -= _ => rotateDirection = -1;
+            rotateLeftAction.action.canceled -= _ => StopRotation(-1);
+            rotateLeftAction.action.Disable();
+        }
+
+        if (rotateRightAction != null)
+        {
+            rotateRightAction.action.performed -= _ => rotateDirection = 1;
+            rotateRightAction.action.canceled -= _ => StopRotation(1);
+            rotateRightAction.action.Disable();
+        }
+    }
+
+    private void Update()
+    {
+        if (rotateDirection != 0)
+            RotateCharacterPreview();
     }
 
     private void ShowParts(CharacterPartType type)
@@ -79,5 +129,16 @@ public class CharacterCreatorController : MonoBehaviour
             currentPanel.Setup(type, parts, builder);
             currentPanel.Initialize();
         }
+    }
+
+    private void RotateCharacterPreview()
+    {
+        spawnPosition.Rotate(Vector3.up, rotateDirection * rotationSpeed * Time.deltaTime, Space.World);
+    }
+
+    private void StopRotation(int dir)
+    {
+        if (rotateDirection == dir)
+            rotateDirection = 0;
     }
 }

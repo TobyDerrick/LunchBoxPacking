@@ -266,6 +266,54 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CharacterBuilder"",
+            ""id"": ""7078e9e0-47fa-4e36-bf78-ac5c4aea2f09"",
+            ""actions"": [
+                {
+                    ""name"": ""RotateNPCClockwise"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b194c4e-14c1-449f-b48a-1a1a3d1cecbd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateNPCAntiClockwise"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e7cadad-d5c9-40a7-aadf-3d3a686e0adc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""56def12c-a91a-439f-9626-8493641221e2"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateNPCClockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3cf3a7b-43f2-49f4-a887-424ce708c436"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateNPCAntiClockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -280,12 +328,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_LiftPress = m_Gameplay.FindAction("LiftPress", throwIfNotFound: true);
         m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
         m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
+        // CharacterBuilder
+        m_CharacterBuilder = asset.FindActionMap("CharacterBuilder", throwIfNotFound: true);
+        m_CharacterBuilder_RotateNPCClockwise = m_CharacterBuilder.FindAction("RotateNPCClockwise", throwIfNotFound: true);
+        m_CharacterBuilder_RotateNPCAntiClockwise = m_CharacterBuilder.FindAction("RotateNPCAntiClockwise", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerControls.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, PlayerControls.Gameplay.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CharacterBuilder.enabled, "This will cause a leak and performance issues, PlayerControls.CharacterBuilder.Disable() has not been called.");
     }
 
     /// <summary>
@@ -593,6 +646,113 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="GameplayActions" /> instance referencing this action map.
     /// </summary>
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // CharacterBuilder
+    private readonly InputActionMap m_CharacterBuilder;
+    private List<ICharacterBuilderActions> m_CharacterBuilderActionsCallbackInterfaces = new List<ICharacterBuilderActions>();
+    private readonly InputAction m_CharacterBuilder_RotateNPCClockwise;
+    private readonly InputAction m_CharacterBuilder_RotateNPCAntiClockwise;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "CharacterBuilder".
+    /// </summary>
+    public struct CharacterBuilderActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public CharacterBuilderActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "CharacterBuilder/RotateNPCClockwise".
+        /// </summary>
+        public InputAction @RotateNPCClockwise => m_Wrapper.m_CharacterBuilder_RotateNPCClockwise;
+        /// <summary>
+        /// Provides access to the underlying input action "CharacterBuilder/RotateNPCAntiClockwise".
+        /// </summary>
+        public InputAction @RotateNPCAntiClockwise => m_Wrapper.m_CharacterBuilder_RotateNPCAntiClockwise;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_CharacterBuilder; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="CharacterBuilderActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(CharacterBuilderActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="CharacterBuilderActions" />
+        public void AddCallbacks(ICharacterBuilderActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CharacterBuilderActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CharacterBuilderActionsCallbackInterfaces.Add(instance);
+            @RotateNPCClockwise.started += instance.OnRotateNPCClockwise;
+            @RotateNPCClockwise.performed += instance.OnRotateNPCClockwise;
+            @RotateNPCClockwise.canceled += instance.OnRotateNPCClockwise;
+            @RotateNPCAntiClockwise.started += instance.OnRotateNPCAntiClockwise;
+            @RotateNPCAntiClockwise.performed += instance.OnRotateNPCAntiClockwise;
+            @RotateNPCAntiClockwise.canceled += instance.OnRotateNPCAntiClockwise;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="CharacterBuilderActions" />
+        private void UnregisterCallbacks(ICharacterBuilderActions instance)
+        {
+            @RotateNPCClockwise.started -= instance.OnRotateNPCClockwise;
+            @RotateNPCClockwise.performed -= instance.OnRotateNPCClockwise;
+            @RotateNPCClockwise.canceled -= instance.OnRotateNPCClockwise;
+            @RotateNPCAntiClockwise.started -= instance.OnRotateNPCAntiClockwise;
+            @RotateNPCAntiClockwise.performed -= instance.OnRotateNPCAntiClockwise;
+            @RotateNPCAntiClockwise.canceled -= instance.OnRotateNPCAntiClockwise;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="CharacterBuilderActions.UnregisterCallbacks(ICharacterBuilderActions)" />.
+        /// </summary>
+        /// <seealso cref="CharacterBuilderActions.UnregisterCallbacks(ICharacterBuilderActions)" />
+        public void RemoveCallbacks(ICharacterBuilderActions instance)
+        {
+            if (m_Wrapper.m_CharacterBuilderActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="CharacterBuilderActions.AddCallbacks(ICharacterBuilderActions)" />
+        /// <seealso cref="CharacterBuilderActions.RemoveCallbacks(ICharacterBuilderActions)" />
+        /// <seealso cref="CharacterBuilderActions.UnregisterCallbacks(ICharacterBuilderActions)" />
+        public void SetCallbacks(ICharacterBuilderActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CharacterBuilderActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CharacterBuilderActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="CharacterBuilderActions" /> instance referencing this action map.
+    /// </summary>
+    public CharacterBuilderActions @CharacterBuilder => new CharacterBuilderActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
     /// </summary>
@@ -650,5 +810,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEscape(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "CharacterBuilder" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="CharacterBuilderActions.AddCallbacks(ICharacterBuilderActions)" />
+    /// <seealso cref="CharacterBuilderActions.RemoveCallbacks(ICharacterBuilderActions)" />
+    public interface ICharacterBuilderActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "RotateNPCClockwise" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateNPCClockwise(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotateNPCAntiClockwise" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateNPCAntiClockwise(InputAction.CallbackContext context);
     }
 }

@@ -118,6 +118,11 @@ public class CharacterBuilder : MonoBehaviour
         templateComponent = currentInstance.GetComponent<CharacterTemplate>();
         templateComponent.ApplyAllParts(currentCharacter);
 
+        if(spawnPosition != null)
+        {
+            currentInstance.transform.SetParent(spawnPosition.transform);
+        }
+
         if (templateComponent != null)
         {
             currentInstance.transform.position = spawnPosition.position;

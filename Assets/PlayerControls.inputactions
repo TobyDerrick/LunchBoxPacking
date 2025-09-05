@@ -180,6 +180,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CharacterBuilder",
+            "id": "7078e9e0-47fa-4e36-bf78-ac5c4aea2f09",
+            "actions": [
+                {
+                    "name": "RotateNPCClockwise",
+                    "type": "Button",
+                    "id": "6b194c4e-14c1-449f-b48a-1a1a3d1cecbd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateNPCAntiClockwise",
+                    "type": "Button",
+                    "id": "6e7cadad-d5c9-40a7-aadf-3d3a686e0adc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "56def12c-a91a-439f-9626-8493641221e2",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateNPCClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3cf3a7b-43f2-49f4-a887-424ce708c436",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateNPCAntiClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
