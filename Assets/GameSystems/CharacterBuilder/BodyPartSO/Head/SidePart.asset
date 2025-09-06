@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: SidePart
   m_EditorClassIdentifier: 
-  id: 10
+  id: 11
   partType: 1
   material:
     m_AssetGUID: 58c8dd187505cbc4db4200d90aaf6ad4

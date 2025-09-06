@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: TorsoBunny
   m_EditorClassIdentifier: 
-  id: 12
+  id: 19
   partType: 2
   material:
     m_AssetGUID: b34d31973860c5c4da4f054e8982aeb0

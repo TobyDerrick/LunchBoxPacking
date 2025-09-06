@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: TorsoFlower
   m_EditorClassIdentifier: 
-  id: 13
+  id: 20
   partType: 2
   material:
     m_AssetGUID: 8d46a6e5b93c87841956e2b0902ea0d8

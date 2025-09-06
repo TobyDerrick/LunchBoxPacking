@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: TorsoApple
   m_EditorClassIdentifier: 
-  id: 11
+  id: 18
   partType: 2
   material:
     m_AssetGUID: ca1951654b7430146b8d3076fb46179a

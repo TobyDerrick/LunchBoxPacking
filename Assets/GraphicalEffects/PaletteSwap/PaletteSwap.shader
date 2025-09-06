@@ -65,6 +65,10 @@ Shader "Unlit/PaletteSwap"
             {
                 fixed4 texColor = tex2D(_MainTex, i.uv);
 
+                if (texColor.a == 0)
+                {
+                    clip(-1);
+                }
                 float distBase = distance(texColor.rgb, _KeyBase.rgb);
                 float distShadow = distance(texColor.rgb, _KeyShadow.rgb);
                 float distHighlight = distance(texColor.rgb, _KeyHighlight.rgb);

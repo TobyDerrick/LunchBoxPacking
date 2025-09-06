@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: ShortWavy
   m_EditorClassIdentifier: 
-  id: 9
+  id: 10
   partType: 1
   material:
     m_AssetGUID: ac2fe7c5e279c54459dc20bd7ee9f044

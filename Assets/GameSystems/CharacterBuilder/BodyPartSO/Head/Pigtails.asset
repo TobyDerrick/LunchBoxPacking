@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: Pigtails
   m_EditorClassIdentifier: 
-  id: 7
+  id: 8
   partType: 1
   material:
     m_AssetGUID: 7f0fc6465084ad4499b3b2d1b34bd168

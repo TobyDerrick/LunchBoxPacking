@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: TorsoStrawberry
   m_EditorClassIdentifier: 
-  id: 15
+  id: 23
   partType: 2
   material:
     m_AssetGUID: c2fa0c4313550dd4d90a007f6910e44c
