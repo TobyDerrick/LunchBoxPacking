@@ -9,6 +9,9 @@ public class CharacterCreatorController : MonoBehaviour
     [Header("References")]
     [SerializeField] private CharacterBuilder builder;
     [SerializeField] private Transform spawnPosition;
+    [SerializeField] private NPCSaveLoadManager npcSaveLoadManager;
+    [SerializeField] private TMP_InputField npcNameField;
+    [SerializeField] private Button saveButton;
 
     [Header("Tabs")]
     [SerializeField] private Button faceTab;
@@ -31,6 +34,7 @@ public class CharacterCreatorController : MonoBehaviour
     private PartPanel currentPanel;
 
     private int rotateDirection; // -1 = left, 1 = right, 0 = none
+    private string npcName = "Unnamed";
 
     private async void Awake()
     {
@@ -54,6 +58,8 @@ public class CharacterCreatorController : MonoBehaviour
         torsoTab.onClick.AddListener(() => ShowParts(CharacterPartType.Torso));
         //handsTab.onClick.AddListener(() => ShowParts(CharacterPartType.Hands));
 
+        saveButton.onClick.AddListener(OnSavePressed);
+
         // Default tab
         ShowParts(CharacterPartType.Head);
     }
@@ -74,6 +80,11 @@ public class CharacterCreatorController : MonoBehaviour
             rotateRightAction.action.canceled += _ => StopRotation(1);
             rotateRightAction.action.Enable();
         }
+
+        if (npcNameField != null)
+        {
+            npcNameField.onValueChanged.AddListener(OnNameChanged);
+        }
     }
 
     private void OnDisable()
@@ -92,6 +103,11 @@ public class CharacterCreatorController : MonoBehaviour
             rotateRightAction.action.canceled -= _ => StopRotation(1);
             rotateRightAction.action.Disable();
         }
+
+        if (npcNameField != null)
+        {
+            npcNameField.onValueChanged.RemoveListener(OnNameChanged);
+        }    
     }
 
     private void Update()
@@ -104,7 +120,9 @@ public class CharacterCreatorController : MonoBehaviour
     {
         // Deinit current panel
         if (currentPanel != null)
+        {
             currentPanel.Deinitialize();
+        }
 
         // Choose the correct panel
         switch (type)
@@ -140,5 +158,24 @@ public class CharacterCreatorController : MonoBehaviour
     {
         if (rotateDirection == dir)
             rotateDirection = 0;
+    }
+
+    private void OnSavePressed()
+    {
+        string npcName = GetNpcName();
+        CharacterData data = builder.GetCurrentCharacterData();
+
+        npcSaveLoadManager.SaveNPC(npcName, data);
+    }
+
+    private void OnNameChanged(string newName)
+    {
+        npcName = string.IsNullOrWhiteSpace(newName) ? "Unnamed" : newName;
+        Debug.Log($"NPC Name set to: {npcName}");
+    }
+
+    public string GetNpcName()
+    {
+        return npcName;
     }
 }
