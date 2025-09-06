@@ -45,6 +45,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 460db19048967144287a2acd006568f3
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartPrefabs/Head/space buns.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50979853ac5f9774aa6dcdb0d7b4adf9
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartPrefabs/Head/afro.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 536851931724cad4c9ee12a0e619870c
     m_Address: pigtail
     m_ReadOnly: 0
@@ -105,8 +115,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a94e6f51f8708fd479a722984f84c10b
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartPrefabs/Head/side ponytail.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac2fe7c5e279c54459dc20bd7ee9f044
     m_Address: M_Head_ShortWavy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aec27d2e09bf85f46b01332e65684142
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_SidePony.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af7d342d451e2de41943c69e7df414be
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_Bun.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -117,6 +142,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bceb53d00662fff46b134acf911252d4
     m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_LongHair.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0b1695334e15c741996ff3b9b8db984
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_Bob.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -140,6 +170,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbaf2f8ade98a9f40a38bfd4f62fc3db
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartPrefabs/Head/bob.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d071f9f28f020a149a04846ac755781e
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_Afro.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d277aebc9576bf549a7397cc23ba2964
     m_Address: M_Head_Braids
     m_ReadOnly: 0
@@ -155,8 +195,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e305dc5b41e50c0479dfc24c0aee3ce4
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartMaterials/head/M_Head_SpaceBun.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6a2ac99c8d29dc4fa96d01abf5bee1c
     m_Address: short wavy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f73921db20a07974e9d2c78a64fb1d59
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartPrefabs/Head/bun.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

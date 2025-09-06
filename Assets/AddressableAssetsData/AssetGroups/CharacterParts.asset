@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - CharacterParts
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08de7ffaaa38cff4f8a1cdd5e07bdf04
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Head/SidePonytail.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1ff10dc2d25ed7f419b433c58954a9bc
     m_Address: Pigtails
     m_ReadOnly: 0
@@ -39,14 +45,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - CharacterParts
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 429d65ecf4e83a347a2047cf0f9a3039
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Head/Afro.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 66e527ddd6b799d4cb9d638dca122a09
     m_Address: FaceGlassesFreckles
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterParts
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68109e43a89596f4089b511c29cfddcb
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Head/SpaceBun.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f853a0e623eef8409403b3d18788b9a
     m_Address: TorsoStar
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74c5edd12828bdf42a6f6ce21371fa54
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Head/Bob.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterParts
@@ -119,6 +143,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d7472396458cb45429a25188b4bcf06c
     m_Address: FaceGlasses
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CharacterParts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f143f985b7fcc64438d7b01b3e16f178
+    m_Address: Assets/GameSystems/CharacterBuilder/BodyPartSO/Head/Bun.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - CharacterParts
