@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: LongHair
   m_EditorClassIdentifier: 
-  id: 12
+  id: LongHair
   partType: 1
   material:
     m_AssetGUID: bceb53d00662fff46b134acf911252d4

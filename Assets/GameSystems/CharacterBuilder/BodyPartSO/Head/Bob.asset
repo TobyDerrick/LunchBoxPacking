@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: Bob
   m_EditorClassIdentifier: 
-  id: 17
+  id: Bob
   partType: 1
   material:
     m_AssetGUID: c0b1695334e15c741996ff3b9b8db984

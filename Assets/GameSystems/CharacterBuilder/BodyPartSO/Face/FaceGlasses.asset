@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: FaceGlasses
   m_EditorClassIdentifier: 
-  id: 2
+  id: FaceGlasses
   partType: 5
   material:
     m_AssetGUID: 15a4b1f0a2ba78246b452e63e25f6da0

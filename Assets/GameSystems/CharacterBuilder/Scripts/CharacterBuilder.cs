@@ -6,10 +6,10 @@ using System.Linq;
 [Serializable]
 public class CharacterData
 {
-    public CharacterPartID EyesID;
-    public CharacterPartID HeadID;
-    public CharacterPartID TorsoID;
-    public CharacterPartID HandsID;
+    public string EyesID;
+    public string HeadID;
+    public string TorsoID;
+    public string HandsID;
 
     // Hair (Head material)
     public Color HairBase = new Color(0.6f, 0.3f, 0.1f);
@@ -47,7 +47,7 @@ public class CharacterData
         }
     }
 
-    private CharacterPartID GetRandomPartOfType(CharacterPartType type)
+    private string GetRandomPartOfType(CharacterPartType type)
     {
         var parts = GameData.CharacterParts.GetAll()
             .Where(p => p.partType == type)

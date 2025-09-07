@@ -7,12 +7,12 @@ public static class GameData
     public static readonly DataGroup<FoodScriptableObject, FoodItemID> FoodItems =
         new("FoodItems", item => item.id);
 
-    public static readonly DataGroup<CharacterPartScriptableObject, CharacterPartID> CharacterParts =
+    public static readonly DataGroup<CharacterPartScriptableObject, string> CharacterParts =
         new("CharacterParts", item => item.id);
 
 
-    public static readonly Dictionary<CharacterPartID, GameObject> PrefabCache = new();
-    public static readonly Dictionary<CharacterPartID, Material> MaterialCache = new();
+    public static readonly Dictionary<string, GameObject> PrefabCache = new();
+    public static readonly Dictionary<string, Material> MaterialCache = new();
 
     private static Task loadTask;
 

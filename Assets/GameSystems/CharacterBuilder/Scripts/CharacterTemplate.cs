@@ -47,7 +47,7 @@ public class CharacterTemplate : MonoBehaviour
     /// <summary>
     /// Swaps a single part by CharacterPartID while keeping colors.
     /// </summary>
-    public void SwapPart(CharacterPartID partID)
+    public void SwapPart(string partID)
     {
         if (currentCharacter == null)
         {
@@ -95,7 +95,7 @@ public class CharacterTemplate : MonoBehaviour
     /// Instantiates the prefab and applies preloaded material and colors.
     /// Also sets up FaceBlinkController if present.
     /// </summary>
-    private GameObject ApplyPart(CharacterPartID id, Transform parent, CharacterData data)
+    private GameObject ApplyPart(string id, Transform parent, CharacterData data)
     {
         if (!GameData.PrefabCache.TryGetValue(id, out var prefab))
             return null;

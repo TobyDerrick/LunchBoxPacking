@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: Hands
   m_EditorClassIdentifier: 
-  id: 6
+  id: Hands
   partType: 3
   material:
     m_AssetGUID: 093d279efdc253f4a817c7f1322f9992

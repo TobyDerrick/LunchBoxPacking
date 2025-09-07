@@ -8,7 +8,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class DataGroup<TAsset, TKey> 
     where TAsset : ScriptableObject
-    where TKey : Enum
 {
     private Dictionary<TKey, TAsset> items = new();
     public bool IsLoaded { get; private set; } = false;

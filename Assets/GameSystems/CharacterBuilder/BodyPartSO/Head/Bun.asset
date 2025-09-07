@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: Bun
   m_EditorClassIdentifier: 
-  id: 13
+  id: Bun
   partType: 1
   material:
     m_AssetGUID: af7d342d451e2de41943c69e7df414be

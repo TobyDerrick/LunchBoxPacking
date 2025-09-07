@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d28ab7b97bb5c45bb6f05aa77bdedf, type: 3}
   m_Name: SidePonytail
   m_EditorClassIdentifier: 
-  id: 16
+  id: SidePonytail
   partType: 1
   material:
     m_AssetGUID: aec27d2e09bf85f46b01332e65684142
