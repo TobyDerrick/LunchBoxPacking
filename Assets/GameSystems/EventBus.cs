@@ -35,4 +35,10 @@ public static class EventBus
         OnNewCharacterBuilt?.Invoke(data);
     }
 
+    public static event Action<CharacterData> OnCharacterLoaded;
+    public static void EmitCharacterLoaded(CharacterData data)
+    {
+        OnCharacterLoaded?.Invoke(data);
+    }
+
 }

@@ -3,22 +3,62 @@ using System.Collections.Generic;
 
 public class NPCSaveLoadManager : MonoBehaviour
 {
+    public int maxSlots = 12;
     private List<NPCData> savedNPCs = new List<NPCData>();
 
-    public void SaveNPC(string npcName, CharacterData characterData)
+    private void Awake()
     {
-        NPCData newNPC = ScriptableObject.CreateInstance<NPCData>();
-        newNPC.name = npcName;
-        newNPC.characterData = characterData;
+        // Initialize the slot list with nulls (fixed size, accessible by index)
+        savedNPCs = new List<NPCData>(maxSlots);
+        for (int i = 0; i < maxSlots; i++)
+        {
+            savedNPCs.Add(null); // all slots start empty
+        }
+    }
+    public void SaveNPC(int slotIndex, string npcName, CharacterData characterData)
+    {
+        if(slotIndex < 0 || slotIndex >= savedNPCs.Count)
+        {
+            Debug.LogError($"Invalid slot index {slotIndex}");
+            return;
+        }
 
-        savedNPCs.Add(newNPC);
 
+        NPCData npc = ScriptableObject.CreateInstance<NPCData>();
+        npc.npcName = npcName;
+        npc.name = npcName;
+        npc.characterData = characterData;
 
-        Debug.Log($"Saved NPC: {npcName}");
+        savedNPCs[slotIndex] = npc;
+
+        Debug.Log($"Saved NPC '{npcName}' to slot {slotIndex}");
     }
 
-    public IEnumerable<NPCData> GetSavedNPCS()
+
+    public NPCData LoadNPCFromSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= savedNPCs.Count)
+        {
+            Debug.LogError($"Invalid slot index {slotIndex}");
+            return null;
+        }
+
+        return savedNPCs[slotIndex];
+    }
+    public List<NPCData> GetSavedNPCS()
     {
         return savedNPCs;
+    }
+
+    public void ClearSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= savedNPCs.Count)
+        {
+            Debug.LogError($"Invalid slot index {slotIndex}");
+            return;
+        }
+
+        savedNPCs[slotIndex] = null;
+        Debug.Log($"Cleared NPC slot {slotIndex}");
     }
 }

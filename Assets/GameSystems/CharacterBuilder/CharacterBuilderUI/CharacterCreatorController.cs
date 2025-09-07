@@ -12,6 +12,7 @@ public class CharacterCreatorController : MonoBehaviour
     [SerializeField] private NPCSaveLoadManager npcSaveLoadManager;
     [SerializeField] private TMP_InputField npcNameField;
     [SerializeField] private Button saveButton;
+    [SerializeField] private Button loadButton;
 
     [Header("Tabs")]
     [SerializeField] private Button faceTab;
@@ -24,6 +25,7 @@ public class CharacterCreatorController : MonoBehaviour
     [SerializeField] private PartPanel headPanel;
     [SerializeField] private PartPanel torsoPanel;
     [SerializeField] private PartPanel handsPanel;
+    [SerializeField] private GameObject CharacterCreator, CharacterSelector;
 
     [Header("Rotation Controls")]
     [SerializeField] private InputActionReference rotateLeftAction;
@@ -34,7 +36,6 @@ public class CharacterCreatorController : MonoBehaviour
     private PartPanel currentPanel;
 
     private int rotateDirection; // -1 = left, 1 = right, 0 = none
-    private string npcName = "Unnamed";
 
     private async void Awake()
     {
@@ -59,6 +60,9 @@ public class CharacterCreatorController : MonoBehaviour
         //handsTab.onClick.AddListener(() => ShowParts(CharacterPartType.Hands));
 
         saveButton.onClick.AddListener(OnSavePressed);
+        loadButton.onClick.AddListener(OnLoadPressed);
+
+        EventBus.OnCharacterLoaded += OnCharacterSelected;
 
         // Default tab
         ShowParts(CharacterPartType.Head);
@@ -89,7 +93,6 @@ public class CharacterCreatorController : MonoBehaviour
 
     private void OnDisable()
     {
-        // Unsubscribe from rotation actions
         if (rotateLeftAction != null)
         {
             rotateLeftAction.action.performed -= _ => rotateDirection = -1;
@@ -107,7 +110,7 @@ public class CharacterCreatorController : MonoBehaviour
         if (npcNameField != null)
         {
             npcNameField.onValueChanged.RemoveListener(OnNameChanged);
-        }    
+        }
     }
 
     private void Update()
@@ -162,20 +165,38 @@ public class CharacterCreatorController : MonoBehaviour
 
     private void OnSavePressed()
     {
-        string npcName = GetNpcName();
-        CharacterData data = builder.GetCurrentCharacterData();
+        CharacterCreator.SetActive(false);
+        CharacterSelector.SetActive(true);
 
-        npcSaveLoadManager.SaveNPC(npcName, data);
+        CharacterSelector.GetComponent<CharacterSelectorController>().Initialize(npcSaveLoadManager.GetSavedNPCS(), CharacterSelectorMode.Save);
     }
 
     private void OnNameChanged(string newName)
     {
-        npcName = string.IsNullOrWhiteSpace(newName) ? "Unnamed" : newName;
-        Debug.Log($"NPC Name set to: {npcName}");
+        builder.templateComponent.currentCharacter.NPCName = string.IsNullOrWhiteSpace(newName) ? "Unnamed" : newName;
+        Debug.Log($"NPC Name set to: {newName}");
     }
 
     public string GetNpcName()
     {
-        return npcName;
+        return builder.templateComponent.currentCharacter.NPCName;
+    }
+
+    private void OnLoadPressed()
+    {
+        CharacterCreator.SetActive(false);
+        CharacterSelector.SetActive(true);
+
+        CharacterSelector.GetComponent<CharacterSelectorController>().Initialize(npcSaveLoadManager.GetSavedNPCS(), CharacterSelectorMode.Load);
+    }
+
+    private void OnCharacterSelected(CharacterData data)
+    {
+        if(data != null)
+        {
+            npcNameField.text = data.NPCName;
+        }
+        CharacterCreator.SetActive(true);
+        CharacterSelector.SetActive(false);
     }
 }

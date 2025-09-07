@@ -11,6 +11,8 @@ public class CharacterData
     public string TorsoID;
     public string HandsID;
 
+    public string NPCName;
+
     // Hair (Head material)
     public Color HairBase = new Color(0.6f, 0.3f, 0.1f);
     public Color HairShadow = new Color(0.3f, 0.15f, 0.05f);
