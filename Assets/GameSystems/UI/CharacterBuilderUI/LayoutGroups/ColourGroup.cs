@@ -10,9 +10,13 @@ public class ColourGroup : DataLayoutGroup
     [SerializeField] private Button buttonTemplate;
     [SerializeField] private bool clearBeforePopulate = true;
 
+    public CharacterPartType characterPartTypeOverride = CharacterPartType.None;
+
     private CharacterTemplate template;
     private CharacterBuilder builder;
     private CharacterPartType partType;
+
+    [SerializeField]
     private Color[] colors;
     public override void Clear()
     {
@@ -26,8 +30,18 @@ public class ColourGroup : DataLayoutGroup
     {
         this.builder = builder;
         this.template = builder.templateComponent;
-        this.partType = partType;
-        this.colors = builder.characterPalette.GetColors(partType);
+
+        if(characterPartTypeOverride == CharacterPartType.None)
+        {
+            this.partType = partType;
+        }
+
+        else
+        {
+            this.partType = characterPartTypeOverride;
+        }
+        
+        this.colors = builder.characterPalette.GetColors(this.partType);
 
     }
     public override void Populate()
@@ -41,7 +55,6 @@ public class ColourGroup : DataLayoutGroup
             var img = btn.GetComponent<Image>();
             if (img) img.color = new Color(color.r,color.g,color.b, 1);
 
-            var capturedColor = color;
             btn.onClick.AddListener(() =>
             {
                 builder.templateComponent.SetPartColour(partType, color);

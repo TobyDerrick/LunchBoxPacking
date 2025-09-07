@@ -227,6 +227,8 @@ MonoBehaviour:
   contents: {fileID: 4038009347196447610}
   buttonTemplate: {fileID: 7962625480067413508, guid: a2f2720cc3276cd4984012adaf021439, type: 3}
   clearBeforePopulate: 1
+  characterPartTypeOverride: 4
+  colors: []
 --- !u!1 &2731624867611653831
 GameObject:
   m_ObjectHideFlags: 0

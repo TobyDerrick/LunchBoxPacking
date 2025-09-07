@@ -14,7 +14,7 @@ public class CharacterPalette : ScriptableObject
     {
         switch (partType)
         {
-            case CharacterPartType.Face:
+            case CharacterPartType.Skin:
                 return SkinColors;
             case CharacterPartType.Head:
                 return HairColors;
@@ -22,6 +22,8 @@ public class CharacterPalette : ScriptableObject
                 return ShirtColors;
             case CharacterPartType.Hands:
                 return SkinColors;
+            case CharacterPartType.Face:
+                return EyeColors;
         }
         return null;
     }

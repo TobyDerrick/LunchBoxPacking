@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FaceBigEye
   m_EditorClassIdentifier: 
   id: 0
-  partType: 0
+  partType: 5
   material:
     m_AssetGUID: 10a268f124a279147952045f0e38e58e
     m_SubObjectName: 

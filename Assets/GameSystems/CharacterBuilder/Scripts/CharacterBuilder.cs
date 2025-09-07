@@ -6,7 +6,7 @@ using System.Linq;
 [Serializable]
 public class CharacterData
 {
-    public CharacterPartID FaceID;
+    public CharacterPartID EyesID;
     public CharacterPartID HeadID;
     public CharacterPartID TorsoID;
     public CharacterPartID HandsID;
@@ -35,7 +35,7 @@ public class CharacterData
     {
         if (randomize)
         {
-            FaceID = GetRandomPartOfType(CharacterPartType.Face);
+            EyesID = GetRandomPartOfType(CharacterPartType.Face);
             HeadID = GetRandomPartOfType(CharacterPartType.Head);
             TorsoID = GetRandomPartOfType(CharacterPartType.Torso);
             HandsID = GetRandomPartOfType(CharacterPartType.Hands);

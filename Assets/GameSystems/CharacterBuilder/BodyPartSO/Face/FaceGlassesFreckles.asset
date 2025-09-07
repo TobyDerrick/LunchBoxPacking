@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FaceGlassesFreckles
   m_EditorClassIdentifier: 
   id: 3
-  partType: 0
+  partType: 5
   material:
     m_AssetGUID: 983c6fa3a7dd1c04fa0b395bdbd1b17d
     m_SubObjectName: 

@@ -3,10 +3,12 @@ using UnityEngine.AddressableAssets;
 
 public enum CharacterPartType
 {
-    Face,
+    Skin,
     Head,
     Torso,
-    Hands
+    Hands,
+    None,
+    Face,
 }
 
 public enum CharacterPartID

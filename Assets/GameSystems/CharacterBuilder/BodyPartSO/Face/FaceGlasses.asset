@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FaceGlasses
   m_EditorClassIdentifier: 
   id: 2
-  partType: 0
+  partType: 5
   material:
     m_AssetGUID: 15a4b1f0a2ba78246b452e63e25f6da0
     m_SubObjectName: 

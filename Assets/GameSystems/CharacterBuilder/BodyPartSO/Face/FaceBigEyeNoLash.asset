@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FaceBigEyeNoLash
   m_EditorClassIdentifier: 
   id: 1
-  partType: 0
+  partType: 5
   material:
     m_AssetGUID: 74883a188ff999843a4df871e57aa835
     m_SubObjectName: 

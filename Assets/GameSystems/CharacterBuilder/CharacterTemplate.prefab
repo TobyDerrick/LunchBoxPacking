@@ -151,6 +151,23 @@ MonoBehaviour:
   torsoSlot: {fileID: 5500090726441862930}
   leftHand: {fileID: 6598835177398410025}
   rightHand: {fileID: 9005427795449180597}
+  currentFace: {fileID: 0}
+  currentHead: {fileID: 0}
+  currentTorso: {fileID: 0}
+  faceObject: {fileID: 6249495309400421837}
+  currentCharacter:
+    FaceID: 0
+    HeadID: 0
+    TorsoID: 0
+    HandsID: 0
+    HairBase: {r: 0, g: 0, b: 0, a: 0}
+    HairShadow: {r: 0, g: 0, b: 0, a: 0}
+    HairHighlight: {r: 0, g: 0, b: 0, a: 0}
+    EyeBase: {r: 0, g: 0, b: 0, a: 0}
+    EyeShadow: {r: 0, g: 0, b: 0, a: 0}
+    EyeHighlight: {r: 0, g: 0, b: 0, a: 0}
+    Skin: {r: 0, g: 0, b: 0, a: 0}
+    Shirt: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6249495309400421837
 GameObject:
   m_ObjectHideFlags: 0

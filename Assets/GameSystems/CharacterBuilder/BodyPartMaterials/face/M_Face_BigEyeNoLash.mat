@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Face_BigEyeNoLash
-  m_Shader: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 66556c86e0a753a40861f3a355379732, type: 3}
   m_Parent: {fileID: 2100000, guid: a3733e521c11bd441a01722926a49d79, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,8 +29,11 @@ Material:
         m_Scale: {x: 1, y: 0.3}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _Tolerance: 0.061
+    m_Colors:
+    - _KeyBase: {r: 0.5803922, g: 0.28627452, b: 0.227451, a: 1}
+    - _KeySkin: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1887037652877861907

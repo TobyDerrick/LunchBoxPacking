@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FaceSlanted
   m_EditorClassIdentifier: 
   id: 5
-  partType: 0
+  partType: 5
   material:
     m_AssetGUID: 9c5f32bcf97985146afd8de829dbe99b
     m_SubObjectName: 

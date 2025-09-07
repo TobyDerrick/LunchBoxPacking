@@ -43,6 +43,8 @@ Shader "Unlit/PaletteSwap"
 
             float _Tolerance;
 
+            float4 _MainTex_ST;
+
             struct appdata {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
@@ -57,7 +59,7 @@ Shader "Unlit/PaletteSwap"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex); // applies _MainTex_ST
                 return o;
             }
 

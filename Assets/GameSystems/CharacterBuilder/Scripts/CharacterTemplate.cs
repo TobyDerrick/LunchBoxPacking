@@ -18,6 +18,7 @@ public class CharacterTemplate : MonoBehaviour
     public GameObject currentFace;
     public GameObject currentHead;
     public GameObject currentTorso;
+    public GameObject faceObject;
 
     public CharacterData currentCharacter;
 
@@ -34,7 +35,7 @@ public class CharacterTemplate : MonoBehaviour
         if (currentTorso != null) Destroy(currentTorso);
 
         // Apply new parts
-        currentFace = ApplyPart(data.FaceID, faceSlot, data);
+        currentFace = ApplyPart(data.EyesID, faceSlot, data);
         currentHead = ApplyPart(data.HeadID, headSlot, data);
         currentTorso = ApplyPart(data.TorsoID, torsoSlot, data);
 
@@ -116,7 +117,9 @@ public class CharacterTemplate : MonoBehaviour
         // Auto-setup FaceBlinkController if this is a face
         var blink = instance.GetComponent<FaceBlinkController>();
         if (blink != null)
+        {
             blink.Initialize();
+        }
 
         return instance;
     }
@@ -127,7 +130,7 @@ public class CharacterTemplate : MonoBehaviour
 
         switch (partType)
         {
-            case CharacterPartType.Face:
+            case CharacterPartType.Skin:
                 currentCharacter.Skin = newColour;
                 partObject = currentHead;
                 break;
@@ -139,6 +142,11 @@ public class CharacterTemplate : MonoBehaviour
             case CharacterPartType.Torso:
                 currentCharacter.Shirt = newColour;
                 partObject = currentTorso;
+                break;
+            case CharacterPartType.Face:
+                currentCharacter.EyeBase = newColour;
+                currentCharacter.EyeShadow = newColour * 0.5f;
+                partObject = currentFace;
                 break;
         }
 
@@ -164,7 +172,7 @@ public class CharacterTemplate : MonoBehaviour
                 mpb.SetColor("_SkinColor", data.Skin);
                 break;
 
-            case CharacterPartType.Face:
+            case CharacterPartType.Skin:
                 //mpb.SetColor("_BaseColor", data.EyeBase);
                 //mpb.SetColor("_ShadowColor", data.EyeShadow);
                 //mpb.SetColor("_HighlightColor", data.EyeHighlight);
@@ -177,6 +185,11 @@ public class CharacterTemplate : MonoBehaviour
 
             case CharacterPartType.Hands:
                 mpb.SetColor("_SkinColor", data.Skin);
+                break;
+            case CharacterPartType.Face:
+                mpb.SetColor("_BaseColor", data.EyeBase);
+                mpb.SetColor("_ShadowColor", data.EyeShadow);
+                mpb.SetColor("_HighlightColor", data.EyeHighlight);
                 break;
         }
 
