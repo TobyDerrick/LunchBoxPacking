@@ -13,6 +13,7 @@ public class CharacterCreatorController : MonoBehaviour
     [SerializeField] private TMP_InputField npcNameField;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button loadButton;
+    [SerializeField] private Button randomizeButton;
 
     [Header("Tabs")]
     [SerializeField] private Button faceTab;
@@ -41,12 +42,17 @@ public class CharacterCreatorController : MonoBehaviour
     {
         await GameManager.EnsureInitialized();
 
+        SaveManager.LoadGame();
+
         // Build lookup table from GameData
         partLookup = new Dictionary<CharacterPartType, List<CharacterPartScriptableObject>>();
         foreach (var part in GameData.CharacterParts.GetAll())
         {
             if (!partLookup.ContainsKey(part.partType))
+            {
                 partLookup[part.partType] = new List<CharacterPartScriptableObject>();
+            }
+
             partLookup[part.partType].Add(part);
         }
 
@@ -61,8 +67,8 @@ public class CharacterCreatorController : MonoBehaviour
 
         saveButton.onClick.AddListener(OnSavePressed);
         loadButton.onClick.AddListener(OnLoadPressed);
+        randomizeButton.onClick.AddListener(OnRandomizePressed);
 
-        EventBus.OnCharacterLoaded += OnCharacterSelected;
 
         // Default tab
         ShowParts(CharacterPartType.Head);
@@ -89,6 +95,8 @@ public class CharacterCreatorController : MonoBehaviour
         {
             npcNameField.onValueChanged.AddListener(OnNameChanged);
         }
+
+        EventBus.OnCharacterLoaded += OnCharacterSelected;
     }
 
     private void OnDisable()
@@ -111,6 +119,8 @@ public class CharacterCreatorController : MonoBehaviour
         {
             npcNameField.onValueChanged.RemoveListener(OnNameChanged);
         }
+
+        EventBus.OnCharacterLoaded -= OnCharacterSelected;
     }
 
     private void Update()
@@ -198,5 +208,11 @@ public class CharacterCreatorController : MonoBehaviour
         }
         CharacterCreator.SetActive(true);
         CharacterSelector.SetActive(false);
+    }
+
+    private void OnRandomizePressed()
+    {
+        npcNameField.text = string.Empty;
+        builder.RandomizeCharacter(spawnPosition);
     }
 }

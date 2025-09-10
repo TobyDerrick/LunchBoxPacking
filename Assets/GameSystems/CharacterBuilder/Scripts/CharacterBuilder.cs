@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 [Serializable]
 public class CharacterData
@@ -14,20 +15,20 @@ public class CharacterData
     public string NPCName;
 
     // Hair (Head material)
-    public Color HairBase = new Color(0.6f, 0.3f, 0.1f);
-    public Color HairShadow = new Color(0.3f, 0.15f, 0.05f);
-    public Color HairHighlight = new Color(0.9f, 0.6f, 0.3f);
+    [JsonConverter (typeof(ColorHandler))] public Color HairBase = new Color(0.6f, 0.3f, 0.1f);
+    [JsonConverter(typeof(ColorHandler))] public Color HairShadow = new Color(0.3f, 0.15f, 0.05f);
+    [JsonConverter(typeof(ColorHandler))] public Color HairHighlight = new Color(0.9f, 0.6f, 0.3f);
 
     // Eyes (Face material)
-    public Color EyeBase = Color.black;
-    public Color EyeShadow = new Color(0.1f, 0.1f, 0.1f);
-    public Color EyeHighlight = Color.white;
+    [JsonConverter(typeof(ColorHandler))] public Color EyeBase = Color.black;
+    [JsonConverter(typeof(ColorHandler))] public Color EyeShadow = new Color(0.1f, 0.1f, 0.1f);
+    [JsonConverter(typeof(ColorHandler))] public Color EyeHighlight = Color.white;
 
     // Skin (Face + Hands)
-    public Color Skin = new Color(1f, 0.8f, 0.6f);
+    [JsonConverter(typeof(ColorHandler))] public Color Skin = new Color(1f, 0.8f, 0.6f);
 
     // Shirt (Torso)
-    public Color Shirt = Color.blue;
+    [JsonConverter(typeof(ColorHandler))] public Color Shirt = Color.blue;
 
     /// <summary>
     /// Constructor: optionally randomize the character parts.
@@ -82,8 +83,6 @@ public class CharacterBuilder : MonoBehaviour
     [Header("Character Template")]
     [SerializeField] private GameObject templatePrefab;
 
-    [Header("UI")]
-    [SerializeField] private Button randomizeButton;
 
     public GameObject currentInstance;
     public CharacterTemplate templateComponent;
@@ -95,8 +94,6 @@ public class CharacterBuilder : MonoBehaviour
 
     private void Awake()
     {
-        if (randomizeButton != null)
-            randomizeButton.onClick.AddListener(() => { _ = RandomizeCharacter(spawnPosition: spawnPosition); });
     }
 
     /// <summary>

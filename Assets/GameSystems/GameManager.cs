@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("[GameManager] Loading GameData...");
         await GameData.LoadAll();
+
         IsInitialized = true;
         Debug.Log("[GameManager] GameData Loaded.");
     }

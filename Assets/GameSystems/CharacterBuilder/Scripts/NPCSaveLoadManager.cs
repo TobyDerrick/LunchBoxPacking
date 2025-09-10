@@ -1,10 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public class NPCSaveLoadManager : MonoBehaviour
+public class NPCSaveLoadManager : MonoBehaviour, ISaveable
 {
     public int maxSlots = 12;
     private List<NPCData> savedNPCs = new List<NPCData>();
+
+    public string UniqueID => "NPCManager";
+
+    private void OnEnable()
+    {
+        SaveManager.Register(UniqueID, this);
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.Unregister(UniqueID);
+    }
 
     private void Awake()
     {
@@ -31,6 +44,8 @@ public class NPCSaveLoadManager : MonoBehaviour
 
         savedNPCs[slotIndex] = npc;
 
+
+        SaveManager.SaveGame();
         Debug.Log($"Saved NPC '{npcName}' to slot {slotIndex}");
     }
 
@@ -60,5 +75,66 @@ public class NPCSaveLoadManager : MonoBehaviour
 
         savedNPCs[slotIndex] = null;
         Debug.Log($"Cleared NPC slot {slotIndex}");
+
+        SaveManager.SaveGame();
     }
+
+    public SaveData CaptureState()
+    {
+        NPCSaveData saveData = new();
+
+        foreach (NPCData npc in savedNPCs)
+        {
+            if (npc != null)
+            {
+                saveData.entries.Add(new NPCSaveEntry
+                {
+                    npcName = npc.npcName,
+                    characterData = npc.characterData
+                });
+            }
+
+            else
+            {
+                saveData.entries.Add(null);
+            }
+        }
+
+        return saveData;
+    }
+
+    public void RestoreState(SaveData state)
+    {
+        NPCSaveData saveData = state as NPCSaveData;
+        if (saveData == null) return;
+
+        savedNPCs.Clear();
+        foreach(NPCSaveEntry entry in saveData.entries)
+        {
+            if(entry == null)
+            {
+                savedNPCs.Add(null);
+                continue;
+            }
+
+            NPCData npc = ScriptableObject.CreateInstance<NPCData>();
+            npc.npcName = entry.npcName;
+            npc.characterData = entry.characterData;
+
+            savedNPCs.Add(npc);
+        }
+    }
+}
+
+[Serializable]
+public class NPCSaveData : SaveData
+{
+    public List<NPCSaveEntry> entries = new List<NPCSaveEntry>();
+}
+
+[Serializable]
+public class NPCSaveEntry
+{
+    public string npcName;
+    public CharacterData characterData;
 }

@@ -2665,6 +2665,7 @@ MonoBehaviour:
   npcNameField: {fileID: 1128091441}
   saveButton: {fileID: 1646121590}
   loadButton: {fileID: 1166323680}
+  randomizeButton: {fileID: 1536869081}
   faceTab: {fileID: 1527632471}
   headTab: {fileID: 700922980}
   torsoTab: {fileID: 1775242419}

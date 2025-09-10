@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-
 public enum CharacterSelectorMode
 {
     Save,
     Load
 }
+
 public class CharacterSelectorController : UIPanel
 {
     [SerializeField] private GameObject buttonTemplate;
@@ -18,12 +18,10 @@ public class CharacterSelectorController : UIPanel
     [SerializeField] private Button returnButton;
 
     private CharacterSelectorMode currentMode;
-
     private List<GameObject> npcButtons = new List<GameObject>();
 
     public void Initialize(List<NPCData> npcs, CharacterSelectorMode mode)
     {
-
         currentMode = mode;
         Deinitialize();
 
@@ -36,12 +34,11 @@ public class CharacterSelectorController : UIPanel
             NPCPreviewButton npcPreview = thisButton.GetComponent<NPCPreviewButton>();
             npcPreview.slotIndex = i;
 
-            if(npcData != null)
+            if (npcData != null)
             {
                 npcPreview.nameText.text = npcData.npcName;
                 npcPreview.currentData = npcData;
             }
-
             else
             {
                 npcPreview.nameText.text = "[Empty Slot]";
@@ -56,7 +53,10 @@ public class CharacterSelectorController : UIPanel
             }
             else if (currentMode == CharacterSelectorMode.Save)
             {
-                npcPreview.button.onClick.AddListener(() => SaveNPC(npcPreview.slotIndex, characterBuilder.templateComponent.currentCharacter.NPCName));
+                npcPreview.button.onClick.AddListener(() =>
+                {
+                    SaveNPC(npcPreview.slotIndex, characterBuilder.GetCurrentCharacterData().NPCName);
+                });
             }
 
             if (npcPreview.deleteButton != null)
@@ -66,15 +66,15 @@ public class CharacterSelectorController : UIPanel
                 npcPreview.deleteButton.onClick.AddListener(() => DeleteNPC(npcPreview.slotIndex));
             }
         }
+
+        returnButton.onClick.RemoveAllListeners();
         returnButton.onClick.AddListener(() => EventBus.EmitCharacterLoaded(null));
     }
 
     public override void Deinitialize()
     {
-        foreach(GameObject thisButton in npcButtons)
-        {
+        foreach (GameObject thisButton in npcButtons)
             Destroy(thisButton);
-        }
 
         npcButtons.Clear();
     }
@@ -83,9 +83,10 @@ public class CharacterSelectorController : UIPanel
     {
         NPCData data = npcSaveLoadManager.LoadNPCFromSlot(slotIndex);
         if (data == null) return;
-        characterBuilder.templateComponent.ApplyAllParts(data.characterData);
 
+        characterBuilder.templateComponent.ApplyAllParts(data.characterData);
         EventBus.EmitCharacterLoaded(data.characterData);
+
         Deinitialize();
     }
 
@@ -93,17 +94,16 @@ public class CharacterSelectorController : UIPanel
     {
         CharacterData current = characterBuilder.GetCurrentCharacterData();
         if (current == null) return;
+
         npcSaveLoadManager.SaveNPC(slotIndex, npcName, current);
 
+        // Refresh the UI with the updated slots
         Initialize(npcSaveLoadManager.GetSavedNPCS(), CharacterSelectorMode.Save);
     }
 
     private void DeleteNPC(int slotIndex)
     {
         npcSaveLoadManager.ClearSlot(slotIndex);
-        Debug.Log($"Deleted NPC from slot {slotIndex}");
-
-        // Refresh UI
         Initialize(npcSaveLoadManager.GetSavedNPCS(), currentMode);
     }
 }
