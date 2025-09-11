@@ -19,7 +19,9 @@ public static class SaveManager
     public static void Register(string id, ISaveable saveable)
     {
         if (!saveableObjects.ContainsKey(id))
+        {
             saveableObjects.Add(id, saveable);
+        }
     }
 
     public static void Unregister(string id)

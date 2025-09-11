@@ -21,11 +21,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static Task EnsureInitialized()
     {
-        if (IsInitialized)
-            return Task.CompletedTask;
+        if (IsInitialized) return Task.CompletedTask;
 
-        if (initializationTask != null)
-            return initializationTask;
+        if (initializationTask != null) return initializationTask;
 
         initializationTask = InitializeAsync();
         return initializationTask;

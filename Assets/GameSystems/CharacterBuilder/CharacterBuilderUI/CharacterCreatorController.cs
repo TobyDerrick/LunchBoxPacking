@@ -126,7 +126,9 @@ public class CharacterCreatorController : MonoBehaviour
     private void Update()
     {
         if (rotateDirection != 0)
+        {
             RotateCharacterPreview();
+        }
     }
 
     private void ShowParts(CharacterPartType type)
@@ -212,7 +214,7 @@ public class CharacterCreatorController : MonoBehaviour
 
     private void OnRandomizePressed()
     {
-        npcNameField.text = string.Empty;
         builder.RandomizeCharacter(spawnPosition);
+        npcNameField.text = builder.GetCurrentCharacterData().NPCName;
     }
 }

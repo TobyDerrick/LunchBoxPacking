@@ -47,7 +47,15 @@ public class CharacterData
             {
                 RandomizeColors(palette);
             }
+
+            NPCName = GenerateRandomName();
         }
+    }
+
+    private string GenerateRandomName()
+    {
+        string[] names = { "Alex", "Jamie", "Sam", "Taylor", "Morgan", "Riley", "Jordan", "Casey" };
+        return names[UnityEngine.Random.Range(0, names.Length)];
     }
 
     private string GetRandomPartOfType(CharacterPartType type)

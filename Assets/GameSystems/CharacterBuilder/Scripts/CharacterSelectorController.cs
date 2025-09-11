@@ -68,7 +68,7 @@ public class CharacterSelectorController : UIPanel
         }
 
         returnButton.onClick.RemoveAllListeners();
-        returnButton.onClick.AddListener(() => EventBus.EmitCharacterLoaded(null));
+        returnButton.onClick.AddListener(() => EventBus.EmitCharacterLoaded(null)); //TODO: Edit this to remove null character loaded
     }
 
     public override void Deinitialize()
@@ -96,8 +96,6 @@ public class CharacterSelectorController : UIPanel
         if (current == null) return;
 
         npcSaveLoadManager.SaveNPC(slotIndex, npcName, current);
-
-        // Refresh the UI with the updated slots
         Initialize(npcSaveLoadManager.GetSavedNPCS(), CharacterSelectorMode.Save);
     }
 

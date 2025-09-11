@@ -21,13 +21,13 @@ public class NPCSaveLoadManager : MonoBehaviour, ISaveable
 
     private void Awake()
     {
-        // Initialize the slot list with nulls (fixed size, accessible by index)
         savedNPCs = new List<NPCData>(maxSlots);
         for (int i = 0; i < maxSlots; i++)
         {
-            savedNPCs.Add(null); // all slots start empty
+            savedNPCs.Add(null);
         }
     }
+
     public void SaveNPC(int slotIndex, string npcName, CharacterData characterData)
     {
         if(slotIndex < 0 || slotIndex >= savedNPCs.Count)
