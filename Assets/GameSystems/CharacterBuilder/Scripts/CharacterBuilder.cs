@@ -74,11 +74,11 @@ public class CharacterData
     public void RandomizeColors(CharacterPalette palette)
     {
         HairBase = palette.GetRandomHair();
-        HairShadow = HairBase * 0.5f;
+        HairShadow = new Color(HairBase.r * 0.5f, HairBase.g * 0.5f, HairBase.b * 0.5f, 1);
         HairHighlight = HairBase * 1.2f;
 
         EyeBase = palette.GetRandomEye();
-        EyeShadow = EyeBase * 0.5f;
+        EyeShadow = new Color(EyeBase.r * 0.5f, EyeBase.g * 0.5f, EyeBase.b * 0.5f, 1);
         EyeHighlight = EyeBase * 1.2f;
 
         Skin = palette.GetRandomSkin();

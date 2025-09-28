@@ -59,7 +59,7 @@ Shader "Unlit/PaletteSwap"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex); // applies _MainTex_ST
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
 
@@ -71,6 +71,8 @@ Shader "Unlit/PaletteSwap"
                 {
                     clip(-1);
                 }
+
+
                 float distBase = distance(texColor.rgb, _KeyBase.rgb);
                 float distShadow = distance(texColor.rgb, _KeyShadow.rgb);
                 float distHighlight = distance(texColor.rgb, _KeyHighlight.rgb);

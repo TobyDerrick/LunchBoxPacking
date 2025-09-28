@@ -108,7 +108,7 @@ public class CharacterTemplate : MonoBehaviour
             var rend = instance.GetComponentInChildren<Renderer>();
             if (rend != null)
             {
-                rend.sharedMaterial = mat;
+                rend.material = mat;
                 var part = GameData.CharacterParts.Get(id);
                 ApplyColors(rend, part.partType, data);
             }
@@ -127,6 +127,7 @@ public class CharacterTemplate : MonoBehaviour
     public void SetPartColour(CharacterPartType partType,  Color newColour)
     {
         GameObject partObject = null;
+        newColour.a = 1;
 
         switch (partType)
         {
@@ -136,7 +137,7 @@ public class CharacterTemplate : MonoBehaviour
                 break;
             case CharacterPartType.Head:
                 currentCharacter.HairBase = newColour;
-                currentCharacter.HairShadow = newColour * 0.5f;
+                currentCharacter.HairShadow = new Color(newColour.r * 0.5f, newColour.g * 0.5f, newColour.b * 0.5f, 1);
                 partObject = currentHead;
                 break;
             case CharacterPartType.Torso:
@@ -145,7 +146,7 @@ public class CharacterTemplate : MonoBehaviour
                 break;
             case CharacterPartType.Face:
                 currentCharacter.EyeBase = newColour;
-                currentCharacter.EyeShadow = newColour * 0.5f;
+                currentCharacter.EyeShadow = new Color(newColour.r * 0.5f, newColour.g * 0.5f, newColour.b * 0.5f, 1);
                 partObject = currentFace;
                 break;
         }
