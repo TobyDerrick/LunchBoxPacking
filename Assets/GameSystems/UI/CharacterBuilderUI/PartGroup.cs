@@ -50,7 +50,7 @@ public class PartGroup : DataLayoutGroup
             var iconAnimator = btn.GetComponentInChildren<UIIconAnimator>();
             var text = btn.GetComponentInChildren<TextMeshProUGUI>();
             if (text) text.text = part.name;
-            if (iconAnimator) iconAnimator.iconData = part;
+            if (iconAnimator) iconAnimator.Initialize(part);
 
             var capturedPart = part;
             btn.onClick.AddListener(() => builder.templateComponent.SwapPart(capturedPart.id));

@@ -27,7 +27,8 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   spriteSheet: {fileID: 2800000, guid: fd87ea2058659824bb72c8e5a1b4d251, type: 3}
-  idleFrames: []
+  idleFrames:
+  - {fileID: -456596524, guid: fd87ea2058659824bb72c8e5a1b4d251, type: 3}
   hoverFrames:
   - {fileID: 1466830397, guid: fd87ea2058659824bb72c8e5a1b4d251, type: 3}
   - {fileID: -573199799, guid: fd87ea2058659824bb72c8e5a1b4d251, type: 3}

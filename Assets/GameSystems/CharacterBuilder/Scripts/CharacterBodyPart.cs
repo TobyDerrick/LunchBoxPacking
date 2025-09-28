@@ -83,7 +83,15 @@ public class CharacterPartScriptableObject : ScriptableObject
         int index = 0;
         pressedFrames = SubArray(allSprites, index, frameCounts[0]); index += frameCounts[0];
         hoverFrames = SubArray(allSprites, index, frameCounts[1]); index += frameCounts[1];
-        idleFrames = SubArray(allSprites, index, frameCounts[2]);
+
+        if (partType == CharacterPartType.Face)
+        {
+            idleFrames = new Sprite[] { allSprites[4] };
+        }
+        else
+        {
+            idleFrames = SubArray(allSprites, index, frameCounts[2]);
+        }
     }
 
     private Sprite[] SubArray(Sprite[] data, int index, int length)
