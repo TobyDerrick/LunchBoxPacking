@@ -26,3 +26,20 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  spriteSheet: {fileID: 2800000, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  idleFrames:
+  - {fileID: 317728280, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  hoverFrames:
+  - {fileID: -1754559906, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: -1805671478, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: 1457266403, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: 276392433, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: 570022947, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  pressedFrames:
+  - {fileID: -2098729095, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: -194290545, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: -184869646, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: 122296782, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: -946278475, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  - {fileID: -391134244, guid: ddc23acef72b1a440898e2317cd7a44a, type: 3}
+  frameCounts: 060000000500000001000000

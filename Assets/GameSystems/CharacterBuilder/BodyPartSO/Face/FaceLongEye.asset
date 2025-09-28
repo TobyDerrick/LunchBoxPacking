@@ -26,3 +26,17 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  spriteSheet: {fileID: 2800000, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  idleFrames: []
+  hoverFrames:
+  - {fileID: 1270975082, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: 2032088165, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: -1342784172, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: -1913336147, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  pressedFrames:
+  - {fileID: 441540177, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: 811376499, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: 2021416566, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: -593027003, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  - {fileID: -1827823, guid: 4d579bb0fb46e9f4a9b29816db4e6c52, type: 3}
+  frameCounts: 050000000400000000000000

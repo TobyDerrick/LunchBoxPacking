@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 7261987620415333949}
   - component: {fileID: 3465537983574173777}
   - component: {fileID: 578963896989907370}
+  - component: {fileID: 6051133017435874140}
   m_Layer: 5
   m_Name: FaceIcon
   m_TagString: Untagged
@@ -197,6 +198,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6051133017435874140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193996372963535782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconData: {fileID: 0}
+  frameRate: 5
 --- !u!1 &8122386736825558129
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,8 +47,10 @@ public class PartGroup : DataLayoutGroup
         foreach (var part in parts)
         {
             var btn = Instantiate(buttonTemplate, contents);
+            var iconAnimator = btn.GetComponentInChildren<UIIconAnimator>();
             var text = btn.GetComponentInChildren<TextMeshProUGUI>();
             if (text) text.text = part.name;
+            if (iconAnimator) iconAnimator.iconData = part;
 
             var capturedPart = part;
             btn.onClick.AddListener(() => builder.templateComponent.SwapPart(capturedPart.id));

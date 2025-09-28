@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3686323192793739904}
   - component: {fileID: 781664636532665397}
   - component: {fileID: 162175934561869277}
+  - component: {fileID: 2391898788401347110}
   m_Layer: 5
   m_Name: ShirtIcon
   m_TagString: Untagged
@@ -75,6 +76,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2391898788401347110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2280089012115339454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconData: {fileID: 0}
+  frameRate: 5
 --- !u!1 &2359407914401278022
 GameObject:
   m_ObjectHideFlags: 0

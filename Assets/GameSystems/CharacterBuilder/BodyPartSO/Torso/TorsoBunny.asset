@@ -26,3 +26,20 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  spriteSheet: {fileID: 2800000, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  idleFrames:
+  - {fileID: -2054415436, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  hoverFrames:
+  - {fileID: -1776994238, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: 839031464, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: 663765064, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: -937002474, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: -1746149053, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  pressedFrames:
+  - {fileID: 1197154183, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: 1004772623, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: -1737612639, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: -128989201, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: -1879243982, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  - {fileID: 169693732, guid: 105696e759217b34c9d3a56ee6f821af, type: 3}
+  frameCounts: 060000000500000001000000
