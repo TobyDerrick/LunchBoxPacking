@@ -151,3 +151,6 @@ MonoBehaviour:
   - {fileID: 1706504103, guid: b97c9b6cb27735945bec567fb3aac7b4, type: 3}
   - {fileID: 1746968109, guid: b97c9b6cb27735945bec567fb3aac7b4, type: 3}
   image: {fileID: 3908242546643830096}
+  enableHoverPulse: 0
+  pulseScale: 1.2
+  pulseDuration: 0.5

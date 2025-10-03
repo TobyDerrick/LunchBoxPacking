@@ -1,6 +1,9 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 public enum CharacterPartType
 {
@@ -47,15 +50,16 @@ public class CharacterPartScriptableObject : ScriptableObject
             }
 
             SliceFrames();
-            UnityEditor.EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(this);
         }
     }
 #endif
 
+#if UNITY_EDITOR
     private void SliceFrames()
     {
-        string path = UnityEditor.AssetDatabase.GetAssetPath(spriteSheet);
-        var allAssets = UnityEditor.AssetDatabase.LoadAllAssetRepresentationsAtPath(path);
+        string path = AssetDatabase.GetAssetPath(spriteSheet);
+        var allAssets = AssetDatabase.LoadAllAssetRepresentationsAtPath(path);
 
         // Collect only sprites
         var spriteList = new System.Collections.Generic.List<Sprite>();
@@ -101,5 +105,7 @@ public class CharacterPartScriptableObject : ScriptableObject
             result[i] = data[index + i];
         return result;
     }
+#endif
+
 }
 

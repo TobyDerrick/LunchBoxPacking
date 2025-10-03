@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using DG.Tweening;
 
 public class UIIconAnimator : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
@@ -29,9 +30,20 @@ public class UIIconAnimator : MonoBehaviour,
     [Header("Target")]
     public Image image;
 
+    [Header("Pulse Animation")]
+    [Tooltip("Enable pulsing when hovering.")]
+    [SerializeField] private bool enableHoverPulse = false;
+
+    [Tooltip("Maximum scale for the pulse.")]
+    [SerializeField] private float pulseScale = 1.2f;
+
+    [Tooltip("Duration for one pulse cycle.")]
+    [SerializeField] private float pulseDuration = 0.5f;
+
     private Coroutine animRoutine;
     private bool isPointerOver = false;
     private bool pendingIdle = false;
+    private Tween pulseTween;
 
     private void Awake()
     {
@@ -52,11 +64,38 @@ public class UIIconAnimator : MonoBehaviour,
             PlayAnimation(idleFrames, loop: true);
     }
 
-
     private void Start()
     {
         if (idleFrames != null && idleFrames.Length > 0)
             PlayAnimation(idleFrames, loop: true);
+    }
+
+    private void OnDestroy()
+    {
+        StopPulse();
+    }
+
+    private void StartPulse()
+    {
+        if (image == null || !enableHoverPulse) return;
+
+        StopPulse();
+
+        pulseTween = image.rectTransform
+            .DOScale(pulseScale, pulseDuration)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine);
+    }
+
+    private void StopPulse()
+    {
+        if (pulseTween != null)
+        {
+            pulseTween.Kill();
+            pulseTween = null;
+        }
+        if (image != null)
+            image.rectTransform.localScale = Vector3.one;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -76,12 +115,17 @@ public class UIIconAnimator : MonoBehaviour,
                 }
             });
         }
+
+        if (enableHoverPulse)
+            StartPulse();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerOver = false;
         pendingIdle = true;
+
+        StopPulse();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -126,13 +170,9 @@ public class UIIconAnimator : MonoBehaviour,
             if (i >= frames.Length)
             {
                 if (loop)
-                {
                     i = 0;
-                }
                 else
-                {
                     break;
-                }
 
                 if (pendingIdle)
                     break;
@@ -150,6 +190,4 @@ public class UIIconAnimator : MonoBehaviour,
             PlayAnimation(idleFrames, loop: true);
         }
     }
-
-
 }
