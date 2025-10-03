@@ -4355,6 +4355,8 @@ MonoBehaviour:
   rawImage: {fileID: 1758706146}
   scrollSpeedX: 0.2
   scrollSpeedY: -0.2
+  preserveAspect: 1
+  scale: 0.3
 --- !u!114 &1758706146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4378,10 +4380,10 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 4d5592d7087ca244482c9a55ca26f065, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 6
-    height: 4
+    x: 1.8942673
+    y: -1.8942673
+    width: 5.9259257
+    height: 3.3333333
 --- !u!1 &1775242417
 GameObject:
   m_ObjectHideFlags: 0
