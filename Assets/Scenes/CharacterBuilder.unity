@@ -1186,6 +1186,7 @@ GameObject:
   - component: {fileID: 411761889}
   - component: {fileID: 411761891}
   - component: {fileID: 411761890}
+  - component: {fileID: 411761892}
   m_Layer: 5
   m_Name: RandomizeIcon
   m_TagString: Untagged
@@ -1250,6 +1251,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411761888}
   m_CullTransparentMesh: 1
+--- !u!114 &411761892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411761888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRate: 0.1
+  loopHover: 0
+  returnToIdleAfterPress: 0
+  returnToHoverAfterPress: 1
+  autoReturnToIdle: 1
+  idleFrames: []
+  hoverFrames:
+  - {fileID: -959607350, guid: 722e5ce13d5a6564a9ac2c2ff58f9810, type: 3}
+  - {fileID: 579988386, guid: 722e5ce13d5a6564a9ac2c2ff58f9810, type: 3}
+  - {fileID: -1001480358, guid: 722e5ce13d5a6564a9ac2c2ff58f9810, type: 3}
+  - {fileID: 260301476, guid: 722e5ce13d5a6564a9ac2c2ff58f9810, type: 3}
+  pressedFrames: []
+  image: {fileID: 411761890}
 --- !u!1 &506673139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2639,7 @@ GameObject:
   - component: {fileID: 1128091443}
   - component: {fileID: 1128091442}
   - component: {fileID: 1128091441}
+  - component: {fileID: 1128091444}
   m_Layer: 5
   m_Name: NameInputField
   m_TagString: Untagged
@@ -2779,6 +2806,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128091439}
   m_CullTransparentMesh: 1
+--- !u!114 &1128091444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128091439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRate: 0.1
+  loopHover: 1
+  returnToIdleAfterPress: 0
+  returnToHoverAfterPress: 1
+  autoReturnToIdle: 1
+  idleFrames: []
+  hoverFrames:
+  - {fileID: -1993536897, guid: d5c60230442c0f54093a4e33df4c60f2, type: 3}
+  - {fileID: -927200213, guid: d5c60230442c0f54093a4e33df4c60f2, type: 3}
+  - {fileID: -257000808, guid: d5c60230442c0f54093a4e33df4c60f2, type: 3}
+  - {fileID: 1664891844, guid: d5c60230442c0f54093a4e33df4c60f2, type: 3}
+  pressedFrames: []
+  image: {fileID: 1128091442}
 --- !u!1 &1166323678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,6 +2843,7 @@ GameObject:
   - component: {fileID: 1166323682}
   - component: {fileID: 1166323681}
   - component: {fileID: 1166323680}
+  - component: {fileID: 1166323683}
   m_Layer: 5
   m_Name: LoadNPC
   m_TagString: Untagged
@@ -2900,6 +2953,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166323678}
   m_CullTransparentMesh: 1
+--- !u!114 &1166323683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166323678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRate: 0.1
+  loopHover: 1
+  returnToIdleAfterPress: 0
+  returnToHoverAfterPress: 1
+  autoReturnToIdle: 1
+  idleFrames: []
+  hoverFrames:
+  - {fileID: -360092515, guid: d2eb363cf8b3bda49a1799f7406b8fff, type: 3}
+  - {fileID: -1303731267, guid: d2eb363cf8b3bda49a1799f7406b8fff, type: 3}
+  - {fileID: -1536508698, guid: d2eb363cf8b3bda49a1799f7406b8fff, type: 3}
+  - {fileID: -588426759, guid: d2eb363cf8b3bda49a1799f7406b8fff, type: 3}
+  pressedFrames: []
+  image: {fileID: 1240196431}
 --- !u!114 &1186855812 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4229144181664409357, guid: ebbd55f3b0f575a419e15133c035e6ff, type: 3}
@@ -4040,6 +4118,7 @@ GameObject:
   - component: {fileID: 1646121592}
   - component: {fileID: 1646121591}
   - component: {fileID: 1646121590}
+  - component: {fileID: 1646121593}
   m_Layer: 5
   m_Name: SaveNPC
   m_TagString: Untagged
@@ -4149,6 +4228,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646121588}
   m_CullTransparentMesh: 1
+--- !u!114 &1646121593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646121588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRate: 0.1
+  loopHover: 1
+  returnToIdleAfterPress: 0
+  returnToHoverAfterPress: 1
+  autoReturnToIdle: 1
+  idleFrames: []
+  hoverFrames:
+  - {fileID: -313824792, guid: a52555310bd01fe43bd506a67a24873c, type: 3}
+  - {fileID: -1129589052, guid: a52555310bd01fe43bd506a67a24873c, type: 3}
+  - {fileID: -6065179, guid: a52555310bd01fe43bd506a67a24873c, type: 3}
+  - {fileID: 1491672614, guid: a52555310bd01fe43bd506a67a24873c, type: 3}
+  pressedFrames: []
+  image: {fileID: 332540207}
 --- !u!1 &1685102068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4802,7 +4906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 600607819070150871, guid: 19d081758b1677649a0ea618820c6543, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00018310547
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 1869393522553143763, guid: 19d081758b1677649a0ea618820c6543, type: 3}
       propertyPath: m_AnchorMax.x
