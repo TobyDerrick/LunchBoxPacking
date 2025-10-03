@@ -53,7 +53,20 @@ public class ColourGroup : DataLayoutGroup
         {
             var btn = Instantiate(buttonTemplate, contents);
             var img = btn.GetComponent<Image>();
-            if (img) img.color = new Color(color.r,color.g,color.b, 1);
+
+            if (img != null)
+            {
+                Material matInstance = Instantiate(img.material);
+                img.material = matInstance;
+                if (matInstance.HasProperty("_BaseColor"))
+                {
+                    matInstance.SetColor("_BaseColor", color);
+                }
+                else if (matInstance.HasProperty("_Color"))
+                {
+                    matInstance.SetColor("_Color", color);
+                }
+            }
 
             btn.onClick.AddListener(() =>
             {

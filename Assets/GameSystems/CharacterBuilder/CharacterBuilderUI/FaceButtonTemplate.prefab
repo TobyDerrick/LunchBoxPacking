@@ -210,9 +210,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0416134080371449a6cf5c641d32e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconData: {fileID: 0}
   frameRate: 0.1
   loopHover: 0
+  returnToIdleAfterPress: 1
+  returnToHoverAfterPress: 0
+  autoReturnToIdle: 1
+  idleFrames: []
+  hoverFrames: []
+  pressedFrames: []
   image: {fileID: 578963896989907370}
 --- !u!1 &8122386736825558129
 GameObject:

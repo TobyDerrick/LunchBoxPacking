@@ -6,32 +6,57 @@ using System.Collections;
 public class UIIconAnimator : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    [HideInInspector]
-    public CharacterPartScriptableObject iconData;
-
+    [Header("Animation Settings")]
     [SerializeField] private float frameRate = 0.1f;
-    [SerializeField] private bool loopHover = true; // controls hover looping
+
+    [Tooltip("Should hover animation loop while pointer is over?")]
+    [SerializeField] private bool loopHover = true;
+
+    [Tooltip("After pressing, should the icon always return to Idle?")]
+    [SerializeField] private bool returnToIdleAfterPress = false;
+
+    [Tooltip("If true, after press the icon will return to Hover instead of Idle (if pointer is still over).")]
+    [SerializeField] private bool returnToHoverAfterPress = true;
+
+    [Tooltip("If true, any animation that finishes while pointer exits will auto-return to Idle.")]
+    [SerializeField] private bool autoReturnToIdle = true;
+
+    [Header("Frames")]
+    [SerializeField] private Sprite[] idleFrames;
+    [SerializeField] private Sprite[] hoverFrames;
+    [SerializeField] private Sprite[] pressedFrames;
+
+    [Header("Target")]
     public Image image;
 
     private Coroutine animRoutine;
     private bool isPointerOver = false;
     private bool pendingIdle = false;
 
-    public void Initialize(CharacterPartScriptableObject data)
+    private void Awake()
     {
-        iconData = data;
+        if (image == null)
+            image = GetComponent<Image>();
+    }
+
+    public void Initialize(Sprite[] idle, Sprite[] hover, Sprite[] pressed)
+    {
+        idleFrames = idle;
+        hoverFrames = hover;
+        pressedFrames = pressed;
 
         if (image == null)
             image = GetComponent<Image>();
 
-        if (image == null)
-        {
-            Debug.LogError($"UIIconAnimator requires an Image component on {gameObject.name}");
-            return;
-        }
+        if (idleFrames != null && idleFrames.Length > 0)
+            PlayAnimation(idleFrames, loop: true);
+    }
 
-        if (iconData != null && iconData.idleFrames != null)
-            PlayAnimation(iconData.idleFrames, loop: true);
+
+    private void Start()
+    {
+        if (idleFrames != null && idleFrames.Length > 0)
+            PlayAnimation(idleFrames, loop: true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -39,16 +64,15 @@ public class UIIconAnimator : MonoBehaviour,
         isPointerOver = true;
         pendingIdle = false;
 
-        if (iconData != null)
+        if (hoverFrames != null && hoverFrames.Length > 0)
         {
             bool loop = loopHover;
-            PlayAnimation(iconData.hoverFrames, loop: loop, onComplete: () =>
+            PlayAnimation(hoverFrames, loop, onComplete: () =>
             {
-                // If hover wasn't looping or pointer has exited, revert to idle
-                if (!loop || pendingIdle)
+                if (!loop || (pendingIdle && autoReturnToIdle))
                 {
                     pendingIdle = false;
-                    PlayAnimation(iconData.idleFrames, loop: true);
+                    PlayAnimation(idleFrames, loop: true);
                 }
             });
         }
@@ -57,34 +81,33 @@ public class UIIconAnimator : MonoBehaviour,
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerOver = false;
-        pendingIdle = true; // flag to transition to idle after current animation
+        pendingIdle = true;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (iconData == null) return;
+        if (pressedFrames == null || pressedFrames.Length == 0) return;
 
-        PlayAnimation(iconData.pressedFrames, loop: false, onComplete: () =>
+        PlayAnimation(pressedFrames, loop: false, onComplete: () =>
         {
-            if (iconData.partType == CharacterPartType.Face)
+            if (returnToIdleAfterPress)
             {
-                // For eyes/faces, always go to idle after press
-                PlayAnimation(iconData.idleFrames, loop: true);
+                PlayAnimation(idleFrames, loop: true);
             }
-            else
+            else if (returnToHoverAfterPress && isPointerOver)
             {
-                // For other parts, revert to hover if pointer is over, else idle
-                if (isPointerOver)
-                    PlayAnimation(iconData.hoverFrames, loop: loopHover);
-                else
-                    PlayAnimation(iconData.idleFrames, loop: true);
+                PlayAnimation(hoverFrames, loop: loopHover);
+            }
+            else if (autoReturnToIdle)
+            {
+                PlayAnimation(idleFrames, loop: true);
             }
         });
     }
 
     private void PlayAnimation(Sprite[] frames, bool loop, System.Action onComplete = null)
     {
-        if (frames == null || frames.Length == 0) return;
+        if (frames == null || frames.Length == 0 || image == null) return;
 
         if (animRoutine != null)
             StopCoroutine(animRoutine);
@@ -99,27 +122,34 @@ public class UIIconAnimator : MonoBehaviour,
         {
             image.sprite = frames[i];
             i++;
+
             if (i >= frames.Length)
             {
                 if (loop)
+                {
                     i = 0;
+                }
                 else
+                {
                     break;
+                }
 
                 if (pendingIdle)
                     break;
-                
             }
 
             yield return new WaitForSeconds(frameRate);
+
         } while (loop || i < frames.Length);
 
         onComplete?.Invoke();
 
-        if (pendingIdle && !isPointerOver && iconData != null)
+        if (pendingIdle && !isPointerOver && autoReturnToIdle)
         {
             pendingIdle = false;
-            PlayAnimation(iconData.idleFrames, loop: true);
+            PlayAnimation(idleFrames, loop: true);
         }
     }
+
+
 }
