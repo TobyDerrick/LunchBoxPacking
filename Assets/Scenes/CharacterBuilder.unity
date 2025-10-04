@@ -285,8 +285,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4ed2a5ef259ec134888e44f5c8da2a63, type: 2}
+  m_sharedMaterial: {fileID: 1349316712335998184, guid: 4ed2a5ef259ec134888e44f5c8da2a63, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -310,15 +310,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 75
-  m_fontSizeBase: 75
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1120,6 +1120,10 @@ PrefabInstance:
     - target: {fileID: 3022825733208427816, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898041847552730631, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
+      propertyPath: m_Spacing.x
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3898041847552730631, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
       propertyPath: m_CellSize.x
@@ -4067,8 +4071,8 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 4d5592d7087ca244482c9a55ca26f065, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 183.42432
-    y: -183.42432
+    x: 186.6467
+    y: -186.6467
     width: 5.9259257
     height: 3.3333333
 --- !u!1 &1775242417
