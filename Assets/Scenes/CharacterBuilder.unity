@@ -1121,6 +1121,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3898041847552730631, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
+      propertyPath: m_CellSize.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898041847552730631, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
+      propertyPath: m_CellSize.y
+      value: 164
+      objectReference: {fileID: 0}
     - target: {fileID: 5356046492201155520, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
       propertyPath: buttonTemplate
       value: 
@@ -4059,8 +4067,8 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 4d5592d7087ca244482c9a55ca26f065, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 178.86896
-    y: -178.86896
+    x: 183.42432
+    y: -183.42432
     width: 5.9259257
     height: 3.3333333
 --- !u!1 &1775242417
@@ -4227,6 +4235,14 @@ PrefabInstance:
       propertyPath: 'layoutGroups.Array.data[2]'
       value: 
       objectReference: {fileID: 1823340411}
+    - target: {fileID: 3898041847552730631, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
+      propertyPath: m_CellSize.x
+      value: 204
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898041847552730631, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
+      propertyPath: m_CellSize.y
+      value: 132
+      objectReference: {fileID: 0}
     - target: {fileID: 5356046492201155520, guid: 53bf3c5b18b62254daa7516f60f4aa02, type: 3}
       propertyPath: buttonTemplate
       value: 
